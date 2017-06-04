@@ -1,4 +1,4 @@
-FROM jorvis/chiron-core:latest
+FROM umigs/chiron-core:latest
 
 #############
 ## METAVIZ ##
