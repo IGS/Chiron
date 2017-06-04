@@ -1,0 +1,44 @@
+FROM jorvis/chiron-core:latest
+
+#############
+## METAVIZ ##
+#############
+
+RUN apt-get install -y --no-install-recommends php
+
+# neo4j instance
+## METAVIZ Instance
+COPY metaviz_start.sh /bin/metaviz_start.sh
+
+RUN apt-get install -y software-properties-common python-software-properties
+RUN add-apt-repository ppa:webupd8team/java
+RUN apt-get update && echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections && apt-get -y install oracle-java8-installer
+
+# neo4j instance
+RUN wget -O neo4j.tar.gz "https://neo4j.com/artifact.php?name=neo4j-community-3.2.0-unix.tar.gz"
+RUN mkdir /graph-db && tar -xvzf neo4j.tar.gz -C /graph-db
+RUN /graph-db/neo4j-community-3.2.0/bin/neo4j-admin set-initial-password "osdf1"
+RUN echo "dbms.connectors.default_listen_address=0.0.0.0" >> /graph-db/neo4j-community-3.2.0/conf/neo4j.conf
+RUN echo "dbms.allow_format_migration=true" >> /graph-db/neo4j-community-3.2.0/conf/neo4j.conf
+RUN wget -O graph.db.tar.gz "http://metaviz-dev.cbcb.umd.edu/hmp_workshop/graph.db.tar.gz"
+RUN tar -xvzf graph.db.tar.gz -C /graph-db/neo4j-community-3.2.0/data/databases/
+RUN ./graph-db/neo4j-community-3.2.0/bin/neo4j start
+
+EXPOSE 7474 7687
+
+# metaviz data provider
+RUN wget -O metaviz-dp.zip "https://github.com/epiviz/metaviz-data-provider/archive/hmp_workshop.zip"
+RUN pip install --upgrade pip
+RUN unzip -d /graph-api metaviz-dp.zip && pip install -r /graph-api/metaviz-data-provider-hmp_workshop/requirements.txt 
+RUN touch /graph-api/metaviz-data-provider-hmp_workshop/credential.py && echo "neo4j_username=\"neo4j\"" >> /graph-api/metaviz-data-provider-hmp_workshop/credential.py && echo "neo4j_password=\"osdf1\"" >> /graph-api/metaviz-data-provider-hmp_workshop/credential.py 
+
+EXPOSE 5000
+
+# metaviz ui
+RUN wget -O metaviz-ui.zip "https://github.com/epiviz/epiviz/archive/metaviz-4.1.zip"
+RUN unzip -d /graph-ui metaviz-ui.zip
+RUN echo 'epiviz.Config.SETTINGS.dataServerLocation="http://metaviz.cbcb.umd.edu/data/",epiviz.Config.SETTINGS.dataProviders=[["epiviz.data.EpivizApiDataProvider","mouseTest","http://localhost:5000/api",[],3,{4:epiviz.ui.charts.tree.NodeSelectionType.NODE}]];' > /graph-ui/epiviz-metaviz-4.1/site-settings.js
+RUN rm metaviz-ui.zip
+
+EXPOSE 8888
+CMD bash /bin/metaviz_start.sh

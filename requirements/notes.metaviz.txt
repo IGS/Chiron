@@ -1,0 +1,15 @@
+2017-05-05
+----------
+Our docker deployment and setup scripts worked on testing.  You can download those from: https://github.com/epiviz/metaviz-docker.
+
+We have a python script that helps with building the docker image, loading a test dataset into the backend database, and serving the Metaviz application.  You can perform these steps by using our setup script:
+
+$: python metaviz.py build
+$: python metaviz.py add "test_data.biom" test
+$: python metaviz.py serve
+
+
+2017-05-04
+----------
+This is the current place for our docker setup scripts for Metaviz : https://github.com/epiviz/metaviz-docker/blob/master/README.md and installation but I am walking through this setup process again today to make sure that everything will run correctly.  We have been actively developing an R package (metavizr) that we rely to load data into our database.
+
