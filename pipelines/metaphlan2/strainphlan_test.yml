@@ -1,0 +1,9 @@
+fasta_url: ['https://bitbucket.org/biobakery/biobakery/raw/tip/demos/biobakery_demos/data/strainphlan/input/13530241_SF05.fasta.gz','https://bitbucket.org/biobakery/biobakery/raw/tip/demos/biobakery_demos/data/strainphlan/input/13530241_SF06.fasta.gz','https://bitbucket.org/biobakery/biobakery/raw/tip/demos/biobakery_demos/data/strainphlan/input/19272639_SF05.fasta.gz','https://bitbucket.org/biobakery/biobakery/raw/tip/demos/biobakery_demos/data/strainphlan/input/19272639_SF06.fasta.gz','https://bitbucket.org/biobakery/biobakery/raw/tip/demos/biobakery_demos/data/strainphlan/input/40476924_SF05.fasta.gz','https://bitbucket.org/biobakery/biobakery/raw/tip/demos/biobakery_demos/data/strainphlan/input/40476924_SF06.fasta.gz']
+genome_url: 'https://bitbucket.org/biobakery/biobakery/raw/tip/demos/biobakery_demos/data/strainphlan/input/GCF_000154325.fna.bz2'
+bowtie2_out: []
+sam_out: []
+ifn_markers: 's__Eubacterium_siraeum.markers.fasta'
+output_dir: './strainphlan_out'
+clades: 's__Eubacterium_siraeum'
+marker_in_clade: 0.2
+num_cores: 2
