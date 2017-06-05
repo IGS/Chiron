@@ -45,11 +45,19 @@ This will download the Docker image if you don't already have it, then drop you 
 
 # Try a Cloud session on Amazon
 The following instructions will help you launch the analysis on Amazon Cloud.
+
 How to create account.
-How to generate key-pair.
-Launch AMI.
-Connecting to Amazon Instance using ssh.
+
 Switch to US East.
+
+How to generate key-pair.
+
+Set security settings.
+
+Launch AMI.
+
+Connecting to Amazon Instance using ssh.
+
 
 https://aws.amazon.com/getting-started/tutorials/launch-a-virtual-machine/
 
