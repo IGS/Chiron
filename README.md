@@ -47,6 +47,7 @@ This will download the Docker image if you don't already have it, then drop you 
 The following instructions will help you launch the analysis on Amazon Cloud.
 
 How to create account.
+https://aws.amazon.com/console/
 
 Switch to US East.
 
@@ -54,7 +55,8 @@ How to generate key-pair.
 
 Set security settings.
 
-Launch AMI.
+Launch AMI. 
+ami-21530437
 
 Connecting to Amazon Instance using ssh.
 
