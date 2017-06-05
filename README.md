@@ -11,28 +11,33 @@ This was initially organized for training workshop held by the [Human Microbiome
 
 There are two primary ways we intend for this to be run.  First, we will supply [CWL pipelines](http://www.commonwl.org/) for many tools which will allow you to run entire analysis paths at once in both a local and distributed manner.  This is under development, and not yet available.
 
-Second, you can reference a specific tool directly and enter that tool's Docker image, allowing interactive use.
+Second, you can launch an interactive session for any of the tools within a Docker image.
 
 # Try an interactive session
 
-If you want to try a specific tool's docker image, you'll need to first make sure you have
-Docker [installed](https://docs.docker.com/engine/installation/), reboot, then execute a command like this (depending on the tool you want to run):
+If you want to use a specific tool's docker image, you'll need to first make sure you have
+Docker [installed](https://docs.docker.com/engine/installation/), reboot, then [download](https://github.com/IGS/Chiron/archive/master.zip) or clone Chiron like this:
 
 ```
-docker run -i -t jorvis/chiron-humann2 /bin/bash
+git clone https://github.com/IGS/Chiron.git
+```
+
+Under the Chiron/bin/ directory this creates, you'll find scripts to run each tool such as:
+
+```
+./Chiron/bin/humann2_interactive
 ```
 
 This will download the Docker image if you don't already have it, then drop you to a terminal within it.
 
-# Existing Docker images available (and status)
+# Existing tools/Docker images available (and status)
 
-- jorvis/chiron-core - Installed (version as of 2017-05-08) (Contains HMP Client and common libraries)
-- jorvis/chiron-humann2 - Installed and tested with 'humann2_test'
-- jorvis/chiron-metacompass - Installed, currently without RefSeq
-- jorvis/chiron-metaphlan2 - Installed and tested with MetaPhlAn2 tutorial on bitbucket
-- jorvis/chiron-metaviz - Installed
-- jorvis/chiron-strainphlan - Installed and tested with [tutorial steps](https://bitbucket.org/biobakery/biobakery/wiki/strainphlan#rst-header-how-to-run)
-- jorvis/chiron-qiime2 - Installed (2017.4) and tested with the [Moving Pictures](https://docs.qiime2.org/2017.4/tutorials/moving-pictures/) tutorial
+- humann2 - Installed and tested with 'humann2_test'
+- metacompass - Installed, currently without RefSeq
+- metaphlan2 - Installed and tested with MetaPhlAn2 tutorial on bitbucket
+- metaviz - Installed
+- strainphlan - Installed and tested with [tutorial steps](https://bitbucket.org/biobakery/biobakery/wiki/strainphlan#rst-header-how-to-run)
+- qiime2 - Installed (2017.5) and tested with the [Moving Pictures](https://docs.qiime2.org/2017.5/tutorials/moving-pictures/) tutorial
 
 # Related Links:
 
