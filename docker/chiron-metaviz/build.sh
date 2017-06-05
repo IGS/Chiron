@@ -1,9 +1,9 @@
 #!/bin/bash
 
-docker rmi -f jorvis/chiron-metaviz
-docker build --no-cache -t jorvis/chiron-metaviz .
+docker rmi -f umigs/chiron-metaviz
+docker build --no-cache -t umigs/chiron-metaviz .
 docker images
 
 echo "If ready for release, run: "
-echo "  docker tag <newest tag here> jorvis/chiron-metaviz:latest"
-echo "  docker push jorvis/chiron-metaviz"
+echo "  docker tag <newest tag here> umigs/chiron-metaviz:latest"
+echo "  docker push umigs/chiron-metaviz"
