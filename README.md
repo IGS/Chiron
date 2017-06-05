@@ -39,6 +39,9 @@ This will download the Docker image if you don't already have it, then drop you 
 - strainphlan - Installed and tested with [tutorial steps](https://bitbucket.org/biobakery/biobakery/wiki/strainphlan#rst-header-how-to-run)
 - qiime2 - Installed (2017.5) and tested with the [Moving Pictures](https://docs.qiime2.org/2017.5/tutorials/moving-pictures/) tutorial
 
+# Try a Cloud session on Amazon
+The following instructions will help you launch the analysis on Amazon Cloud.
+
 # Related Links:
 
 - [Discussion group site](https://groups.google.com/forum/#!forum/hmp-cloud-pilot) (Google groups, for collaborators)
