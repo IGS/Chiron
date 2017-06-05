@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [[ "$(docker images -q umigs/chiron-metacompass 2> /dev/null)" == "" ]]; then
+  echo "Docker image for MetaCompass not found.  Downloading first ..."
+fi
+
+docker run -i -t umigs/chiron-metacompass /bin/bash

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [[ "$(docker images -q umigs/chiron-humann2 2> /dev/null)" == "" ]]; then
+  echo "Docker image for HUMAnN2 not found.  Downloading first ..."
+fi
+
+docker run -i -t umigs/chiron-humann2 /bin/bash
