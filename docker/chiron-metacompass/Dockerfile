@@ -6,8 +6,8 @@ FROM umigs/chiron-core:latest
 #################
 
 # Pre-reqs
+RUN apt-get install -y bowtie2 build-essential libbz2-dev liblzma-dev libncurses5-dev ncbi-blast+ python-software-properties software-properties-common zlib1g-dev python3-dev
 RUN pip3 install snakemake psutil
-RUN apt-get install -y bowtie2 build-essential libbz2-dev liblzma-dev libncurses5-dev ncbi-blast+ python-software-properties software-properties-common zlib1g-dev
 RUN add-apt-repository ppa:webupd8team/java
 RUN apt-get update && echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections && apt-get -y install oracle-java8-installer
 
