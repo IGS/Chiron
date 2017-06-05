@@ -9,10 +9,18 @@ RUN apt-get install -y --no-install-recommends php
 # neo4j instance
 ## METAVIZ Instance
 COPY metaviz_start.sh /bin/metaviz_start.sh
+COPY setup.R setup.R
 
 RUN apt-get install -y software-properties-common python-software-properties
 RUN add-apt-repository ppa:webupd8team/java
 RUN apt-get update && echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections && apt-get -y install oracle-java8-installer
+
+RUN apt-get install -y apt-transport-https
+RUN echo "deb http://cran.revolutionanalytics.com/bin/linux/ubuntu yakkety/" >> /etc/apt/sources.list
+RUN apt-get update
+RUN apt-get install -y r-base --allow-unauthenticated
+RUN apt-get install -y libcurl4-openssl-dev libxml2-dev libssl-dev
+RUN Rscript setup.R
 
 # neo4j instance
 RUN wget -O neo4j.tar.gz "https://neo4j.com/artifact.php?name=neo4j-community-3.2.0-unix.tar.gz"
@@ -40,5 +48,6 @@ RUN unzip -d /graph-ui metaviz-ui.zip
 RUN echo 'epiviz.Config.SETTINGS.dataServerLocation="http://metaviz.cbcb.umd.edu/data/",epiviz.Config.SETTINGS.dataProviders=[["epiviz.data.EpivizApiDataProvider","mouseTest","http://localhost:5000/api",[],3,{4:epiviz.ui.charts.tree.NodeSelectionType.NODE}]];' > /graph-ui/epiviz-metaviz-4.1/site-settings.js
 RUN rm metaviz-ui.zip
 
-EXPOSE 8888
-CMD bash /bin/metaviz_start.sh
+EXPOSE 8888 7123
+
+RUN apt-get install -y chromium-browser
