@@ -36,6 +36,5 @@ This will download the Docker image if you don't already have it, then drop you 
 
 # Related Links:
 
-- [Discussion group site](https://groups.google.com/forum/#!forum/hmp-cloud-pilot) (Google groups)
-- [Docker image](https://hub.docker.com/r/jorvis/hmp-cloud-pilot/) (DockerHub)
+- [Discussion group site](https://groups.google.com/forum/#!forum/hmp-cloud-pilot) (Google groups, for collaborators)
 - [GDC interface](http://portal.ihmpdcc.org) - Click 'data' to get the facet search
