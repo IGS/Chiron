@@ -32,8 +32,6 @@ RUN git clone https://github.com/voutcn/megahit.git /opt/megahit
 RUN make -C /opt/megahit
 ENV PATH $PATH:/opt/megahit
 
-# Doing the install without downloading RefSeq since it's so large.  We'll do this step
-#  as needed within the running instance.
 RUN git clone https://github.com/marbl/MetaCompass.git /opt/MetaCompass
 RUN g++ -Wall -W -O2 -o /opt/MetaCompass/bin/extractSeq /opt/MetaCompass/src/utils/extractSeq.cpp
 RUN g++ -Wall -W -O2 -o /opt/MetaCompass/bin/formatFASTA /opt/MetaCompass/src/utils/formatFASTA.cpp
