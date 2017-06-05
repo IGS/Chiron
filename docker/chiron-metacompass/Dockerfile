@@ -6,10 +6,15 @@ FROM umigs/chiron-core:latest
 #################
 
 # Pre-reqs
-RUN apt-get install -y bowtie2 build-essential libbz2-dev liblzma-dev libncurses5-dev ncbi-blast+ python-software-properties software-properties-common zlib1g-dev python3-dev
+RUN apt-get install -y build-essential libbz2-dev liblzma-dev libncurses5-dev ncbi-blast+ python-software-properties software-properties-common zlib1g-dev python3-dev
 RUN pip3 install snakemake psutil
 RUN add-apt-repository ppa:webupd8team/java
 RUN apt-get update && echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections && apt-get -y install oracle-java8-installer
+
+RUN wget -O /opt/bowtie2-2.3.2-linux-x86_64.zip /opt/https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.3.2/bowtie2-2.3.2-linux-x86_64.zip/download
+RUN unzip -d /opt/bowtie2 /opt/bowtie2-2.3.2-linux-x86_64.zip
+RUN rm /opt/bowtie2-2.3.2-linux-x86_64.zip
+ENV PATH /opt/bowtie2:$PATH
 
 RUN svn checkout https://svn.code.sf.net/p/kmer/code/trunk /opt/kmer
 RUN make -C /opt/kmer
