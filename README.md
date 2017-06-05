@@ -13,6 +13,10 @@ There are two primary ways we intend for this to be run.  First, we will supply 
 
 Second, you can launch an interactive session for any of the tools within a Docker image.
 
+# Get on a cloud machine (optional)
+
+If you want to run things on a cloud machine, you can [launch an Amazon Virtual Machine](https://aws.amazon.com/getting-started/tutorials/launch-a-virtual-machine/).  To just run on your local machine instead, skip to the next step.
+
 # Try an interactive session
 
 If you want to use a specific tool's docker image, you'll need to first make sure you have
@@ -38,6 +42,27 @@ This will download the Docker image if you don't already have it, then drop you 
 - metaviz - Installed
 - strainphlan - Installed and tested with [tutorial steps](https://bitbucket.org/biobakery/biobakery/wiki/strainphlan#rst-header-how-to-run)
 - qiime2 - Installed (2017.5) and tested with the [Moving Pictures](https://docs.qiime2.org/2017.5/tutorials/moving-pictures/) tutorial
+
+# Try a Cloud session on Amazon
+The following instructions will help you launch the analysis on Amazon Cloud.
+
+How to create account.
+https://aws.amazon.com/console/
+
+Switch to US East.
+
+How to generate key-pair.
+
+Set security settings.
+
+Launch AMI. 
+ami-21530437
+
+Connecting to Amazon Instance using ssh.
+
+
+https://aws.amazon.com/getting-started/tutorials/launch-a-virtual-machine/
+
 
 # Related Links:
 

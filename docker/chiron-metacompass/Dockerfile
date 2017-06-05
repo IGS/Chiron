@@ -6,7 +6,7 @@ FROM umigs/chiron-core:latest
 #################
 
 # Pre-reqs
-RUN pip3 install snakemake
+RUN pip3 install snakemake psutil
 RUN apt-get install -y bowtie2 build-essential libbz2-dev liblzma-dev libncurses5-dev ncbi-blast+ python-software-properties software-properties-common zlib1g-dev
 RUN add-apt-repository ppa:webupd8team/java
 RUN apt-get update && echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections && apt-get -y install oracle-java8-installer
@@ -40,6 +40,6 @@ RUN tar -xzvf /opt/MetaCompass/src/metaphyler/markers.tar.gz -C /opt/MetaCompass
 RUN rm /opt/MetaCompass/src/metaphyler/markers.tar.gz
 
 # This needs to happen separately within a startup/init script
-RUN wget --no-check-certificate https://gembox.cbcb.umd.edu/metacompass/refseq.tar.gz
-RUN tar -xvzf refseq.tar.gz
-RUN rm refseq.tar.gz
+RUN wget -O /opt/MetaCompass/refseq.tar.gz --no-check-certificate https://gembox.cbcb.umd.edu/metacompass/refseq.tar.gz
+RUN tar -xvzf /opt/MetaCompass/refseq.tar.gz -C /opt/MetaCompass/
+RUN rm /opt/MetaCompass/refseq.tar.gz
