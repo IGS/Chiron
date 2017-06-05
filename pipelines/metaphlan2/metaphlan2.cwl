@@ -12,18 +12,17 @@ inputs:
     inputBinding:
       position: 1
     type: File
-    type: File
   bowtie2_out:
     inputBinding:
       prefix: --bowtie2out
       #valueFrom: $(inputs.fasta_input.nameroot)_bowtie2.txt
 # NOTE: I wanted to keep the same fasta_input name root but can't find a proper way to do it, so the user will manually enter for now
-    type: File
+    type: File?
   sam_out:
     inputBinding:
       prefix: --samout
       #valueFrom: $(inputs.fasta_input.nameroot)_sam.bz2
-    type: File
+    type: File?
   input_type:
     inputBinding:
       prefix: --input_type

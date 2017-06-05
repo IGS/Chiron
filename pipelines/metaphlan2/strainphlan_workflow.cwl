@@ -9,15 +9,22 @@ requirements:
   - class: ScatterFeatureRequirement
 
 inputs:
-  fasta_url:
-    type: string[]
-  genome_url: string
-  sam_out: File
-  bowtie2_out: File
-  ifn_markers: string
-  output_dir: string
-  clades: string
-  marker_in_clade: float
+  fasta_input:
+    type: File[]
+  genome_input:
+    type: File
+  sam_out:
+    type: File
+  bowtie2_out:
+    type: File
+  ifn_markers:
+    type: string
+  output_dir:
+    type: string
+  clades:
+    type: string
+  marker_in_clade:
+    type: float
   num_cores:
     type: int
     default: 1
@@ -28,23 +35,10 @@ outputs: []
     outputSource: strainphlan/outputdir
 
 steps:
-  wget_fasta:
-    run: ../shared/wget.cwl
-    in:
-      url: fasta_url
-    out: [outfile]
-    scatter: url
-
-  wget_genome:
-    run: ../shared/wget.cwl
-    in:
-      url: genome_url
-    out: [outfile]
-
   metaphlan2:
     run: metaphlan2.cwl
     in:
-      fasta_input: wget_fasta/outfile
+      fasta_input: fasta_input
       profile: metaphlan2_profile
       sam_out: sam_out
       bowtie2_out: bowtie2_out
@@ -64,7 +58,7 @@ steps:
     run: strainphlan.cwl
     in:
       ifn_markers: ifn_markers
-      ifn_ref_genomes: wget_genome/outfile
+      ifn_ref_genomes: genome_file
       output_dir: outputdir
       clades: clades
       marker_in_clade: marker_in_clade

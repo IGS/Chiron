@@ -1,0 +1,12 @@
+staging_dir:
+  class: Directory
+  path: ./emp-single-end-sequences
+metadata_file:
+  class: File
+  path: ./sample-metadata.tsv
+barcode_file:
+  class: File
+  path: ./emp-single-end-sequences/barcodes.fastq.gz
+sequence_file:
+  class: File
+  path: ./emp-single-end-sequences/sequences.fastq.gz

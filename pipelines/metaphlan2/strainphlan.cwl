@@ -41,7 +41,7 @@ outputs:
   outputdir:
     type: Directory
     outputBinding:
-      outputEval: $(inputs.output_dir)
+      glob: $(inputs.output_dir)
   clades_out:
     type: stdout
 
