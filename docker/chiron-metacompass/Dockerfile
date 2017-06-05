@@ -20,8 +20,6 @@ RUN svn checkout https://svn.code.sf.net/p/kmer/code/trunk /opt/kmer
 RUN make -C /opt/kmer
 ENV PATH $PATH:/opt/kmer/meryl
 
-# Careful here, as this version conflicts with the required (much older) version required by
-#  StrainPhlAn.  We'll make this first in PATH since it's current.
 RUN wget -O /tmp/samtools-1.4.1.tar.bz2 https://github.com/samtools/samtools/releases/download/1.4.1/samtools-1.4.1.tar.bz2
 RUN tar -xjf /tmp/samtools-1.4.1.tar.bz2 -C /tmp/
 RUN /tmp/samtools-1.4.1/configure --prefix=/opt/samtools-1.4.1 --enable-plugins --enable-libcurl
