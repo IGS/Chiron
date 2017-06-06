@@ -14,14 +14,17 @@ RUN wget -P /tutorials/humann2/input https://bitbucket.org/biobakery/biobakery/r
 # Do any databases need to be installed?
 RUN mkdir /dbs/humann2
 
+# Utility mapping databases
+RUN humann2_databases --download utility_mapping full /dbs/humann2/
+
 # ChocoPhlAn is 5.6 GB
-RUN humann2_databases --download chocophlan full /dbs/humann2/
+# RUN humann2_databases --download chocophlan full /dbs/humann2/
  
 # You'll only want one of these:
 #    Full UniRef90 (11.0 GB)
 # RUN humann2_databases --download uniref uniref90_diamond /dbs/humann2/
 #    EC-filtered UniRef90 (0.8 GB)
-RUN humann2_databases --download uniref uniref90_ec_filtered_diamond /dbs/humann2/
+# RUN humann2_databases --download uniref uniref90_ec_filtered_diamond /dbs/humann2/
 #    Full UniRef50 (4.6 GB)
 # RUN humann2_databases --download uniref uniref50_diamond /dbs/humann2/
 #    EC-filtered UniRef50 (0.2 GB)
