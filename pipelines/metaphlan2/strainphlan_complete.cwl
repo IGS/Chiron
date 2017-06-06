@@ -10,14 +10,12 @@ requirements:
 
 inputs:
   fasta_input:
+    label: Array of fasta sequences
     type: File[]
   genome_input:
+    label: Reference genome to use in strainphlan
     type: File
-  sam_out:
-    type: File
-  bowtie2_out:
-    type: File
-  ifn_markers:
+  species_markers:
     type: string
   output_dir:
     type: string
@@ -39,9 +37,6 @@ steps:
     run: metaphlan2.cwl
     in:
       fasta_input: fasta_input
-      profile: metaphlan2_profile
-      sam_out: sam_out
-      bowtie2_out: bowtie2_out
       num_cores: num_cores
     out: [out_bowtie2, out_sam, out_profile]
     scatter: fasta_input
@@ -54,10 +49,32 @@ steps:
     out: [out_marker]
     scatter: ifn_samples
 
-  strainphlan:
+  identify_clades
     run: strainphlan.cwl
     in:
-      ifn_markers: ifn_markers
+      ifn_samples:
+        default: '*.markers'
+      ifn_ref_genomes: genome_file
+      output_dir: outputdir
+      print_clades_only: true
+    out: [outputdir]
+
+  extract_markers:
+    run: extract_markers.cwl
+    in:
+      mpa_pkl: mpa_pkl
+      ifn_markers:
+        default: 'all_markers.fasta'
+      clade: clades
+      ofn_markers: species_markers
+    out: [out_markers]
+
+  generate_trees:
+    run: strainphlan.cwl
+    in:
+      ifn_samples:
+        default: '*.markers'
+      ifn_markers: extract_markers/out_markers
       ifn_ref_genomes: genome_file
       output_dir: outputdir
       clades: clades

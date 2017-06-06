@@ -3,9 +3,9 @@ cwlVersion: v1.0
 label: BioBakery sample2markers script
 class: CommandLineTool
 
-#requirements:
-#  - class: DockerRequirement
-#    dockerPull: jorvis/hmp-cloud-pilot
+hints:
+  - class: DockerRequirement
+    dockerPull: umigs/chiron-strainphlan
 
 inputs:
   ifn_samples:
