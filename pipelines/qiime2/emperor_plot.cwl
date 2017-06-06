@@ -3,6 +3,10 @@ cwlVersion: v1.0
 label: QIIME2 - Create PCoA plots using Emperor
 class: CommandLineTool
 
+hints:
+  - class: DockerRequirement
+    dockerPull: umigs/chiron-qiime2
+
 inputs:
   input_pcoa:
     inputBinding:
@@ -21,8 +25,9 @@ inputs:
     inputBinding:
       prefix: --o-visualization
     type: string
+    default: $(inputs.input_pcoa.dirname + '/' + inputs.input_pcoa.nameroot + 'emperor.qzv')
 outputs:
-  out_visualization:
+  pcoa_visual:
     type: File
     outputBinding:
       glob: $(inputs.out_visualization)

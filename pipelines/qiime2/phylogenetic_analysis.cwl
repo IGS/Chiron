@@ -3,6 +3,10 @@ cwlVersion: v1.0
 label: QIIME2 - Generate a phylogenetic tree
 class: Workflow
 
+hints:
+  - class: DockerRequirement
+    dockerPull: umigs/chiron-qiime2
+
 inputs:
   rep_seqs:
     type: File

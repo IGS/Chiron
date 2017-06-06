@@ -3,6 +3,10 @@ cwlVersion: v1.0
 label: QIIME2 - FeatureTable summarize
 class: CommandLineTool
 
+hints:
+  - class: DockerRequirement
+    dockerPull: umigs/chiron-qiime2
+
 inputs:
   input_table:
     inputBinding:
@@ -18,7 +22,7 @@ inputs:
     type: string
     default: "table.qzv"
 outputs:
-  out_table:
+  out_table_visual:
     type: File
     outputBinding:
       glob: $(inputs.table_visualization)

@@ -3,6 +3,10 @@ cwlVersion: v1.0
 label: QIIME2 - Perform alpha group significance analysis
 class: CommandLineTool
 
+hints:
+  - class: DockerRequirement
+    dockerPull: umigs/chiron-qiime2
+
 inputs:
   input_alpha:
     inputBinding:
@@ -17,7 +21,7 @@ inputs:
       prefix: --o-visualization
     type: string
 outputs:
-  out_visualization:
+  out_visual:
     type: File
     outputBinding:
       glob: $(inputs.out_visualization)

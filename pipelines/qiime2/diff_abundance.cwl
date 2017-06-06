@@ -3,6 +3,10 @@ cwlVersion: v1.0
 label: QIIME2 - Perform differential abundance analysis
 class: Workflow
 
+hints:
+  - class: DockerRequirement
+    dockerPull: umigs/chiron-qiime2
+
 inputs:
   metadata_file:
     type: File
@@ -11,8 +15,8 @@ inputs:
   input_table:
     type: File
 outputs:
-  feat_visualization:
-    outputSource: ancom/out_visualization
+  feat_visual:
+    outputSource: ancom/out_visual
 
 steps:
   add_pseudocount:
@@ -59,7 +63,7 @@ steps:
           type: string
           default: ancom.qcv
       outputs:
-        out_visualization:
+        out_visual:
           type: File
           outputBinding:
             glob: $(inputs.feat_visualization)

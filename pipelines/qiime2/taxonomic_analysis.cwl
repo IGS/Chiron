@@ -3,6 +3,10 @@ cwlVersion: v1.0
 label: QIIME2 - Perform taxonomic analysis
 class: Workflow
 
+hints:
+  - class: DockerRequirement
+    dockerPull: umigs/chiron-qiime2
+
 inputs:
   rep_seqs:
     type: File
@@ -13,10 +17,12 @@ inputs:
   input_table:
     type: File
 outputs:
-  taxa_visualization:
-    outputSource: taxa_tabulate/out_visualization
+  taxa_visual:
+    outputSource: taxa_tabulate/out_visual
   barplots:
     outputSource: taxa_barplots/barplots
+  taxonomy:
+    outputSource: classify_sklearn/out_taxa
 
 steps:
   classify_sklearn:
@@ -59,13 +65,13 @@ steps:
           type: string
           default: "taxonomy.qzv"
       outputs:
-        out_visualization:
+        out_visual:
           type: File
           outputBinding:
             glob: $(inputs.taxa_visualization)
     in:
       taxa_data: classify_sklearn/out_taxa
-    out: [out_visualization]
+    out: [out_visual]
   taxa_barplot
     run:
       baseCommand: ["qiime", "taxa", "barplot"]

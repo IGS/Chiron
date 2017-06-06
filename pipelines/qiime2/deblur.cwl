@@ -3,7 +3,7 @@ cwlVersion: v1.0
 label: QIIME2 - Deblur denoising tool
 class: Workflow
 
-requirements:
+hints:
   - class: DockerRequirement
     dockerPull: umigs/chiron-qiime2
 
