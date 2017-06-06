@@ -22,6 +22,8 @@ RUN rm Miniconda3-latest-Linux-x86_64.sh
 # Primary: Qiime2-2017.5
 RUN conda create -n qiime2-2017.5 --file https://data.qiime2.org/distro/core/qiime2-2017.5-conda-linux-64.txt
 
+# Have the container source on entry
+RUN echo "source activate qiime2-2017.5" >> /etc/bash.bashrc
 
 # Users will need to run this when they start the Qiime tutorial
 # source activate qiime2-2017.5
