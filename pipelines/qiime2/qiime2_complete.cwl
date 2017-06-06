@@ -22,15 +22,15 @@ inputs:
     type: File
   metadata_file:
     type: File
-  metadata_category_beta:
-    label: Feature name to determine beta group significance
-    type: string[]
+#  metadata_category_beta:
+#    label: Feature name to determine beta group significance
+#    type: string[]
   metadata_category_ancom:
     label: Feature name to determine differential abundance
     type: string
-  custom_axis:
-    label: Axis label to use in Emperor PCoA plots.
-    type: string[]
+#  custom_axis:
+#    label: Axis label to use in Emperor PCoA plots.
+#    type: string[]
   collapse_level:
     label: Taxonomic level to collapse into when performing differential abundance analyses
     type: int
@@ -50,12 +50,12 @@ outputs:
     outputSource: differential_abundance/feat_visual
   collapsed_diff_abundance_visual:
     outputSource: collapsed_differential_abundance/feat_visual
-  alpha_visual: # array
-      outputSource: alpha_group_significance/out_visual
-  beta_visual: # array
-      outputSource: beta_group_significance/out_visual
-  emperor_visual: # array
-      outputSource: PCoA_plot/pcoa_visual
+#  alpha_visual: # array
+#      outputSource: alpha_group_significance/out_visual
+#  beta_visual: # array
+#      outputSource: beta_group_significance/out_visual
+#  emperor_visual: # array
+#      outputSource: PCoA_plot/pcoa_visual
 
 steps:
   demultiplex:
@@ -92,41 +92,41 @@ steps:
       rep_seqs: dada2/rep_seqs
     out: [rooted_tree]
 
-  diversity_core_metrics:
-    run: diversity_core_metrics.cwl
-    in:
-      input_tree: phylogenetic_analysis/rooted_tree
-      input_table: dada2/out_table
-    out: [out_dir, alpha_vector, distance_matrix, pcoa_results]
+#  diversity_core_metrics:
+#    run: diversity_core_metrics.cwl
+#    in:
+#      input_tree: phylogenetic_analysis/rooted_tree
+#      input_table: dada2/out_table
+#    out: [out_dir, alpha_vector, distance_matrix, pcoa_results]
+#
+#  alpha_group_significance:
+#    run: alpha_significance.cwl
+#    in:
+#      input_alpha: diversity_core_metrics/alpha_vector
+#      metadata_file: metadata_file
+#    out: [out_visual]
+#    scatter: input_alpha
+#
+#  beta_group_significance:
+#    run: beta_significance.cwl
+#    in:
+#      input_matrix: diversity_core_metrics/distance_matrix
+#      metadata_file: metadata_file
+#      metadata_category: metadata_category_beta
+#      out_visualization:
+#    out: [out_visual]
+#    scatter: [metadata_category_beta, out_visualization]
+#    scatterMethod: dotproduct
 
-  alpha_group_significance:
-    run: alpha_significance.cwl
-    in:
-      input_alpha: diversity_core_metrics/alpha_vector
-      metadata_file: metadata_file
-    out: [out_visual]
-    scatter: input_alpha
-
-  beta_group_significance:
-    run: beta_significance.cwl
-    in:
-      input_matrix: diversity_core_metrics/distance_matrix
-      metadata_file: metadata_file
-      metadata_category: metadata_category_beta
-      out_visualization:
-    out: [out_visual]
-    scatter: [metadata_category_beta, out_visualization]
-    scatterMethod: dotproduct
-
-  PCoA_plot:
-    run: emperor_plot.cwl
-    in:
-      input_pcoa: diversity_core_metrics/pcoa_results
-      metadata_file: metadata_file
-      custom_axis: custom_axis
-    out: [pcoa_visual]
-    scatter: [input_pcoa, custom_axis]
-    scatterMethod: dotproduct
+#  PCoA_plot:
+#    run: emperor_plot.cwl
+#    in:
+#      input_pcoa: diversity_core_metrics/pcoa_results
+#      metadata_file: metadata_file
+#      custom_axis: custom_axis
+#    out: [pcoa_visual]
+#    scatter: [input_pcoa, custom_axis]
+#    scatterMethod: dotproduct
 
   taxonomic_analysis:
     run: taxonomic_analysis.cwl
