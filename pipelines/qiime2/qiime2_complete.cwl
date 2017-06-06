@@ -37,29 +37,40 @@ inputs:
 
 outputs:
   demux_visual:
+    type: File
     outputSource: demultiplex/demux_visual
   feat_table_visual:
+    type: File
     outputSource: feat_tbl_summarize/out_table_visual
   feat_seqs_visual:
+    type: File
     outputSource: feat_tbl_tabulate/out_seqs_visual
   taxa_visual:
+    type: File
     outputSource: taxonomic_analysis/taxa_visual
   taxa_barplots:
+    type: File
     outputSource: taxonomic_analysis/barplots
   diff_abundance_visual:
+    type: File
     outputSource: differential_abundance/feat_visual
   collapsed_diff_abundance_visual:
+    type: File
     outputSource: collapsed_differential_abundance/feat_visual
 #  alpha_visual: # array
-#      outputSource: alpha_group_significance/out_visual
+#    type: File
+#    outputSource: alpha_group_significance/out_visual
 #  beta_visual: # array
-#      outputSource: beta_group_significance/out_visual
+#    type: File
+#    outputSource: beta_group_significance/out_visual
 #  emperor_visual: # array
-#      outputSource: PCoA_plot/pcoa_visual
+#    type: File
+#    outputSource: PCoA_plot/pcoa_visual
 
 steps:
+
   demultiplex:
-    run: demux-empseq.cwl
+    run: demux_empseq.cwl
     in:
       staging_dir: staging_dir
       barcode_file: barcode_file
@@ -83,13 +94,13 @@ steps:
   feat_tbl_tabulate:
     run: feat_tbl_tabulate_seqs.cwl
     in:
-      rep_seqs: dada2/rep_seqs
+      rep_seqs: dada2/out_rep_seqs
     out: [out_seqs_visual]
 
   phylogenetic_analysis:
     run: phylogenetic_analysis.cwl
     in:
-      rep_seqs: dada2/rep_seqs
+      rep_seqs: dada2/out_rep_seqs
     out: [rooted_tree]
 
 #  diversity_core_metrics:
@@ -131,13 +142,13 @@ steps:
   taxonomic_analysis:
     run: taxonomic_analysis.cwl
     in:
-      input_seqs: dada2/rep_seqs
+      rep_seqs: dada2/out_rep_seqs
       classifier: training_classifier
       metadata_file: metadata_file
       input_table: dada2/out_table
     out: [taxa_visual, barplots, taxonomy]
 
-  differential_abundance
+  differential_abundance:
     run: diff_abundance.cwl
     in:
       metadata_file: metadata_file
@@ -145,12 +156,12 @@ steps:
       input_table: dada2/out_table
     out: [feat_visual]
 
-  collapsed_differential_abundance
+  collapsed_differential_abundance:
     run: diff_abundance_w_collapse.cwl
     in:
       metadata_file: metadata_file
       metadata_category: metadata_category_ancom
       input_table: dada2/out_table
       collapse_level: collapse_level
-      input_taxonomy: taxonomic_analysis/taxonomy
+      taxonomy_file: taxonomic_analysis/taxonomy
     out: [feat_visual]

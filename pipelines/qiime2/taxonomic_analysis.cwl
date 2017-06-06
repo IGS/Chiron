@@ -18,15 +18,19 @@ inputs:
     type: File
 outputs:
   taxa_visual:
+    type: File
     outputSource: taxa_tabulate/out_visual
   barplots:
-    outputSource: taxa_barplots/barplots
+    type: File
+    outputSource: taxa_barplot/barplots
   taxonomy:
+    type: File
     outputSource: classify_sklearn/out_taxa
 
 steps:
   classify_sklearn:
     run:
+      class: CommandLineTool
       baseCommand: ["qiime", "feature-classifier", "classify-sklearn"]
       inputs:
         rep_seqs:
@@ -51,8 +55,9 @@ steps:
       rep_seqs: rep_seqs
       classifier: classifier
     out: [out_taxa]
-  taxa_tabulate
+  taxa_tabulate:
     run:
+      class: CommandLineTool
       baseCommand: ["qiime", "taxa", "tabulate"]
       inputs:
         taxa_data:
@@ -72,8 +77,9 @@ steps:
     in:
       taxa_data: classify_sklearn/out_taxa
     out: [out_visual]
-  taxa_barplot
+  taxa_barplot:
     run:
+      class: CommandLineTool
       baseCommand: ["qiime", "taxa", "barplot"]
       inputs:
         table:
@@ -88,7 +94,7 @@ steps:
           inputBinding:
             prefix: --m-metadata-file
           type: File
-        barplots
+        plots:
           inputBinding:
             prefix: --o-visualization
           type: string
@@ -97,7 +103,7 @@ steps:
         barplots:
           type: File
           outputBinding:
-            glob: $(inputs.barplots)
+            glob: $(inputs.plots)
     in:
       table: input_table
       taxa_data: classify_sklearn/out_taxa

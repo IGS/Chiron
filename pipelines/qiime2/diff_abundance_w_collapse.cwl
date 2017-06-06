@@ -15,16 +15,18 @@ inputs:
   input_table:
     type: File
   collapse_level:
-    type: string
-  input_taxonomy:
+    type: int
+  taxonomy_file:
     type: File
 outputs:
   feat_visual:
+    type: File
     outputSource: ancom/out_visual
 
 steps:
   collapse:
     run:
+      class: CommandLineTool
       baseCommand: ["qiime", "taxa", "collapse"]
       inputs:
         table:
@@ -58,6 +60,7 @@ steps:
 
   add_pseudocount:
     run:
+      class: CommandLineTool
       baseCommand: ["qiime", "composition", "add-pseudocount"]
       inputs:
         table:
@@ -78,8 +81,9 @@ steps:
       table: collapse/out_collapsed_table
     out: [out_comp_table]
 
-  ancom
+  ancom:
     run:
+      class: CommandLineTool
       baseCommand: ["qiime", "composition", "ancom"]
       inputs:
         comp_table:
@@ -108,4 +112,4 @@ steps:
       comp_table: add_pseudocount/out_comp_table
       metadata_file: metadata_file
       metadata_category: metadata_category
-    out: [out_visualization]
+    out: [out_visual]

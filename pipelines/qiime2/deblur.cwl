@@ -13,8 +13,10 @@ inputs:
 
 outputs:
   out_seqs:
+    type: File
     outputSource: denoise_16S/out_seqs
   out_table:
+    type: File
     outputSource: denoise_16S/out_table
 
 steps:
