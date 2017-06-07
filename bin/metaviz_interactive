@@ -5,3 +5,9 @@ if [[ "$(docker images -q umigs/chiron-metaviz 2> /dev/null)" == "" ]]; then
 fi
 
 docker run -i -t umigs/chiron-metaviz /bin/bash
+
+# metaviz standalone 
+# docker run -i -t -p 7474:7474 -p 8888:8888 -p 5000:5000 umigs/chiron-metaviz bash
+
+# metavizra non-interactive
+# docker run -d -p 8787:8787 -t umigs/chiron-metaviz
