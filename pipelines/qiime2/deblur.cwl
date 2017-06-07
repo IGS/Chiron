@@ -3,7 +3,7 @@ cwlVersion: v1.0
 label: QIIME2 - Deblur denoising tool
 class: Workflow
 
-requirements:
+hints:
   - class: DockerRequirement
     dockerPull: umigs/chiron-qiime2
 
@@ -13,8 +13,10 @@ inputs:
 
 outputs:
   out_seqs:
+    type: File
     outputSource: denoise_16S/out_seqs
   out_table:
+    type: File
     outputSource: denoise_16S/out_table
 
 steps:

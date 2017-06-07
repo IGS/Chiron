@@ -3,21 +3,21 @@ cwlVersion: v1.0
 label: BioBakery extract_markers script
 class: CommandLineTool
 
-requirements:
+hints:
   - class: DockerRequirement
-    dockerPull: umigs/chiron-strainphlan
+    dockerPull: umigs/chiron-phlan
 
 inputs:
   ifn_markers:
     inputBinding:
       prefix: --ifn_markers
-    type: File
-    default: all_markers.fasta
+    type: string
+    default: 'all_markers.fasta'
   ofn_markers:
     inputBinding:
       prefix: --ofn_markers
-    type: File
-  input_type:
+    type: string
+  mpa_pkl:
     inputBinding:
       prefix: --mpa_pkl
     type: string
@@ -29,10 +29,11 @@ inputs:
     inputBinding:
       prefix: --output_dir
     type: string
+    default: '.'
 outputs:
-  out_marker:
+  out_markers:
     type: File
     outputBinding:
-      glob: '*.markers.fasta'
+      glob: $(inputs.ofn_markers)
 
 baseCommand: ["extract_markers.py"]

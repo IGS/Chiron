@@ -3,6 +3,10 @@ cwlVersion: v1.0
 label: QIIME2 - FeatureTable tabulate seqs command
 class: CommandLineTool
 
+hints:
+  - class: DockerRequirement
+    dockerPull: umigs/chiron-qiime2
+
 inputs:
   rep_seqs:
     inputBinding:
@@ -14,7 +18,7 @@ inputs:
     type: string
     default: "rep-seqs.qzv"
 outputs:
-  out_rep_seqs:
+  out_seqs_visual:
     type: File
     outputBinding:
       glob: $(inputs.seqs_visualization)

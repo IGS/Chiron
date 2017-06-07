@@ -3,6 +3,10 @@ cwlVersion: v1.0
 label: QIIME2 - DADA2 denoiser
 class: CommandLineTool
 
+hints:
+  - class: DockerRequirement
+    dockerPull: umigs/chiron-qiime2
+
 inputs:
   input_seqs:
     inputBinding:

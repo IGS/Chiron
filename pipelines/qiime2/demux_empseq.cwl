@@ -3,7 +3,7 @@ cwlVersion: v1.0
 label: QIIME2 - Demultiplex input EMP Single-End Sequences
 class: Workflow
 
-requirements:
+hints:
   - class: DockerRequirement
     dockerPull: umigs/chiron-qiime2
 

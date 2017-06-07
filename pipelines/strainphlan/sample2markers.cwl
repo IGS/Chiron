@@ -3,9 +3,9 @@ cwlVersion: v1.0
 label: BioBakery sample2markers script
 class: CommandLineTool
 
-requirements:
+hints:
   - class: DockerRequirement
-    dockerPull: umigs/chiron-strainphlan
+    dockerPull: umigs/chiron-phlan
 
 inputs:
   ifn_samples:

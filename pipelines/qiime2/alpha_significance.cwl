@@ -1,6 +1,6 @@
 #!/usr/bin/env cwl-runner
 cwlVersion: v1.0
-label: QIIME2 - FeatureTable summarize
+label: QIIME2 - Perform alpha group significance analysis
 class: CommandLineTool
 
 hints:
@@ -8,23 +8,22 @@ hints:
     dockerPull: umigs/chiron-qiime2
 
 inputs:
-  input_table:
+  input_alpha:
     inputBinding:
-      prefix: --i-table
+      prefix: --i-alpha-diversity
     type: File
   metadata_file:
     inputBinding:
-      prefix: --m-sample-metadata-file
+      prefix: --m-metadata-file
     type: File
-  table_visualization:
+  out_visualization:
     inputBinding:
       prefix: --o-visualization
     type: string
-    default: "table.qzv"
 outputs:
-  out_table_visual:
+  out_visual:
     type: File
     outputBinding:
-      glob: $(inputs.table_visualization)
+      glob: $(inputs.out_visualization)
 
-baseCommand: ["qiime", "feature-table", "summarize"]
+baseCommand: ["qiime", "diversity", "alpha-group-significance"]

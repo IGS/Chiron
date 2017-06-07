@@ -1,0 +1,6 @@
+input_file:
+  class: File
+  path: ./demo.sam
+output_dir: "./demo_sam"
+gap_fill: "on"
+num_threads: 4

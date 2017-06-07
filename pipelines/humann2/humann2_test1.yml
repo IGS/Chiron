@@ -1,0 +1,5 @@
+input_file:
+  class: File
+  path: ./demo.fastq
+output_dir: "./demo_fastq"
+gap_fill: "on"

@@ -3,16 +3,22 @@ cwlVersion: v1.0
 label: QIIME2 - Generate a phylogenetic tree
 class: Workflow
 
+hints:
+  - class: DockerRequirement
+    dockerPull: umigs/chiron-qiime2
+
 inputs:
   rep_seqs:
     type: File
 outputs:
   rooted_tree:
+    type: File
     outputSource: phylogeny_midpoint_root/out_rooted
 
 steps:
   alignment_mafft:
     run:
+      class: CommandLineTool
       baseCommand: ["qiime", "alignment", "mafft"]
       inputs:
         rep_seqs:
@@ -32,8 +38,9 @@ steps:
     in:
       rep_seqs: rep_seqs
     out: [out_align]
-  alignment_mask
+  alignment_mask:
     run:
+      class: CommandLineTool
       baseCommand: ["qiime", "alignment", "mask"]
       inputs:
         aligned_seqs:
@@ -52,9 +59,10 @@ steps:
             glob: $(inputs.masked_seqs)
     in:
       aligned_seqs: alignment_mafft/out_align
-    out: [masked_seqs]
-  phylogeny_fasttree
+    out: [out_masked]
+  phylogeny_fasttree:
     run:
+      class: CommandLineTool
       baseCommand: ["qiime", "phylogeny", "fasttree"]
       inputs:
         masked_seqs:
@@ -73,9 +81,10 @@ steps:
             glob: $(inputs.tree)
     in:
       masked_seqs: alignment_mask/out_masked
-    out: [masked_seqs]
-  phylogeny_midpoint_root
+    out: [out_tree]
+  phylogeny_midpoint_root:
     run:
+      class: CommandLineTool
       baseCommand: ["qiime", "phylogeny", "midpoint-root"]
       inputs:
         input_tree:
@@ -93,5 +102,5 @@ steps:
           outputBinding:
             glob: $(inputs.rooted_tree)
     in:
-      masked_seqs: phylogeny_fasttree/out_tree
+      input_tree: phylogeny_fasttree/out_tree
     out: [out_rooted]

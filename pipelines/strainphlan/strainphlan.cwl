@@ -3,9 +3,9 @@ cwlVersion: v1.0
 label: Strainphlan workflow test
 class: CommandLineTool
 
-#requirements:
-#  - class: DockerRequirement
-#    dockerPull: jorvis/hmp-cloud-pilot
+hints:
+  - class: DockerRequirement
+    dockerPull: umigs/chiron-phlan
 
 inputs:
   ifn_samples:
@@ -41,7 +41,7 @@ outputs:
   outputdir:
     type: Directory
     outputBinding:
-      glob: $(inputs.output_dir)
+      outputEval: $(inputs.output_dir)
   clades_out:
     type: stdout
 

@@ -6,17 +6,20 @@ FROM umigs/chiron-core:latest
 #################
 
 # Pre-reqs
+RUN apt-get install -y build-essential libbz2-dev liblzma-dev libncurses5-dev ncbi-blast+ python-software-properties software-properties-common zlib1g-dev python3-dev
 RUN pip3 install snakemake psutil
-RUN apt-get install -y bowtie2 build-essential libbz2-dev liblzma-dev libncurses5-dev ncbi-blast+ python-software-properties software-properties-common zlib1g-dev
 RUN add-apt-repository ppa:webupd8team/java
 RUN apt-get update && echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections && apt-get -y install oracle-java8-installer
+
+RUN wget -O /opt/bowtie2-2.3.2-linux-x86_64.zip https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.3.2/bowtie2-2.3.2-linux-x86_64.zip/download
+RUN unzip -d /opt/bowtie2 /opt/bowtie2-2.3.2-linux-x86_64.zip
+RUN rm /opt/bowtie2-2.3.2-linux-x86_64.zip
+ENV PATH /opt/bowtie2:$PATH
 
 RUN svn checkout https://svn.code.sf.net/p/kmer/code/trunk /opt/kmer
 RUN make -C /opt/kmer
 ENV PATH $PATH:/opt/kmer/meryl
 
-# Careful here, as this version conflicts with the required (much older) version required by
-#  StrainPhlAn.  We'll make this first in PATH since it's current.
 RUN wget -O /tmp/samtools-1.4.1.tar.bz2 https://github.com/samtools/samtools/releases/download/1.4.1/samtools-1.4.1.tar.bz2
 RUN tar -xjf /tmp/samtools-1.4.1.tar.bz2 -C /tmp/
 RUN /tmp/samtools-1.4.1/configure --prefix=/opt/samtools-1.4.1 --enable-plugins --enable-libcurl
@@ -29,8 +32,6 @@ RUN git clone https://github.com/voutcn/megahit.git /opt/megahit
 RUN make -C /opt/megahit
 ENV PATH $PATH:/opt/megahit
 
-# Doing the install without downloading RefSeq since it's so large.  We'll do this step
-#  as needed within the running instance.
 RUN git clone https://github.com/marbl/MetaCompass.git /opt/MetaCompass
 RUN g++ -Wall -W -O2 -o /opt/MetaCompass/bin/extractSeq /opt/MetaCompass/src/utils/extractSeq.cpp
 RUN g++ -Wall -W -O2 -o /opt/MetaCompass/bin/formatFASTA /opt/MetaCompass/src/utils/formatFASTA.cpp
