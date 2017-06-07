@@ -10,6 +10,7 @@ RUN mkdir -p /tutorials/humann2/input
 RUN wget -P /tutorials/humann2/input https://bitbucket.org/biobakery/biobakery/raw/tip/demos/biobakery_demos/data/humann2/input/demo.fastq
 RUN wget -P /tutorials/humann2/input https://bitbucket.org/biobakery/biobakery/raw/tip/demos/biobakery_demos/data/humann2/input/demo.sam
 RUN wget -P /tutorials/humann2/input https://bitbucket.org/biobakery/biobakery/raw/tip/demos/biobakery_demos/data/humann2/input/demo.m8
+RUN wget -P /tutorials/humann2/input https://bitbucket.org/biobakery/biobakery/raw/tip/demos/biobakery_demos/data/humann2/input/hmp_pathabund.pcl
 
 # Do any databases need to be installed?
 RUN mkdir /dbs/humann2
