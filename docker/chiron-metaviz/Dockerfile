@@ -27,6 +27,7 @@ RUN wget https://download2.rstudio.org/rstudio-server-1.0.143-amd64.deb
 RUN gdebi -n rstudio-server-1.0.143-amd64.deb
 RUN adduser metaviz --disabled-login 
 RUN echo "metaviz:metaviz" | chpasswd
+RUN usermod -a -G root metaviz
 RUN mkdir -p /var/log/supervisor
 ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
