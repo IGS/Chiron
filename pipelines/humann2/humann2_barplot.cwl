@@ -31,10 +31,11 @@ inputs:
       prefix: --focal-feature
     type: string
   sort_type:
-    label: Ways to sort data.  Seperate types by space
+    label: Ways to sort data.  Can specify more than one
     inputBinding:
       prefix: --sort
-    type: string?
+      itemSeparator: " "
+    type: string[]?
   scaling:
     inputBinding:
       prefix: --scaling

@@ -1,0 +1,4 @@
+fasta_input:
+  class: File
+  path: ./fasta/13530241_SF05.fasta.gz
+input_type: "multifasta"

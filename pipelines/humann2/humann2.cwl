@@ -25,7 +25,7 @@ inputs:
   bypass_translated_search:
     inputBinding:
       prefix: --bypass-translated-search
-    type: boolean
+    type: boolean?
   num_threads:
     inputBinding:
       prefix: --threads
