@@ -4,10 +4,13 @@ if [[ "$(docker images -q umigs/chiron-metaviz 2> /dev/null)" == "" ]]; then
   echo "Docker image for MetaViz not found.  Downloading first ..."
 fi
 
-docker run -i -t umigs/chiron-metaviz /bin/bash
+#docker run -i -t umigs/chiron-metaviz /bin/bash
+ipaddr=$(curl http://169.254.169.254/latest/meta-data/public-ipv4)
+
+docker run -i -t -p 7474:7474 -p 8888:8888 -p 5000:5000 -e HOST_IP=$ipaddr umigs/chiron-metaviz bash
 
 # metaviz standalone 
 # docker run -i -t -p 7474:7474 -p 8888:8888 -p 5000:5000 umigs/chiron-metaviz bash
 
 # metavizra non-interactive
-# docker run -d -p 8787:8787 -t umigs/chiron-metaviz
+# docker run -d -p 8787:8787 -p 7123:7123 -t umigs/chiron-metaviz
