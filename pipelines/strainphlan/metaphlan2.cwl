@@ -5,7 +5,7 @@ class: CommandLineTool
 
 hints:
   - class: DockerRequirement
-    dockerPull: umigs/chiron-strainphlan
+    dockerPull: umigs/chiron-phlan
 
 inputs:
   fasta_input:

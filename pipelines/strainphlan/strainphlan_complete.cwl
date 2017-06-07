@@ -5,7 +5,7 @@ class: Workflow
 
 requirements:
   - class: DockerRequirement
-    dockerPull: umigs/chiron-strainphlan
+    dockerPull: umigs/chiron-phlan
   - class: ScatterFeatureRequirement
 
 inputs:
