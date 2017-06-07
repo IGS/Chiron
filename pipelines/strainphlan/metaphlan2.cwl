@@ -5,7 +5,7 @@ class: CommandLineTool
 
 hints:
   - class: DockerRequirement
-    dockerPull: umigs/strainphlan2
+    dockerPull: umigs/chiron-strainphlan
 
 inputs:
   fasta_input:
@@ -43,9 +43,7 @@ outputs:
     outputBinding:
       glob: $(inputs.sam_out)
   out_profile:
-    type: File
-    outputBinding:
-      type: stdout
+    type: stdout
 stdout: $(inputs.fasta_input.nameroot).profile.txt
 
 baseCommand: ["metaphlan2.py"]
