@@ -29,7 +29,7 @@ RUN gdebi -n rstudio-server-1.0.143-amd64.deb
 RUN adduser metaviz --disabled-login 
 RUN echo "metaviz:metaviz" | chpasswd
 RUN usermod -a -G root metaviz
-RUN chmod -R 774 /usr/local/lib/
+RUN chmod -R 777 /usr/local/lib/R/
 RUN mkdir -p /var/log/supervisor
 ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
