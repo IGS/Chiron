@@ -23,9 +23,9 @@ ENV PATH $PATH:/opt/samtools-1.4.1/bin
 RUN pip install numpy
 RUN pip install scipy
 
-#RUN wget -O /tmp/Reapr_1.0.18.tar.gz ftp://ftp.sanger.ac.uk/pub/resources/software/reapr/Reapr_1.0.18.tar.gz
-#RUN tar -xzf /tmp/Reapr_1.0.18.tar.gz -C /tmp/
-#RUN cd /tmp/Reapr_1.0.18/ && ./install.sh
+RUN wget -O /tmp/Reapr_1.0.18.tar.gz ftp://ftp.sanger.ac.uk/pub/resources/software/reapr/Reapr_1.0.18.tar.gz
+RUN tar -xzf /tmp/Reapr_1.0.18.tar.gz -C /tmp/
+RUN cd /tmp/Reapr_1.0.18/ && ./install.sh
 
 RUN git clone https://github.com/cmhill/VALET.git /opt/VALET
 ENV VALET /opt/VALET/src/py/
