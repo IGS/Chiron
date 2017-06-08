@@ -32,3 +32,4 @@ RUN pip3 install boto
 RUN wget -O /opt/hmp_client.zip https://github.com/jmatsumura/hmp_client/archive/master.zip
 RUN unzip -d /opt/hmp_client /opt/hmp_client.zip
 ENV PATH /opt/hmp_client/hmp_client-master/bin:$PATH
+RUN echo 'alias hmp_client="client.py"' >> ~/.bashrc
