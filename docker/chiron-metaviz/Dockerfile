@@ -8,6 +8,7 @@ RUN apt-get install -y --no-install-recommends php
 # neo4j instance
 ## METAVIZ Instance
 COPY metaviz_start.sh /bin/metaviz_start.sh
+RUN chmod +x /bin/metaviz_start.sh
 COPY setup.R setup.R
 
 RUN apt-get install -y software-properties-common python-software-properties
@@ -27,6 +28,8 @@ RUN wget https://download2.rstudio.org/rstudio-server-1.0.143-amd64.deb
 RUN gdebi -n rstudio-server-1.0.143-amd64.deb
 RUN adduser metaviz --disabled-login 
 RUN echo "metaviz:metaviz" | chpasswd
+RUN usermod -a -G root metaviz
+RUN chmod -R 777 /usr/local/lib/R/
 RUN mkdir -p /var/log/supervisor
 ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
@@ -52,7 +55,7 @@ RUN unzip -d /graph-ui metaviz-ui.zip
 RUN echo 'epiviz.Config.SETTINGS.dataServerLocation="http://metaviz.cbcb.umd.edu/data/",epiviz.Config.SETTINGS.dataProviders=[["epiviz.data.EpivizApiDataProvider","mouseTest","http://localhost:5000/api",[],3,{4:epiviz.ui.charts.tree.NodeSelectionType.NODE}]];' > /graph-ui/epiviz-metaviz-4.1/site-settings.js
 RUN rm metaviz-ui.zip
 
-EXPOSE 8888 7474 5000 8787
+EXPOSE 8888 7474 5000 8787 7123
 
 #This is from https://github.com/mgymrek/docker-rstudio-server/blob/master/Dockerfile
 CMD ["/usr/bin/supervisord"]
