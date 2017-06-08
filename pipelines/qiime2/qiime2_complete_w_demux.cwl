@@ -1,6 +1,6 @@
 #!/usr/bin/env cwl-runner
 cwlVersion: v1.0
-label: QIIME2 - A complete QIIME2 workflow (uses DADA2 instead of Deblur)
+label: QIIME2 - A complete QIIME2 workflow with demultiplexing (uses DADA2 instead of Deblur)
 class: Workflow
 
 requirements:
@@ -11,8 +11,12 @@ requirements:
   - class: ScatterFeatureRequirement
 
 inputs:
-  input_seqs:
-    label: Sequences that have already been demultiplexed
+  staging_dir:
+    label: Directory the barcode and sequence files are located in
+    type: Directory
+  barcode_file:
+    type: File
+  sequence_file:
     type: File
   training_classifier:
     label: Training feature classifier file used for taxonomic analysis
@@ -33,6 +37,9 @@ inputs:
     type: int
 
 outputs:
+  demux_visual:
+    type: File
+    outputSource: demultiplex/demux_visual
   feat_table_visual:
     type: File
     outputSource: feat_tbl_summarize/out_table_visual
@@ -63,10 +70,19 @@ outputs:
 
 steps:
 
+  demultiplex:
+    run: demux_empseq.cwl
+    in:
+      staging_dir: staging_dir
+      barcode_file: barcode_file
+      metadata_file: metadata_file
+      sequence_file: sequence_file
+    out: [demux_seqs, demux_visual]
+
   dada2:
     run: dada2.cwl
     in:
-      input_seqs: input_seqs
+      input_seqs: demultiplex/demux_seqs
     out: [out_rep_seqs, out_table]
 
   feat_tbl_summarize:
