@@ -25,12 +25,12 @@ ENV MPA_DIR /opt/metaphlan2/biobakery-metaphlan2
 
 # Drop the tutorial data in a location where attendees can get to it
 RUN mkdir -p /tutorials/metaphlan2/input
-wget -P /tutorials/metaphlan2/input https://bitbucket.org/biobakery/biobakery/raw/tip/demos/biobakery_demos/data/metaphlan2/input/SRS014459-Stool.fasta.gz
-wget -P /tutorials/metaphlan2/input https://bitbucket.org/biobakery/biobakery/raw/tip/demos/biobakery_demos/data/metaphlan2/input/SRS014464-Anterior_nares.fasta.gz
-wget -P /tutorials/metaphlan2/input https://bitbucket.org/biobakery/biobakery/raw/tip/demos/biobakery_demos/data/metaphlan2/input/SRS014470-Tongue_dorsum.fasta.gz
-wget -P /tutorials/metaphlan2/input https://bitbucket.org/biobakery/biobakery/raw/tip/demos/biobakery_demos/data/metaphlan2/input/SRS014472-Buccal_mucosa.fasta.gz
-wget -P /tutorials/metaphlan2/input https://bitbucket.org/biobakery/biobakery/raw/tip/demos/biobakery_demos/data/metaphlan2/input/SRS014476-Supragingival_plaque.fasta.gz
-wget -P /tutorials/metaphlan2/input https://bitbucket.org/biobakery/biobakery/raw/tip/demos/biobakery_demos/data/metaphlan2/input/SRS014494-Posterior_fornix.fasta.gz
+RUN wget -P /tutorials/metaphlan2/input https://bitbucket.org/biobakery/biobakery/raw/tip/demos/biobakery_demos/data/metaphlan2/input/SRS014459-Stool.fasta.gz
+RUN wget -P /tutorials/metaphlan2/input https://bitbucket.org/biobakery/biobakery/raw/tip/demos/biobakery_demos/data/metaphlan2/input/SRS014464-Anterior_nares.fasta.gz
+RUN wget -P /tutorials/metaphlan2/input https://bitbucket.org/biobakery/biobakery/raw/tip/demos/biobakery_demos/data/metaphlan2/input/SRS014470-Tongue_dorsum.fasta.gz
+RUN wget -P /tutorials/metaphlan2/input https://bitbucket.org/biobakery/biobakery/raw/tip/demos/biobakery_demos/data/metaphlan2/input/SRS014472-Buccal_mucosa.fasta.gz
+RUN wget -P /tutorials/metaphlan2/input https://bitbucket.org/biobakery/biobakery/raw/tip/demos/biobakery_demos/data/metaphlan2/input/SRS014476-Supragingival_plaque.fasta.gz
+RUN wget -P /tutorials/metaphlan2/input https://bitbucket.org/biobakery/biobakery/raw/tip/demos/biobakery_demos/data/metaphlan2/input/SRS014494-Posterior_fornix.fasta.gz
 
 #################
 ## StrainPhlAn ##
@@ -71,14 +71,16 @@ ENV PATH $PATH:/opt/graphlan/
 
 RUN hg clone https://bitbucket.org/CibioCM/panphlan /opt/panphlan
 
-RUN wget -O /opt/bowtie2-2.3.2-linux-x86_64.zip https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.3.2/bowtie2-2.3.2-linux-x86_64.zip/download
-RUN unzip -d /opt/ /opt/bowtie2-2.3.2-linux-x86_64.zip
-RUN rm /opt/bowtie2-2.3.2-linux-x86_64.zip
-ENV PATH /opt/bowtie2-2.3.2:$PATH
-ENV BT2_HOME=/opt/bowtie2-2.3.2
+# Need libtbb installed for our bowtie2 usage
+RUN apt-get install libtbb2
+
+# We install bowtie2-legacy since normal bowtie2 doesn't want to play nicely.
+RUN wget -O /opt/bowtie2-2.3.2-legacy-linux-x86_64.zip https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.3.2/bowtie2-2.3.2-legacy-linux-x86_64.zip/download
+RUN unzip -d /opt/ /opt/bowtie2-2.3.2-legacy-linux-x86_64.zip
+RUN rm /opt/bowtie2-2.3.2-legacy-linux-x86_64.zip
+ENV PATH /opt/bowtie2-2.3.2-legacy:$PATH
+ENV BT2_HOME=/opt/bowtie2-2.3.2-legacy
 
 RUN mkdir /opt/panphlan/indexes
 ENV BOWTIE2_INDEXES=/opt/panphlan/indexes/
-
-
 
