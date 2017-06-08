@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [[ "$(docker images -q carze/chiron-phlan 2> /dev/null)" == "" ]]; then
+if [[ "$(docker images -q umigs/chiron-phlan 2> /dev/null)" == "" ]]; then
   echo "Docker image for -PhlAn suite not found.  Downloading first ..."
 fi
 

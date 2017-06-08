@@ -1,4 +1,4 @@
-FROM carze/chiron-core:latest
+FROM umigs/chiron-core:latest
 
 #################
 ## MetaPhlAn 2 ##
