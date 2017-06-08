@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [[ "$(docker images -q umigs/chiron-metaviz 2> /dev/null)" == "" ]]; then
+  echo "Docker image for MetaViz not found.  Downloading first ..."
+fi
+
+# metavizr
+docker run -d -p 8787:8787 -p 7123:7123 -t umigs/chiron-metaviz
