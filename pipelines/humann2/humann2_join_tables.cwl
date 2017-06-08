@@ -18,7 +18,7 @@ inputs:
     type: string
   file_name:
     inputBinding:
-      prefix: --file-name
+      prefix: --file_name
     type: string
 outputs:
   out_tsv:
