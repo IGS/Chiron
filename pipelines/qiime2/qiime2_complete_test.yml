@@ -1,12 +1,6 @@
-staging_dir:
-  class: Directory
-  location: ./emp-single-end-sequences
-barcode_file:
+input_seqs:
   class: File
-  location: ./emp-single-end-sequences/barcodes.fastq.gz
-sequence_file:
-  class: File
-  location: ./emp-single-end-sequences/sequences.fastq.gz
+  location: ./demux.qza
 metadata_file:
   class: File
   location: ./sample-metadata.tsv

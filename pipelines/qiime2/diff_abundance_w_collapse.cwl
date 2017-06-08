@@ -102,7 +102,7 @@ steps:
           inputBinding:
             prefix: --o-visualization
           type: string
-          default: ancom.qcv
+          default: ancom.qzv
       outputs:
         out_visual:
           type: File

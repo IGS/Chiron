@@ -43,7 +43,7 @@ inputs:
   top_strata:
     inputBinding:
       prefix: --top-strata
-    type: int
+    type: int?
 outputs:
   out_png:
     type: File

@@ -37,7 +37,7 @@ steps:
           inputBinding:
             prefix: --type
           type: string
-          default: EMPSingleEndSequences
+          default: "EMPSingleEndSequences"
         input_path:
           inputBinding:
             prefix: --input-path
@@ -75,7 +75,7 @@ steps:
           inputBinding:
             prefix: --m-barcodes-category
           type: string
-          default: BarcodeSequence
+          default: "BarcodeSequence"
         output_file:
           inputBinding:
             prefix: --o-per-sample-sequences
@@ -111,6 +111,7 @@ steps:
           type: File
           outputBinding:
             glob: $(inputs.output_file)
+      arguments: ["--verbose"]
     in:
       input_data: demux_emp_single/outfile
     out: [outfile]

@@ -36,6 +36,7 @@ This will download the Docker image if you don't already have it, then drop you 
 
 # Existing tools/Docker images:
 
+- umigs/chiron-core - Includes the HMP Client and common utilities
 - umigs/chiron-humann2
 - umigs/chiron-metacompass
 - umigs/chiron-metaviz

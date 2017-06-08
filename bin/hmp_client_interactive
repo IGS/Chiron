@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [[ "$(docker images -q umigs/chiron-core 2> /dev/null)" == "" ]]; then
+  echo "Docker image for the HMP Client not found.  Downloading first ..."
+fi
+
+docker run -i -t umigs/chiron-core /bin/bash

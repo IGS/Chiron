@@ -2,3 +2,5 @@ fasta_input:
   class: File
   path: ./fasta/13530241_SF05.fasta.gz
 input_type: "multifasta"
+bowtie2_out: "1350241_SF05_bowtie2.txt"
+sam_out: "1350241_SF05.sam.bz2"

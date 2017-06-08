@@ -63,7 +63,7 @@ steps:
           inputBinding:
             prefix: --i-demultiplexed-seqs
           type: File
-        trim_length
+        trim_length:
           inputBinding:
             prefix: --p-trim-length
           type: int

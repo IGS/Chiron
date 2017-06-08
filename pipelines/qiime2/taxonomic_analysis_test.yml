@@ -1,0 +1,12 @@
+rep_seqs:
+  class: File
+  path: ./rep-seqs.qza
+classifier:
+  class: File
+  path: ./gg-13-8-99-515-806-nb-classifier.qza
+metadata_file:
+  class: File
+  path: ./sample-metadata.tsv
+input_table:
+  class: File
+  path: ./table.qza

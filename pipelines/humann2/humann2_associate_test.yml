@@ -1,0 +1,7 @@
+input_pcl:
+  class: File
+  path: ./hmp_pathabund.pcl
+output_stats: "./stats.txt"
+last_metadatum: "STSite"
+focal_metadatum: "STSite"
+focal_type: "categorical"
