@@ -72,7 +72,7 @@ ENV PATH $PATH:/opt/graphlan/
 RUN hg clone https://bitbucket.org/CibioCM/panphlan /opt/panphlan
 
 # Need libtbb installed for our bowtie2 usage
-RUN apt-get install libtbb2
+RUN apt-get install -y libtbb2
 
 # We install bowtie2-legacy since normal bowtie2 doesn't want to play nicely.
 RUN wget -O /opt/bowtie2-2.3.2-legacy-linux-x86_64.zip https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.3.2/bowtie2-2.3.2-legacy-linux-x86_64.zip/download
