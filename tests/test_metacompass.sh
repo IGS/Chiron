@@ -1,3 +1,5 @@
+cd /opt/MetaCompass
+
 wget ftp://public-ftp.hmpdacc.org/Illumina/posterior_fornix/SRS044742.tar.bz2
 
 tar -xjvf SRS044742.tar.bz2
