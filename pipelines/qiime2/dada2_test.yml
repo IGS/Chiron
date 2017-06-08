@@ -1,0 +1,9 @@
+input_seqs:
+  class: File
+  path: ./demux.qza
+trim_left: 0
+trim_right: 120
+#rep_seqs: "./rep-seqs-dada2.qza"
+rep_seqs: "./rep-seqs.qza"
+#table: "./table-dada2.qza"
+table: "./table.qza"

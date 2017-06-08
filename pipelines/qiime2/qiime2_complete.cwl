@@ -7,7 +7,8 @@ requirements:
   - class: DockerRequirement
     dockerPull: umigs/chiron-qiime2
   - class: SubworkflowFeatureRequirement
-  - class: StepInputExpressionRequirement
+#  - class: StepInputExpressionRequirement
+  - class: ScatterFeatureRequirement
 
 inputs:
   staging_dir:
