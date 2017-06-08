@@ -1,0 +1,3 @@
+rep_seqs:
+  class: File
+  path: ./rep-seqs.qza
