@@ -1,0 +1,6 @@
+input_tsv:
+  class: File
+  path: ./demo_fastq/demo_genefamilies.tsv
+output_tsv: "./demo_fastq/demo_genefamilies_cpm.tsv"
+units: "cpm"
+update_snames: true

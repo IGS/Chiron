@@ -24,8 +24,7 @@ inputs:
   update_snames
     inputBinding:
       prefix: --update-snames
-    type: boolean
-  default: true
+    type: boolean?
 outputs:
   out_tsv:
     type: File

@@ -16,7 +16,7 @@ inputs:
     inputBinding:
       prefix: --output
     type: string
-  name:
+  file_name:
     inputBinding:
       prefix: --file-name
     type: string
