@@ -4,4 +4,8 @@ if [[ "$(docker images -q umigs/chiron-phlan 2> /dev/null)" == "" ]]; then
   echo "Docker image for -PhlAn suite not found.  Downloading first ..."
 fi
 
-docker run -i -t umigs/chiron-phlan /bin/bash
+if [ ! -d "${HOME}/chiron/phlan" ]; then
+    mkdir -p ${HOME}/chiron/phlan
+fi
+
+docker run -v ${HOME}/chiron/phlan:/output/phlan_tools -i -t carze/chiron-phlan /bin/bash

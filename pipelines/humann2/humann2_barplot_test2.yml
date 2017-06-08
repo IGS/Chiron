@@ -3,6 +3,6 @@ input_pcl:
   path: ./hmp_pathabund.pcl
 output_png: "./plot2.png"
 focal_feature: "METSYN-PWY"
-foral_metadatum: "STSite"
+focal_metadatum: "STSite"
 last_metadatum: "STSite"
 sort: ["sum"]

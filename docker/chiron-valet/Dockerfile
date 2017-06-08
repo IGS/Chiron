@@ -7,10 +7,9 @@ FROM umigs/chiron-core:latest
 RUN apt-get install -y bedtools r-base r-base-dev libfile-copy-link-perl
 
 RUN wget -O /opt/bowtie2-2.3.2-linux-x86_64.zip https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.3.2/bowtie2-2.3.2-linux-x86_64.zip/download
-RUN unzip -d /opt/bowtie2 /opt/bowtie2-2.3.2-linux-x86_64.zip
+RUN unzip -d /opt /opt/bowtie2-2.3.2-linux-x86_64.zip
 RUN rm /opt/bowtie2-2.3.2-linux-x86_64.zip
-ENV PATH /opt/bowtie2:$PATH
-ENV BT2_HOME=/opt/bowtie2/
+ENV PATH /opt/bowtie2-2.3.2:$PATH
 
 RUN wget -O /tmp/samtools-1.4.1.tar.bz2 https://github.com/samtools/samtools/releases/download/1.4.1/samtools-1.4.1.tar.bz2
 RUN tar -xjf /tmp/samtools-1.4.1.tar.bz2 -C /tmp/

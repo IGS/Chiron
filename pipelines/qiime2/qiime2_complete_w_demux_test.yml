@@ -1,0 +1,17 @@
+staging_dir:
+  class: Directory
+  location: ./emp-single-end-sequences
+barcode_file:
+  class: File
+  location: ./emp-single-end-sequences/barcodes.fastq.gz
+sequence_file:
+  class: File
+  location: ./emp-single-end-sequences/sequences.fastq.gz
+metadata_file:
+  class: File
+  location: ./sample-metadata.tsv
+training_classifier:
+  class: File
+  location: ./gg-13-8-99-515-806-nb-classifier.qza
+metadata_category_ancom: "BodySite"
+collapse_level: 2
