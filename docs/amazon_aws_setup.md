@@ -265,6 +265,8 @@ On the “Step 2” screen, after clicking “**Launch**”, one must select an 
 <img src="https://github.com/IGS/Chiron/raw/master/docs/images/attach_volume.png" width="700">
 </p>
 
+[top](#top)
+
 ## <a name="instance_connect"></a> Connecting to Instance
 
 1. Launch your “Secure Shell” Google Chrome application. The app launcher is typically at the upper right of Chrome's browser window.
@@ -367,5 +369,7 @@ Remove the 500GB volume that was created.
 
 - [Official Docker Installation](https://docs.docker.com/engine/installation/)
 - [Secure Shell Chrome App](https://chrome.google.com/webstore/detail/secure-shell/pnhechapfaindjhompbnflcldabbghjo?hl=en)
+- [Amazon Key Pairs](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair)
+- [Amazon Security Groups](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html)
 
 [top](#top)
