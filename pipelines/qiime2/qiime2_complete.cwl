@@ -14,7 +14,7 @@ requirements:
 inputs:
   input_seqs:
     label: Sequences that have already been demultiplexed
-    type: File
+    type: File[]
   metadata_file:
     type: File
   metadata_category:
@@ -46,40 +46,40 @@ inputs:
 outputs:
 # FeatureTable and FeatureData outputs
   feat_table_visual:
-    type: File
+    type: File[]
     outputSource: feat_tbl_summarize/out_table_visual
   feat_seqs_visual:
-    type: File
+    type: File[]
     outputSource: feat_tbl_tabulate/out_seqs_visual
 # Alpha/Beta diversity output
   alpha_faith_visual:
-    type: File
+    type: File[]
     outputSource: alpha_group_significance_faith/out_visual
   alpha_evenness_visual:
-    type: File
+    type: File[]
     outputSource: alpha_group_significance_evenness/out_visual
   beta_visual:
-    type: File
+    type: File[]
     outputSource: beta_group_significance/out_visual
   emperor_unweighted_visual:
-    type: File
+    type: File[]
     outputSource: PCoA_plot_unweighted/pcoa_visual
   emperor_bray_visual:
-    type: File
+    type: File[]
     outputSource: PCoA_plot_bray/pcoa_visual
 # Taxonomic analysis outputs
   taxa_visual:
-    type: File
+    type: File[]
     outputSource: taxonomic_analysis/taxa_visual
   taxa_barplots:
-    type: File
+    type: File[]
     outputSource: taxonomic_analysis/barplots
 # Differential abundance outputs
   diff_abundance_visual:
-    type: File
+    type: File[]
     outputSource: differential_abundance/feat_visual
   collapsed_diff_abundance_visual:
-    type: File
+    type: File[]
     outputSource: collapsed_differential_abundance/feat_visual
 
 steps:
@@ -91,6 +91,7 @@ steps:
       trim_left: trim_left
       trunc_len: trunc_len
     out: [out_rep_seqs, out_table]
+    scatter: [input_seqs]
 
   feat_tbl_summarize:
     run: feat_tbl_summarize.cwl
@@ -98,18 +99,21 @@ steps:
       input_table: dada2/out_table
       metadata_file: metadata_file
     out: [out_table_visual]
+    scatter: [input_table]
 
   feat_tbl_tabulate:
     run: feat_tbl_tabulate_seqs.cwl
     in:
       rep_seqs: dada2/out_rep_seqs
     out: [out_seqs_visual]
+    scatter: [rep_seqs]
 
   phylogenetic_analysis:
     run: phylogenetic_analysis.cwl
     in:
       rep_seqs: dada2/out_rep_seqs
     out: [rooted_tree]
+    scatter: [rep_seqs]
 
   diversity_core_metrics:
     run: diversity_core_metrics.cwl
@@ -118,6 +122,8 @@ steps:
       input_table: dada2/out_table
       sampling_depth: sampling_depth
     out: [out_dir]
+    scatter: [input_tree, input_table]
+    scatterMethod: dotproduct
 
   alpha_group_significance_faith:
     run: alpha_significance.cwl
@@ -130,6 +136,7 @@ steps:
         source: diversity_core_metrics/out_dir
         valueFrom: $(runtime.outdir + '/faith-pd-group-significance.qzv')
     out: [out_visual]
+    scatter: [input_dir]
 
   alpha_group_significance_evenness:
     run: alpha_significance.cwl
@@ -142,6 +149,7 @@ steps:
         source: diversity_core_metrics/out_dir
         valueFrom: $(runtime.outdir + '/evenness-group-significance.qzv')
     out: [out_visual]
+    scatter: [input_dir]
 
 # NOTE: Tutorial calls twice for separate metadata categories.  Only performing once
   beta_group_significance:
@@ -156,6 +164,7 @@ steps:
         source: diversity_core_metrics/out_dir
         valueFrom: $('unweighted-unifrac-' + inputs.metadata_category + '-significance.qzv')
     out: [out_visual]
+    scatter: [input_dir]
 
   PCoA_plot_unweighted:
     run: emperor_plot.cwl
@@ -169,6 +178,7 @@ steps:
         source: diversity_core_metrics/out_dir
         valueFrom: $(runtime.outdir + '/unweighted-unifrac-emperor.qzv')
     out: [pcoa_visual]
+    scatter: [input_dir]
 
   PCoA_plot_bray:
     run: emperor_plot.cwl
@@ -182,6 +192,7 @@ steps:
         source: diversity_core_metrics/out_dir
         valueFrom: $(runtime.outdir + '/bray-curtis-emperor.qzv')
     out: [pcoa_visual]
+    scatter: [input_dir]
 
   taxonomic_analysis:
     run: taxonomic_analysis.cwl
@@ -191,6 +202,8 @@ steps:
       metadata_file: metadata_file
       input_table: dada2/out_table
     out: [taxa_visual, barplots, taxonomy]
+    scatter: [rep_seqs, input_table]
+    scatterMethod: dotproduct
 
   differential_abundance:
     run: diff_abundance.cwl
@@ -199,6 +212,7 @@ steps:
       metadata_category: metadata_category
       input_table: dada2/out_table
     out: [feat_visual]
+    scatter: [input_table]
 
   collapsed_differential_abundance:
     run: diff_abundance_w_collapse.cwl
@@ -209,3 +223,5 @@ steps:
       collapse_level: collapse_level
       taxonomy_file: taxonomic_analysis/taxonomy
     out: [feat_visual]
+    scatter: [input_table, taxonomy_file]
+    scatterMethod: dotproduct
