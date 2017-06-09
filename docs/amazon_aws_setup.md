@@ -23,11 +23,13 @@ Here we go through the various steps to quickly create a Docker enabled virtual 
 ## <a name="login"></a> Logging into Amazon AWS
 
 * You should already have an Amazon AWS account if you followed with workshop preparations
-* If not, browse to [aws.amazon.com)(https://aws.amazon.com), click the button at the upper right, and follow the directions
+* If not, browse to [aws.amazon.com](https://aws.amazon.com), click the button at the upper right, and follow the directions
 
 <p align="center">
 <img src="https://github.com/IGS/Chiron/raw/master/docs/images/create_account.png" width="500">
 </p>
+
+[top](#top)
 
 ## <a name="regions"></a> Regions
 
@@ -84,6 +86,8 @@ You should now have a "**cloud_workshop**" key pair listed in the "Key Pairs" se
 <img src="https://github.com/IGS/Chiron/raw/master/docs/images/keys3.png" width="500">
 </p>
 
+[top](#top)
+
 ## <a name="security_groups"></a> Security Groups
 
 Amazon locks everything down tightly. We have to create rules to allow traffic to our resources. These rules are expressed with “Security Groups”.
@@ -104,6 +108,8 @@ Amazon locks everything down tightly. We have to create rules to allow traffic t
 <img src="https://github.com/IGS/Chiron/raw/master/docs/images/security1.png" width="500">
 </p>
 
+[top](#top)
+
 ## <a name="volumes"></a> Volumes
 
 This workshop will require a considerable amount of storage, which exceeds the amount of storage that is commonly available to virtual machines on their own.
@@ -115,7 +121,7 @@ To address this, we will create a “Volume” to greatly expand the amount of d
 2. Click on the “**Create Volume**” button
 
 <p align="center">
-<img src="https://github.com/IGS/Chiron/raw/master/docs/images/volumes1.png" width="500">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/volumes1.png" width="700">
 </p>
 
 3. Make the following selections: “**Throughput optimized**”, **500** GB in size, and “**us-east-1d**” for the Availability Zone.
@@ -127,7 +133,7 @@ To address this, we will create a “Volume” to greatly expand the amount of d
 6. Verify that the volume is in the correct availability zone and that it has the correct size.
 
 <p align="center">
-<img src="https://github.com/IGS/Chiron/raw/master/docs/images/volumes2.png" width="500">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/volumes2.png" width="700">
 </p>
 
 ## <a name="launch"></a> Launching an AMI (Amazon Machine Image)
@@ -186,7 +192,9 @@ On the “Step 2” screen, after clicking “**Launch**”, one must select an 
 
 14. Click “**Review and Launch**”.
 
-![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/launch6.png "launch6")
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/launch6.png" width="500">
+</p>
 
 15. Select “**Choose an existing key pair**”. It should be the default.
 
@@ -194,13 +202,17 @@ On the “Step 2” screen, after clicking “**Launch**”, one must select an 
 
 17. Acknowledge that you have the private key file (which you downloaded earlier) by checking the checkbox.
 
-![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/launch7.png "launch7")
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/launch7.png" width="500">
+</p>
 
 18. Verify the details of the running instance match up with the selections you have made.
 
 19. Take special note of the “**IPv4 Public IP**” internet address. We will need this later in order to connect to our cloud machine.
 
-![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/launch8.png "launch8")
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/launch8.png" width="500">
+</p>
 
 ## <a name="attach_volume"></a> Attaching Volume to Instance
 
@@ -212,7 +224,9 @@ On the “Step 2” screen, after clicking “**Launch**”, one must select an 
 
 4. Click “**Attach**”. After a brief period, the volume state will change to indicate that it is “in-use”.
 
-![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/attach_volume.png "attach_volume")
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/attach_volume.png" width="500">
+</p>
 
 ## <a name="instance_connect"></a> Connecting to Instance
 
@@ -226,13 +240,17 @@ On the “Step 2” screen, after clicking “**Launch**”, one must select an 
 
 5. For identity, click the “**Import...**” button and browse to the “**cloud_workshop**” file you recently copied from your .pem file. The "Identity" field should take on the value of "**cloud_workshop**".
 
-![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/connect1.png "connect1")
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/connect1.png" width="700">
+</p>
 
 6. After configuring the connection in “*Secure Shell*”, click the “**Connect**” button at the lower right.
 
 7. The connection should be established. Once established, you will have a working terminal that looks similar to:
 
-![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/connect2.png "connect2")
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/connect2.png" width="700">
+</p>
 
 [top](#top)
 
@@ -287,6 +305,8 @@ Filesystem Size Used Avail Use% Mounted on
 ```
 # /etc/init.d/docker start
 ```
+
+[top](#top)
 
 ## <a name="tearing_down"></a> Tearing Down
 
