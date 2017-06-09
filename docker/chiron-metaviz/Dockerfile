@@ -19,10 +19,10 @@ RUN apt-get install -y apt-transport-https
 RUN echo "deb http://cran.revolutionanalytics.com/bin/linux/ubuntu yakkety/" >> /etc/apt/sources.list
 RUN apt-get update
 RUN apt-get install -y r-base r-base-dev --allow-unauthenticated
-RUN apt-get install -y libcurl4-openssl-dev libxml2-dev libssl-dev
+RUN apt-get install -y libcurl4-openssl-dev libxml2-dev libssl-dev git
 RUN Rscript setup.R
 
-RUN apt-get install -y -q gdebi-core libapparmor1 supervisor wget 
+RUN apt-get install -y -q gdebi-core libapparmor1 supervisor wget vim
 RUN wget https://download2.rstudio.org/rstudio-server-1.0.143-amd64.deb
 #This is from https://github.com/mgymrek/docker-rstudio-server/blob/master/Dockerfile
 RUN gdebi -n rstudio-server-1.0.143-amd64.deb
@@ -32,6 +32,10 @@ RUN usermod -a -G root metaviz
 RUN chmod -R 777 /usr/local/lib/R/
 RUN mkdir -p /var/log/supervisor
 ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+RUN git config --global user.name "metaviz"
+RUN git config --global user.email "metaviz@metaviz.org"
+RUN wget -O ~/workshopData "https://github.com/jmwagner/Chiron/blob/master/docker/chiron-metaviz/workshopData?raw=true"
+RUN chown metaviz ~/workshopData && chgrp metaviz ~/workshopData
 
 # neo4j instance
 RUN wget -O neo4j.tar.gz "https://neo4j.com/artifact.php?name=neo4j-community-3.2.0-unix.tar.gz"
@@ -52,10 +56,10 @@ RUN touch /graph-api/metaviz-data-provider-hmp_workshop/credential.py && echo "n
 # metaviz ui
 RUN wget -O metaviz-ui.zip "https://github.com/epiviz/epiviz/archive/metaviz-4.1.zip"
 RUN unzip -d /graph-ui metaviz-ui.zip
-RUN echo 'epiviz.Config.SETTINGS.dataServerLocation="http://metaviz.cbcb.umd.edu/data/",epiviz.Config.SETTINGS.dataProviders=[["epiviz.data.EpivizApiDataProvider","mouseTest","http://localhost:5000/api",[],3,{4:epiviz.ui.charts.tree.NodeSelectionType.NODE}]];' > /graph-ui/epiviz-metaviz-4.1/site-settings.js
+RUN echo 'epiviz.Config.SETTINGS.dataServerLocation="http://metaviz.cbcb.umd.edu/data/",epiviz.Config.SETTINGS.dataProviders=[["epiviz.data.EpivizApiDataProvider","ihmp_data","http://localhost:5000/api",[],3,{4:epiviz.ui.charts.tree.NodeSelectionType.NODE}]];' > /graph-ui/epiviz-metaviz-4.1/site-settings.js
 RUN rm metaviz-ui.zip
 
-EXPOSE 8888 7474 5000 8787 7123
+EXPOSE 8888 5000 8787 7123
 
 #This is from https://github.com/mgymrek/docker-rstudio-server/blob/master/Dockerfile
 CMD ["/usr/bin/supervisord"]
