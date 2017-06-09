@@ -5,6 +5,7 @@
 ## Contents
 
 * [Logging into Amazon AWS](#login)
+* [Applying the Workshop Credit](#credit)
 * [Regions](#regions)
 * [EC2 (Elastic Compute Cloud) Environment](#ec2)
 * [Key Pairs](#keypairs)
@@ -27,6 +28,38 @@ Here we go through the various steps to quickly create a Docker enabled virtual 
 
 <p align="center">
 <img src="https://github.com/IGS/Chiron/raw/master/docs/images/create_account.png" width="500">
+</p>
+
+[top](#top)
+
+## <a name="credit"></a> Applying the Workshop Credit
+
+You should have an Amazon credit code that has been given to you by virtue of attending this workshop. The credit is worth $50.00.
+
+1. To apply the credit, navigate to the upper right, where you find your username, and select "**My Billing Dashboard**".
+
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/credit1.png" width="500">
+</p>
+
+2. On the navigation bar at left, select click the "**Credits**" link.
+
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/credit2.png">
+</p>
+
+3. Enter your code, and complete the security captcha (solve the obscured text to prove that you're not a bot).
+
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/credit3.png">
+</p>
+
+4. Click the "**Redeem**" button.
+
+5. Verify that the credit has been applied in the amount of $50.00.
+
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/credit4.png">
 </p>
 
 [top](#top)
