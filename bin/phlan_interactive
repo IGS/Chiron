@@ -38,4 +38,3 @@ fi
 
 echo "Saving files to /output in this Docker image will make them available in ${LOCAL_BASE} outside of it."
 docker run --rm -v ${LOCAL_BASE}:/output -i -t umigs/chiron-phlan /bin/bash
-

@@ -1,6 +1,6 @@
 input_seqs:
-  class: File
-  location: ./test_input/demux.qza
+  - class: File
+    location: ./test_input/demux.qza
 metadata_file:
   class: File
   location: ./test_input/sample-metadata.tsv
