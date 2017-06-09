@@ -39,7 +39,7 @@ You should have an Amazon credit code that has been given to you by virtue of at
 1. To apply the credit, navigate to the upper right, where you find your username, and select "**My Billing Dashboard**".
 
 <p align="center">
-<img src="https://github.com/IGS/Chiron/raw/master/docs/images/credit1.png" width="500">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/credit1.png">
 </p>
 
 2. On the navigation bar at left, select click the "**Credits**" link.
