@@ -25,7 +25,9 @@ Here we go through the various steps to quickly create a Docker enabled virtual 
 * You should already have an Amazon AWS account if you followed with workshop preparations
 * If not, browse to [aws.amazon.com)(https://aws.amazon.com), click the button at the upper right, and follow the directions
 
-![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/login.png "")
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/create_account.png" width="500">
+</p>
 
 ## <a name="regions"></a> Regions
 
@@ -34,19 +36,25 @@ Here we go through the various steps to quickly create a Docker enabled virtual 
 * In this workshop, we will work exclusively with the **US-East (N. Virginia)** region.
 * Please switch to it if you find yourself in a different region.
 
-![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/regions.png "")
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/regions.png" width="500">
+</p>
 
 ## <a name="ec2"></a> EC2 (Elastic Compute Cloud) Environment
 
 Back on the AWS dashboard, click on the "**EC2**"" link under the “**Compute**” section.
 
-![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/ec2.png "")
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/ec2.png" width="500">
+</p>
 
 ## <a name="keypairs"></a>Key Pairs
 
 Click on the "**Key Pairs**" link
 
-![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/keys1.png "keys1")
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/keys1.png" width="500">
+</p>
 
 Most interactions with Amazon AWS resources will involve key-based encryption for security. Amazon EC2 will work with SSH generated keys, but for this workshop, we will use a key pair created via Amazon AWS's web console.
 
@@ -54,7 +62,9 @@ Most interactions with Amazon AWS resources will involve key-based encryption fo
 
 2. Accept the download and save the .pem file.
 
-![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/keys2.png "keys2")
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/keys2.png" width="500">
+</p>
 
 ### Make copies of the the .pem file for use by "Secure Shell"
 
@@ -64,13 +74,15 @@ Most interactions with Amazon AWS resources will involve key-based encryption fo
 
 * Make a note of where these files are located on your laptop’s filesystem
 
-* This is necessary because the “Secure Shell” Chrome app doesn’t work well, with just a PEM file, and is looking for a pair of files.
+* This is necessary because the “Secure Shell” Chrome app doesn’t work well with just a PEM file, and is looking for a pair of files (public & private key files).
 
 * OSX/Linux users intending to use SSH can probably skip this step because SSH's "-i" flag can work with .pem files.
 
 You should now have a "**cloud_workshop**" key pair listed in the "Key Pairs" section
 
-![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/keys3.png "keys3")
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/keys3.png" width="500">
+</p>
 
 ## <a name="security_groups"></a> Security Groups
 
@@ -88,7 +100,9 @@ Amazon locks everything down tightly. We have to create rules to allow traffic t
     * For SSH
     * For “Custom TCP” port **8888**. Sources should be set to “**Anywhere**”.
 
-![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/security1.png "security1")
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/security1.png" width="500">
+</p>
 
 ## <a name="volumes"></a> Volumes
 
@@ -100,7 +114,9 @@ To address this, we will create a “Volume” to greatly expand the amount of d
 
 2. Click on the “**Create Volume**” button
 
-![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/volumes1.png "volumes1")
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/volumes1.png" width="500">
+</p>
 
 3. Make the following selections: “**Throughput optimized**”, **500** GB in size, and “**us-east-1d**” for the Availability Zone.
 
@@ -110,7 +126,9 @@ To address this, we will create a “Volume” to greatly expand the amount of d
 
 6. Verify that the volume is in the correct availability zone and that it has the correct size.
 
-![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/volumes2.png "volumes2")
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/volumes2.png" width="500">
+</p>
 
 ## <a name="launch"></a> Launching an AMI (Amazon Machine Image)
 
@@ -120,13 +138,17 @@ Now we will launch an Amazon Machine Image (AMI)
 
 2. Type “**chiron**” into the search box at the top of the dashboard.
 
-![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/launch1.png "launch1")
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/launch1.png" width="500">
+</p>
 
 3. After entering “**chiron**” into the search box, a single AMI result should appear.
 
 4. The AMI that is found should have an ID of: **ami-21530437**.
 
-![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/launch2.png "launch2")
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/launch2.png" width="500">
+</p>
 
 The **chiron** AMI is a custom image created for the workshop and has Docker pre-installed on it for your use.
 
@@ -134,13 +156,17 @@ The **chiron** AMI is a custom image created for the workshop and has Docker pre
 
 6. Click the “**Launch**” button at the upper left
 
-![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/launch3.png "launch3")
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/launch3.png" width="500">
+</p>
 
 7. Click the “**Edit security groups**” link on the right side of the screen.
 
 8. Choose “**Select an existing security group**” and check the previously created “**cloud_workshop_sg**” row as shown.
 
-![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/launch4.png "launch4")
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/launch4.png" width="500">
+</p>
 
 9. Click “**Review and Launch**”.
 
@@ -150,7 +176,9 @@ On the “Step 2” screen, after clicking “**Launch**”, one must select an 
 
 11. Click the “**Review and Launch**” button.
 
-![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/launch5.png "launch5")
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/launch5.png" width="500">
+</p>
 
 12. Click the “**Edit security groups**” link on the right side of the screen.
 
