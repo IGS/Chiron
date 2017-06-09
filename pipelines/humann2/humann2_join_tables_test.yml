@@ -1,0 +1,5 @@
+input_dir:
+  class: Directory
+  path: ./763577454
+output_tsv: "./763577454_genefamilies.tsv"
+file_name: "genefamilies"

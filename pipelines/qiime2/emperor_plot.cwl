@@ -8,15 +8,15 @@ hints:
     dockerPull: umigs/chiron-qiime2
 
 inputs:
-  input_pcoa:
-    inputBinding:
-      prefix: --i-pcoa
-    type: File
+  input_dir:
+    type: Directory
+  pcoa_file_base:
+    type: string
   metadata_file:
     inputBinding:
       prefix: --m-metadata-file
     type: File
-  custom-axis:
+  custom_axis:
     label: Name for custom axis label
     inputBinding:
       prefix: --p-custom-axis
@@ -25,11 +25,14 @@ inputs:
     inputBinding:
       prefix: --o-visualization
     type: string
-    default: $(inputs.input_pcoa.dirname + '/' + inputs.input_pcoa.nameroot + 'emperor.qzv')
 outputs:
   pcoa_visual:
     type: File
     outputBinding:
       glob: $(inputs.out_visualization)
+
+arguments:
+  - valueFrom: $(inputs.input_dir.path + '/' + inputs.pcoa_file_base)
+    prefix: --i-pcoa
 
 baseCommand: ["qiime", "emperor", "plot"]

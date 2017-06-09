@@ -1,0 +1,4 @@
+rep_seqs:
+  class: File
+  path: ./rep-seqs.qza
+seqs_visualization: "./rep-seqs.qzv"

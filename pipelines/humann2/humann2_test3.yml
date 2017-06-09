@@ -1,0 +1,5 @@
+input_file:
+  class: File
+  path: ./demo.m8
+output_dir: "./demo_m8"
+gap_fill: "on"

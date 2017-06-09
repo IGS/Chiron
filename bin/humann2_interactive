@@ -4,4 +4,10 @@ if [[ "$(docker images -q umigs/chiron-humann2 2> /dev/null)" == "" ]]; then
   echo "Docker image for HUMAnN2 not found.  Downloading first ..."
 fi
 
-docker run -i -t umigs/chiron-humann2 /bin/bash
+if [ ! -d "${HOME}/chiron/humann2" ]; then
+    echo "Creating local output directory: ${HOME}/chiron/humann2"
+    mkdir -p ${HOME}/chiron/humann2
+fi
+
+docker run -v ${HOME}/chiron/humann2:/output -i -t umigs/chiron-humann2 /bin/bash
+

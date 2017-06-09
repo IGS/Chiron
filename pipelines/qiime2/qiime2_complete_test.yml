@@ -1,17 +1,15 @@
-staging_dir:
-  class: Directory
-  location: ./emp-single-end-sequences
-barcode_file:
-  class: File
-  location: ./emp-single-end-sequences/barcodes.fastq.gz
-sequence_file:
-  class: File
-  location: ./emp-single-end-sequences/sequences.fastq.gz
+input_seqs:
+  - class: File
+    location: ./test_input/demux.qza
 metadata_file:
   class: File
-  location: ./sample-metadata.tsv
+  location: ./test_input/sample-metadata.tsv
 training_classifier:
   class: File
-  location: ./gg-13-8-99-515-806-nb-classifier.qza
-metadata_category_ancom: "BodySite"
+  location: ./test_input/gg-13-8-99-515-806-nb-classifier.qza
+metadata_category: "BodySite"
 collapse_level: 2
+custom_axis: "DaysSinceExperimentStart"
+sampling_depth: 1080
+trim_left: 0
+trunc_len: 120

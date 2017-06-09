@@ -4,6 +4,12 @@ if [[ "$(docker images -q umigs/chiron-metaviz 2> /dev/null)" == "" ]]; then
   echo "Docker image for MetaViz not found.  Downloading first ..."
 fi
 
+if [ ! -d "${HOME}/chiron/metaviz" ]; then
+    echo "Creating local output directory: ${HOME}/chiron/metaviz"
+    mkdir -p ${HOME}/chiron/metaviz
+fi
+
+
 ipaddr=$(curl http://169.254.169.254/latest/meta-data/public-ipv4)
 
-docker run -i -t -p 8888:8888 -p 5000:5000 -e HOST_IP=$ipaddr umigs/chiron-metaviz bash
+docker run -v ${HOME}/chiron/metaviz:/output -i -t -p 8888:8888 -p 5000:5000 -e HOST_IP=$ipaddr umigs/chiron-metaviz bash

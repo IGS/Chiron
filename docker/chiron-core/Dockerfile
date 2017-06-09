@@ -9,7 +9,7 @@ LABEL Description="Common utilities / tools for Chiron-related docker images" Ve
 ################
 
 RUN apt-get -y update && apt-get install -y build-essential autoconf libtool pkg-config 
-RUN apt-get install -y --no-install-recommends git nano python python-pip python-dev python-setuptools python3.6 python3-setuptools subversion unzip wget
+RUN apt-get install -y --no-install-recommends git nano python python-pip python-dev python-setuptools python3.6 python3-setuptools subversion unzip wget less
 RUN pip install --upgrade pip
 
 # For reference databases needed by tools
@@ -29,6 +29,7 @@ ENV LANG C.UTF-8
 
 RUN pip3 install boto
 
-RUN wget -O /opt/hmp_client.zip https://github.com/jmatsumura/hmp_client/archive/master.zip
+RUN wget -O /opt/hmp_client.zip https://github.com/IGS/hmp_client/archive/v1.0.zip
 RUN unzip -d /opt/hmp_client /opt/hmp_client.zip
-ENV PATH /opt/hmp_client/hmp_client-master/bin:$PATH
+RUN ln -s /opt/hmp_client/hmp_client-1.0/bin/client.py /usr/local/bin/hmp_client
+

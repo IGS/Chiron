@@ -17,9 +17,9 @@ inputs:
       prefix: --p-trim-left
     type: int
     default: 0
-  trim_right:
+  trunc_len:
     inputBinding:
-      prefix: --p-trim-right
+      prefix: --p-trunc-len
     type: int
     default: 120
   rep_seqs:

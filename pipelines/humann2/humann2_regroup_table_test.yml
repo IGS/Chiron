@@ -1,0 +1,6 @@
+input_tsv:
+  class: File
+  path: ./demo_fastq/demo_genefamilies-cpm.tsv
+#output_tsv: "./demo_fastq/level4ec-cpm.tsv"
+output_tsv: "./level4ec-cpm.tsv"
+groups: "uniref90_level4ec"

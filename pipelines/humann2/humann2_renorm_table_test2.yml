@@ -1,0 +1,5 @@
+input_tsv:
+  class: File
+  path: ./763577454_genefamilies.tsv
+output_tsv: "./763577454_genefamilies_cpm.tsv"
+units: "cpm"

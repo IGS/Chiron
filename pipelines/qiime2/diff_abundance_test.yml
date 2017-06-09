@@ -1,0 +1,7 @@
+metadata_file:
+  class: File
+  path: ./sample-metadata.tsv
+input_table:
+  class: File
+  path: ./table.qza
+metadata_category: "BodySite"
