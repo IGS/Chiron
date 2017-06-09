@@ -1,14 +1,43 @@
 #!/bin/bash
 
+# Set defaults
+LOCAL_BASE=''
+
+while getopts :l:c: opt; do
+  case $opt in
+    l)
+      LOCAL_BASE=$OPTARG
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      exit 1
+      ;;
+    :)
+      echo "Option -$OPTARG requires an argument." >&2
+      exit 1
+      ;;
+  esac
+done
+
 if [[ "$(docker images -q umigs/chiron-metacompass 2> /dev/null)" == "" ]]; then
   echo "Docker image for MetaCompass not found.  Downloading first ..."
 fi
 
-if [ ! -d "${HOME}/chiron/metacompass" ]; then
-    echo "Creating local output directory: ${HOME}/chiron/metacompass"
-    mkdir -p ${HOME}/chiron/metacompass
+if [ -z $LOCAL_BASE ]; then
+    if [ -w "/opt" ]; then
+        LOCAL_BASE="/opt/chiron/metacompass"
+    else
+        LOCAL_BASE="${HOME}/chiron/metacompass"
+    fi
 fi
 
-docker run -v ${HOME}/chiron/metacompass:/output -i -t umigs/chiron-metacompass /bin/bash
+if [ ! -d ${LOCAL_BASE} ]; then
+    echo "Creating local output directory: ${LOCAL_BASE}"
+    mkdir -p ${LOCAL_BASE}
+fi
+
+echo "Saving files to /output in this Docker image will make them available in ${LOCAL_BASE} outside of it."
+docker run --rm -v ${LOCAL_BASE}:/output -i -t umigs/chiron-metacompass /bin/bash
+
 
 
