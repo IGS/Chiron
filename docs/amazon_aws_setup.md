@@ -64,7 +64,7 @@ Most interactions with Amazon AWS resources will involve key-based encryption fo
 
 * Make a note of where these files are located on your laptop’s filesystem
 
-* This is necessary because the “Secure Shell” Chrome app doesn’t work well, with just a PEM file, and is looking for a pair of files.
+* This is necessary because the “Secure Shell” Chrome app doesn’t work well with just a PEM file, and is looking for a pair of files (public & private key files).
 
 * OSX/Linux users intending to use SSH can probably skip this step because SSH's "-i" flag can work with .pem files.
 
