@@ -25,7 +25,7 @@ Here we go through the various steps to quickly create a Docker enabled virtual 
 * You should already have an Amazon AWS account if you followed with workshop preparations
 * If not, browse to [aws.amazon.com)(https://aws.amazon.com), click the button at the upper right, and follow the directions
 
-![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/login.png "")
+![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/create_account.png "create_account")
 
 ## <a name="regions"></a> Regions
 
@@ -40,7 +40,7 @@ Here we go through the various steps to quickly create a Docker enabled virtual 
 
 Back on the AWS dashboard, click on the "**EC2**"" link under the “**Compute**” section.
 
-![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/ec2.png "")
+![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/ec2.png "ec2")
 
 ## <a name="keypairs"></a>Key Pairs
 
