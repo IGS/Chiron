@@ -36,6 +36,21 @@ RUN wget -P /tutorials/metaphlan2/input https://bitbucket.org/biobakery/biobaker
 ## StrainPhlAn ##
 #################
 
+# Grab data needed for tutorials
+RUN mkdir -p /tutorials/strainphlan
+RUN wget -P /tutorials/strainphlan https://bitbucket.org/biobakery/biobakery/raw/tip/demos/biobakery_demos/data/strainphlan/output/13530241_SF05.markers
+RUN wget -P /tutorials/strainphlan https://bitbucket.org/biobakery/biobakery/raw/tip/demos/biobakery_demos/data/strainphlan/output/13530241_SF06.markers
+RUN wget -P /tutorials/strainphlan https://bitbucket.org/biobakery/biobakery/raw/tip/demos/biobakery_demos/data/strainphlan/output/19272639_SF05.markers
+RUN wget -P /tutorials/strainphlan https://bitbucket.org/biobakery/biobakery/raw/tip/demos/biobakery_demos/data/strainphlan/output/19272639_SF06.markers
+RUN wget -P /tutorials/strainphlan https://bitbucket.org/biobakery/biobakery/raw/tip/demos/biobakery_demos/data/strainphlan/output/40476924_SF05.markers
+RUN wget -P /tutorials/strainphlan https://bitbucket.org/biobakery/biobakery/raw/tip/demos/biobakery_demos/data/strainphlan/output/40476924_SF06.markers
+
+# Reference genome
+RUN wget -P /tutorials/strainphlan https://bitbucket.org/biobakery/biobakery/raw/tip/demos/biobakery_demos/data/strainphlan/input/GCF_000154325.fna.bz2
+
+# Metadata 
+RUN wget -P /tutorials/strainphlan https://bitbucket.org/biobakery/biobakery/raw/tip/demos/biobakery_demos/data/strainphlan/output/metadata.txt
+
 RUN apt-get -q update \
   && apt-get -q install -y --no-install-recommends muscle ncbi-blast+ raxml libtbb2 libz-dev libncurses5-dev libncursesw5-dev \
   && apt-get -q clean autoclean \
@@ -51,19 +66,28 @@ RUN make -C /opt/samtools-0.1.19
 RUN rm /tmp/samtools.zip
 ENV PATH /opt/samtools-0.1.19:/opt/samtools-0.1.19/misc:/opt/samtools-0.1.19/bcftools:$PATH
 
+ENV PATH /opt/metaphlan2/biobakery-metaphlan2/strainphlan_src:$PATH
+
 # The rest is all handled by the MetaPhlAn2 installation
 
 ##############
 ## GraPhlAn ##
 ##############
 
+RUN mkdir -p /tutorials/graphlan 
+
 RUN apt-get -q update \
   && apt-get -q install --no-install-recommends -y mercurial \
   && apt-get -q clean autoclean \
   && apt-get -q autoremove -y \
   && rm -rf /var/lib/apt/lists/*
+
+RUN pip install dendropy==3.12.0
+RUN pip install ipdb
+
 RUN hg clone https://hg@bitbucket.org/nsegata/graphlan /opt/graphlan
 ENV PATH $PATH:/opt/graphlan/
+ENV PATH /opt/graphlan/export2graphlan:$PATH
 
 ##############
 ## PanPhlAn ##
@@ -71,8 +95,21 @@ ENV PATH $PATH:/opt/graphlan/
 
 RUN hg clone https://bitbucket.org/CibioCM/panphlan /opt/panphlan
 
-# Need libtbb installed for our bowtie2 usage
-RUN apt-get install -y libtbb2
+# Data we need for the tutorial
+RUN mkdir -p /tutorials/panphlan/pangenomes
+RUN wget -P /tutorials/panphlan/pangenomes http://www.matthias-scholz.de/panphlan_erectale15.zip
+RUN unzip -d /tutorials/panphlan/pangenomes /tutorials/panphlan/pangenomes/panphlan_erectale15.zip
+RUN rm /tutorials/panphlan/pangenomes/panphlan_erectale15.zip
+
+RUN mkdir -p /tutorials/panphlan/map_results
+RUN wget -P /tutorials/panphlan/map_results https://bitbucket.org/CibioCM/panphlan/wiki/map_results/SRS013951_erectale15.csv.bz2
+RUN wget -P /tutorials/panphlan/map_results https://bitbucket.org/CibioCM/panphlan/wiki/map_results/SRS014459_erectale15.csv.bz2
+RUN wget -P /tutorials/panphlan/map_results https://bitbucket.org/CibioCM/panphlan/wiki/map_results/SRS015065_erectale15.csv.bz2
+RUN wget -P /tutorials/panphlan/map_results https://bitbucket.org/CibioCM/panphlan/wiki/map_results/SRS019161_erectale15.csv.bz2
+
+# Couple dependencies we can grab down from apt and pypi
+RUN apt-get -q update \
+  && apt-get -q install --no-install-recommends -y libtbb2 python-tk bc
 
 # We install bowtie2-legacy since normal bowtie2 doesn't want to play nicely.
 RUN wget -O /opt/bowtie2-2.3.2-legacy-linux-x86_64.zip https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.3.2/bowtie2-2.3.2-legacy-linux-x86_64.zip/download
@@ -84,3 +121,4 @@ ENV BT2_HOME=/opt/bowtie2-2.3.2-legacy
 RUN mkdir /opt/panphlan/indexes
 ENV BOWTIE2_INDEXES=/opt/panphlan/indexes/
 
+ENV PATH /opt/panphlan/:$PATH
