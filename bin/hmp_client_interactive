@@ -4,4 +4,10 @@ if [[ "$(docker images -q umigs/chiron-core 2> /dev/null)" == "" ]]; then
   echo "Docker image for the HMP Client not found.  Downloading first ..."
 fi
 
-docker run -i -t umigs/chiron-core /bin/bash
+if [ ! -d "${HOME}/chiron/hmp_client" ]; then
+    echo "Creating local output directory: ${HOME}/chiron/hmp_client"
+    mkdir -p ${HOME}/chiron/hmp_client
+fi
+
+docker run -v ${HOME}/chiron/hmp_client:/output -i -t umigs/chiron-core /bin/bash
+

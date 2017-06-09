@@ -4,7 +4,8 @@ if [[ "$(docker images -q umigs/chiron-qiime2 2> /dev/null)" == "" ]]; then
   echo "Docker image for QIIME2 not found.  Downloading first ..."
 fi
 
-if [ ! -d "${HOME}/chiron/phlan" ]; then
+if [ ! -d "${HOME}/chiron/qiime2" ]; then
+    echo "Creating local output directory: ${HOME}/chiron/qiime2"
     mkdir -p ${HOME}/chiron/qiime2
 fi
 

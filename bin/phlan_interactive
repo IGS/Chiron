@@ -5,6 +5,7 @@ if [[ "$(docker images -q umigs/chiron-phlan 2> /dev/null)" == "" ]]; then
 fi
 
 if [ ! -d "${HOME}/chiron/phlan" ]; then
+    echo "Creating local output directory: ${HOME}/chiron/phlan"
     mkdir -p ${HOME}/chiron/phlan
 fi
 

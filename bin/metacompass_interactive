@@ -4,4 +4,11 @@ if [[ "$(docker images -q umigs/chiron-metacompass 2> /dev/null)" == "" ]]; then
   echo "Docker image for MetaCompass not found.  Downloading first ..."
 fi
 
-docker run -i -t umigs/chiron-metacompass /bin/bash
+if [ ! -d "${HOME}/chiron/metacompass" ]; then
+    echo "Creating local output directory: ${HOME}/chiron/metacompass"
+    mkdir -p ${HOME}/chiron/metacompass
+fi
+
+docker run -v ${HOME}/chiron/metacompass:/output -i -t umigs/chiron-metacompass /bin/bash
+
+
