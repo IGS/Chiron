@@ -16,7 +16,7 @@ inputs:
     inputBinding:
       prefix: --m-metadata-file
     type: File
-  custom-axis:
+  custom_axis:
     label: Name for custom axis label
     inputBinding:
       prefix: --p-custom-axis
@@ -25,7 +25,6 @@ inputs:
     inputBinding:
       prefix: --o-visualization
     type: string
-    default: $(inputs.input_pcoa.dirname + '/' + inputs.input_pcoa.nameroot + 'emperor.qzv')
 outputs:
   pcoa_visual:
     type: File
