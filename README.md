@@ -1,7 +1,9 @@
-# Chiron
-Centralized access to Dockerized tools and pipelines for metagenomics developed by the Human Microbiome Project members.  Initially developed HMP Cloud Pilot workshop.
+# Chiron*
+Centralized access to Dockerized tools and pipelines for metagenomics developed by the Human Microbiome Project members.  Initially developed for the HMP Cloud Workshop.
 
 This is under very active development and isn't likely to be stable until June 10th at the earliest.
+
+\* Pronounced KY-rən
 
 # Why Chiron?
 

@@ -8,10 +8,10 @@ hints:
     dockerPull: umigs/chiron-qiime2
 
 inputs:
-  input_pcoa:
-    inputBinding:
-      prefix: --i-pcoa
-    type: File
+  input_dir:
+    type: Directory
+  pcoa_file_base:
+    type: string
   metadata_file:
     inputBinding:
       prefix: --m-metadata-file
@@ -30,5 +30,9 @@ outputs:
     type: File
     outputBinding:
       glob: $(inputs.out_visualization)
+
+arguments:
+  - valueFrom: $(inputs.input_dir.path + '/' + inputs.pcoa_file_base)
+    prefix: --i-pcoa
 
 baseCommand: ["qiime", "emperor", "plot"]

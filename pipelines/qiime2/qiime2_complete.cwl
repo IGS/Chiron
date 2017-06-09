@@ -7,7 +7,8 @@ requirements:
   - class: DockerRequirement
     dockerPull: umigs/chiron-qiime2
   - class: SubworkflowFeatureRequirement
-#  - class: StepInputExpressionRequirement
+  - class: StepInputExpressionRequirement
+  - class: InlineJavascriptRequirement
   - class: ScatterFeatureRequirement
 
 inputs:
@@ -87,10 +88,8 @@ steps:
     run: dada2.cwl
     in:
       input_seqs: input_seqs
-      trim_left:
-        source: trim_left
-      trunc_len:
-        source: trunc_len
+      trim_left: trim_left
+      trunc_len: trunc_len
     out: [out_rep_seqs, out_table]
 
   feat_tbl_summarize:
@@ -117,72 +116,71 @@ steps:
     in:
       input_tree: phylogenetic_analysis/rooted_tree
       input_table: dada2/out_table
-      sampling_depth:
-        source: sampling_depth
+      sampling_depth: sampling_depth
     out: [out_dir]
 
   alpha_group_significance_faith:
     run: alpha_significance.cwl
     in:
-      input_alpha:
-        source: diversity_core_metrics/out_dir
-        valueFrom: $(self.path + '/faith_pd_vector.qza')
+      input_dir: diversity_core_metrics/out_dir
+      vector_file_base:
+        default: 'faith_pd_vector.qza'
       metadata_file: metadata_file
       out_visualization:
         source: diversity_core_metrics/out_dir
-        valueFrom: $(self.path + '/faith-pd-group-significance.qzv')
+        valueFrom: $(runtime.outdir + '/faith-pd-group-significance.qzv')
     out: [out_visual]
 
   alpha_group_significance_evenness:
     run: alpha_significance.cwl
     in:
-      input_alpha:
-        source: diversity_core_metrics/out_dir
-        valueFrom: $(self.path + '/evenness_vector.qza')
+      input_dir: diversity_core_metrics/out_dir
+      vector_file_base:
+        default: 'evenness_vector.qza'
       metadata_file: metadata_file
       out_visualization:
         source: diversity_core_metrics/out_dir
-        valueFrom: $(self.path + '/evenness-group-significance.qzv')
+        valueFrom: $(runtime.outdir + '/evenness-group-significance.qzv')
     out: [out_visual]
 
 # NOTE: Tutorial calls twice for separate metadata categories.  Only performing once
   beta_group_significance:
     run: beta_significance.cwl
     in:
-      input_matrix:
-        source: diversity_core_metrics/out_dir
-        valueFrom: $(self.path + '/unweighted_unifrac_distance_matrix.qza')
+      input_dir: diversity_core_metrics/out_dir
+      matrix_file_base:
+        default: 'unweighted_unifrac_distance_matrix.qza'
       metadata_file: metadata_file
       metadata_category: metadata_category
       out_visualization:
         source: diversity_core_metrics/out_dir
-        valueFrom: $(self.path + '/unweighted-unifrac-' + inputs.metadata_category + '-significance.qzv')
+        valueFrom: $('unweighted-unifrac-' + inputs.metadata_category + '-significance.qzv')
     out: [out_visual]
 
   PCoA_plot_unweighted:
     run: emperor_plot.cwl
     in:
-      input_pcoa:
-        source: diversity_core_metrics/out_dir
-        valueFrom: $(self.path + '/unweighted_unifrac_pcoa_results.qza')
+      input_dir: diversity_core_metrics/out_dir
+      pcoa_file_base:
+        default: 'unweighted_unifrac_distance_pcoa_results.qza'
       metadata_file: metadata_file
       custom_axis: custom_axis
       out_visualization:
         source: diversity_core_metrics/out_dir
-        valueFrom: $(self.path + '/unweighted-unifrac-emperor.qzv')
+        valueFrom: $(runtime.outdir + '/unweighted-unifrac-emperor.qzv')
     out: [pcoa_visual]
 
   PCoA_plot_bray:
     run: emperor_plot.cwl
     in:
-      input_pcoa:
-        source: diversity_core_metrics/out_dir
-        valueFrom: $(self.path + '/bray_curtis_pcoa_results.qza')
+      input_dir: diversity_core_metrics/out_dir
+      pcoa_file_base:
+        default: 'bray_curtis_pcoa_results.qza'
       metadata_file: metadata_file
       custom_axis: custom_axis
       out_visualization:
         source: diversity_core_metrics/out_dir
-        valueFrom: $(self.path + '/bray-curtis-emperor.qzv')
+        valueFrom: $(runtime.outdir + '/bray-curtis-emperor.qzv')
     out: [pcoa_visual]
 
   taxonomic_analysis:
