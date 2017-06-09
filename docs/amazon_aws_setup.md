@@ -211,7 +211,7 @@ On the “Step 2” screen, after clicking “**Launch**”, one must select an 
 19. Take special note of the “**IPv4 Public IP**” internet address. We will need this later in order to connect to our cloud machine.
 
 <p align="center">
-<img src="https://github.com/IGS/Chiron/raw/master/docs/images/launch8.png" width="500">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/launch8.png" width="700">
 </p>
 
 ## <a name="attach_volume"></a> Attaching Volume to Instance
@@ -225,7 +225,7 @@ On the “Step 2” screen, after clicking “**Launch**”, one must select an 
 4. Click “**Attach**”. After a brief period, the volume state will change to indicate that it is “in-use”.
 
 <p align="center">
-<img src="https://github.com/IGS/Chiron/raw/master/docs/images/attach_volume.png" width="500">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/attach_volume.png" width="700">
 </p>
 
 ## <a name="instance_connect"></a> Connecting to Instance
@@ -329,5 +329,6 @@ Remove the 500GB volume that was created.
 ## <a name="related"></a> Related Links:
 
 - [Official Docker Installation](https://docs.docker.com/engine/installation/)
+- [Secure Shell Chrome App](https://chrome.google.com/webstore/detail/secure-shell/pnhechapfaindjhompbnflcldabbghjo?hl=en)
 
 [top](#top)
