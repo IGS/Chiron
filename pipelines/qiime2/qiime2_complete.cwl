@@ -144,7 +144,7 @@ steps:
       metadata_file: metadata_file
       in_prefix: dada2/out_prefix
       out_visualization:
-        valueFrom: $(inputs.in_prefix + '.faith-pd-group-significance.qzv')
+        valueFrom: $(inputs.in_prefix + 'faith-pd-group-significance.qzv')
     out: [out_visual]
     scatter: [input_dir, in_prefix]
     scatterMethod: dotproduct
@@ -158,7 +158,7 @@ steps:
       metadata_file: metadata_file
       in_prefix: dada2/out_prefix
       out_visualization:
-        valueFrom: $(inputs.in_prefix + '.evenness-group-significance.qzv')
+        valueFrom: $(inputs.in_prefix + 'evenness-group-significance.qzv')
     out: [out_visual]
     scatter: [input_dir, in_prefix]
     scatterMethod: dotproduct
@@ -174,7 +174,7 @@ steps:
       metadata_category: metadata_category
       in_prefix: dada2/out_prefix
       out_visualization:
-        valueFrom: $(inputs.in_prefix + '.unweighted-unifrac-' + inputs.metadata_category + '-significance.qzv')
+        valueFrom: $(inputs.in_prefix + 'unweighted-unifrac-' + inputs.metadata_category + '-significance.qzv')
     out: [out_visual]
     scatter: [input_dir, in_prefix]
     scatterMethod: dotproduct
@@ -189,7 +189,7 @@ steps:
       custom_axis: custom_axis
       in_prefix: dada2/out_prefix
       out_visualization:
-        valueFrom: $(inputs.in_prefix + '.unweighted-unifrac-emperor.qzv')
+        valueFrom: $(inputs.in_prefix + 'unweighted-unifrac-emperor.qzv')
     out: [pcoa_visual]
     scatter: [input_dir, in_prefix]
     scatterMethod: dotproduct
@@ -204,7 +204,7 @@ steps:
       custom_axis: custom_axis
       in_prefix: dada2/out_prefix
       out_visualization:
-        valueFrom: $(inputs.in_prefix + '.bray-curtis-emperor.qzv')
+        valueFrom: $(inputs.in_prefix + 'bray-curtis-emperor.qzv')
     out: [pcoa_visual]
     scatter: [input_dir, in_prefix]
     scatterMethod: dotproduct
