@@ -1,5 +1,6 @@
 input_tsv:
   class: File
-  path: ./demo_fastq/demo_genefamilies.tsv
-output_tsv: "./demo_fastq/demo_genefamilies-names.tsv"
+  path: ./test_input/demo_fastq/demo_genefamilies.tsv
+#output_tsv: "./demo_fastq/demo_genefamilies-names.tsv"
+output_tsv: "./demo_genefamilies-names.tsv"
 names: "uniref90"

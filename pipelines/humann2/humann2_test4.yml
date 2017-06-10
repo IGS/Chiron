@@ -1,6 +1,6 @@
 input_file:
   class: File
-  path: ./demo.fastq
+  path: ./test_input/demo.fastq
 output_dir: "./demo_fastq_noaa"
 gap_fill: "on"
 num_threads: 4

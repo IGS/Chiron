@@ -1,6 +1,6 @@
 input_pcl:
   class: File
-  path: ./hmp_pathabund.pcl
+  path: ./test_input/hmp_pathabund.pcl
 output_png: "./plot1.png"
 focal_feature: "METSYN-PWY"
 focal_metadatum: "STSite"

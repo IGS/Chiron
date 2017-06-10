@@ -18,7 +18,7 @@ inputs:
       prefix: --output
     type: string
   gap_fill:
-    label: Can be set to "on"
+    label: Can be set to "on".  Default is "off"
     inputBinding:
       prefix: --gap-fill
     type: string?
@@ -36,5 +36,21 @@ outputs:
     type: Directory
     outputBinding:
       glob: $(inputs.output_dir)
+  out_gene_families:
+    type: File
+    outputBinding:
+      glob: $(inputs.output_dir + '/' + inputs.input_file.nameroot + '_genefamilies.tsv')
+  out_path_abundance:
+    type: File
+    outputBinding:
+      glob: $(inputs.output_dir + '/' + inputs.input_file.nameroot + '_pathabundance.tsv')
+  out_path_coverage:
+    type: File
+    outputBinding:
+      glob: $(inputs.output_dir + '/' + inputs.input_file.nameroot + '_pathcoverage.tsv')
+  out_prefix:
+    type: string
+    outputBinding:
+      outputEval: $(inputs.input_file.nameroot)
 
 baseCommand: ["humann2"]
