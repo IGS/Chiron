@@ -6,6 +6,7 @@ class: CommandLineTool
 hints:
   - class: DockerRequirement
     dockerPull: umigs/chiron-qiime2
+  - class: InlineJavascriptRequirement
 
 inputs:
   input_seqs:
@@ -25,13 +26,15 @@ inputs:
   rep_seqs:
     inputBinding:
       prefix: --o-representative-sequences
+      valueFrom: $(inputs.input_seqs.nameroot + '-rep-seqs.qza')
     type: string
-    default: "rep-seqs.qza"
+    default: 'rep-seqs.qza'
   table:
     inputBinding:
       prefix: --o-table
+      valueFrom: $(inputs.input_seqs.nameroot + '-table.qza')
     type: string
-    default: "table.qza"
+    default: 'table.qza'
 outputs:
   out_rep_seqs:
     type: File
@@ -41,5 +44,9 @@ outputs:
     type: File
     outputBinding:
       glob: $(inputs.table)
+  out_prefix:
+    type: string
+    outputBinding:
+      outputEval: $(inputs.input_seqs.nameroot + '-')
 
 baseCommand: ["qiime", "dada2", "denoise-single"]

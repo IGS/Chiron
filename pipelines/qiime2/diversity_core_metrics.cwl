@@ -6,6 +6,7 @@ class: CommandLineTool
 hints:
   - class: DockerRequirement
     dockerPull: umigs/chiron-qiime2
+  - class: InlineJavascriptRequirement
 
 inputs:
   input_tree:
@@ -16,6 +17,8 @@ inputs:
     inputBinding:
       prefix: --i-table
     type: File
+  in_prefix:
+    type: string?
   sampling_depth:
     inputBinding:
       prefix: --p-sampling-depth
@@ -24,8 +27,9 @@ inputs:
   output_dir:
     inputBinding:
       prefix: --output-dir
+      valueFrom: $(inputs.in_prefix + 'core-metrics-results')
     type: string
-    default: "core-metrics-results"
+    default: 'core-metrics-results'
 outputs:
   out_dir:
     type: Directory

@@ -24,13 +24,16 @@ inputs:
   trim_left:
     label: How many bases to trim off the left-hand side of the sequences
     type: int
+    default: 0
   trunc_len:
     label: Length of sequence truncation
     type: int
+    default: 120
 # Alpha/Beta diversity inputs
   sampling_depth:
     label: Amount of subsampling so that each sample has this number in the output table
     type: int
+    default: 1080
   custom_axis:
     label: Axis label to use in Emperor PCoA plots.
     type: string
@@ -90,7 +93,7 @@ steps:
       input_seqs: input_seqs
       trim_left: trim_left
       trunc_len: trunc_len
-    out: [out_rep_seqs, out_table]
+    out: [out_rep_seqs, out_table, out_prefix]
     scatter: [input_seqs]
 
   feat_tbl_summarize:
@@ -98,22 +101,28 @@ steps:
     in:
       input_table: dada2/out_table
       metadata_file: metadata_file
+      in_prefix: dada2/out_prefix
     out: [out_table_visual]
-    scatter: [input_table]
+    scatter: [input_table, in_prefix]
+    scatterMethod: dotproduct
 
   feat_tbl_tabulate:
     run: feat_tbl_tabulate_seqs.cwl
     in:
       rep_seqs: dada2/out_rep_seqs
+      in_prefix: dada2/out_prefix
     out: [out_seqs_visual]
-    scatter: [rep_seqs]
+    scatter: [rep_seqs, in_prefix]
+    scatterMethod: dotproduct
 
   phylogenetic_analysis:
     run: phylogenetic_analysis.cwl
     in:
       rep_seqs: dada2/out_rep_seqs
+      seqs_prefix: dada2/out_prefix
     out: [rooted_tree]
-    scatter: [rep_seqs]
+    scatter: [rep_seqs, seqs_prefix]
+    scatterMethod: dotproduct
 
   diversity_core_metrics:
     run: diversity_core_metrics.cwl
@@ -121,8 +130,9 @@ steps:
       input_tree: phylogenetic_analysis/rooted_tree
       input_table: dada2/out_table
       sampling_depth: sampling_depth
+      in_prefix: dada2/out_prefix
     out: [out_dir]
-    scatter: [input_tree, input_table]
+    scatter: [input_tree, input_table, in_prefix]
     scatterMethod: dotproduct
 
   alpha_group_significance_faith:
@@ -132,11 +142,12 @@ steps:
       vector_file_base:
         default: 'faith_pd_vector.qza'
       metadata_file: metadata_file
+      in_prefix: dada2/out_prefix
       out_visualization:
-        source: diversity_core_metrics/out_dir
-        valueFrom: $(runtime.outdir + '/faith-pd-group-significance.qzv')
+        valueFrom: $(inputs.in_prefix + '.faith-pd-group-significance.qzv')
     out: [out_visual]
-    scatter: [input_dir]
+    scatter: [input_dir, in_prefix]
+    scatterMethod: dotproduct
 
   alpha_group_significance_evenness:
     run: alpha_significance.cwl
@@ -145,11 +156,12 @@ steps:
       vector_file_base:
         default: 'evenness_vector.qza'
       metadata_file: metadata_file
+      in_prefix: dada2/out_prefix
       out_visualization:
-        source: diversity_core_metrics/out_dir
-        valueFrom: $(runtime.outdir + '/evenness-group-significance.qzv')
+        valueFrom: $(inputs.in_prefix + '.evenness-group-significance.qzv')
     out: [out_visual]
-    scatter: [input_dir]
+    scatter: [input_dir, in_prefix]
+    scatterMethod: dotproduct
 
 # NOTE: Tutorial calls twice for separate metadata categories.  Only performing once
   beta_group_significance:
@@ -160,25 +172,27 @@ steps:
         default: 'unweighted_unifrac_distance_matrix.qza'
       metadata_file: metadata_file
       metadata_category: metadata_category
+      in_prefix: dada2/out_prefix
       out_visualization:
-        source: diversity_core_metrics/out_dir
-        valueFrom: $('unweighted-unifrac-' + inputs.metadata_category + '-significance.qzv')
+        valueFrom: $(inputs.in_prefix + '.unweighted-unifrac-' + inputs.metadata_category + '-significance.qzv')
     out: [out_visual]
-    scatter: [input_dir]
+    scatter: [input_dir, in_prefix]
+    scatterMethod: dotproduct
 
   PCoA_plot_unweighted:
     run: emperor_plot.cwl
     in:
       input_dir: diversity_core_metrics/out_dir
       pcoa_file_base:
-        default: 'unweighted_unifrac_distance_pcoa_results.qza'
+        default: 'unweighted_unifrac_pcoa_results.qza'
       metadata_file: metadata_file
       custom_axis: custom_axis
+      in_prefix: dada2/out_prefix
       out_visualization:
-        source: diversity_core_metrics/out_dir
-        valueFrom: $(runtime.outdir + '/unweighted-unifrac-emperor.qzv')
+        valueFrom: $(inputs.in_prefix + '.unweighted-unifrac-emperor.qzv')
     out: [pcoa_visual]
-    scatter: [input_dir]
+    scatter: [input_dir, in_prefix]
+    scatterMethod: dotproduct
 
   PCoA_plot_bray:
     run: emperor_plot.cwl
@@ -188,11 +202,12 @@ steps:
         default: 'bray_curtis_pcoa_results.qza'
       metadata_file: metadata_file
       custom_axis: custom_axis
+      in_prefix: dada2/out_prefix
       out_visualization:
-        source: diversity_core_metrics/out_dir
-        valueFrom: $(runtime.outdir + '/bray-curtis-emperor.qzv')
+        valueFrom: $(inputs.in_prefix + '.bray-curtis-emperor.qzv')
     out: [pcoa_visual]
-    scatter: [input_dir]
+    scatter: [input_dir, in_prefix]
+    scatterMethod: dotproduct
 
   taxonomic_analysis:
     run: taxonomic_analysis.cwl
@@ -201,8 +216,9 @@ steps:
       classifier: training_classifier
       metadata_file: metadata_file
       input_table: dada2/out_table
+      seqs_prefix: dada2/out_prefix
     out: [taxa_visual, barplots, taxonomy]
-    scatter: [rep_seqs, input_table]
+    scatter: [rep_seqs, input_table, seqs_prefix]
     scatterMethod: dotproduct
 
   differential_abundance:
@@ -211,8 +227,10 @@ steps:
       metadata_file: metadata_file
       metadata_category: metadata_category
       input_table: dada2/out_table
+      seqs_prefix: dada2/out_prefix
     out: [feat_visual]
-    scatter: [input_table]
+    scatter: [input_table, seqs_prefix]
+    scatterMethod: dotproduct
 
   collapsed_differential_abundance:
     run: diff_abundance_w_collapse.cwl
@@ -222,6 +240,7 @@ steps:
       input_table: dada2/out_table
       collapse_level: collapse_level
       taxonomy_file: taxonomic_analysis/taxonomy
+      seqs_prefix: dada2/out_prefix
     out: [feat_visual]
-    scatter: [input_table, taxonomy_file]
+    scatter: [input_table, taxonomy_file, seqs_prefix]
     scatterMethod: dotproduct

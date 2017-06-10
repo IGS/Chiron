@@ -6,12 +6,15 @@ class: CommandLineTool
 hints:
   - class: DockerRequirement
     dockerPull: umigs/chiron-qiime2
+  - class: InlineJavascriptRequirement
 
 inputs:
   input_dir:
     type: Directory
   pcoa_file_base:
     type: string
+  in_prefix:
+    type: string?
   metadata_file:
     inputBinding:
       prefix: --m-metadata-file
