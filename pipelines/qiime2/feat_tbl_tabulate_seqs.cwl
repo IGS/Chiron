@@ -25,6 +25,6 @@ outputs:
   out_seqs_visual:
     type: File
     outputBinding:
-      glob: $(inputs.seqs_visualization)
+      glob: $('*' + inputs.seqs_visualization)
 
 baseCommand: ["qiime", "feature-table", "tabulate-seqs"]

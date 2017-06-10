@@ -58,7 +58,7 @@ steps:
         out_collapsed_table:
           type: File
           outputBinding:
-            glob: $(inputs.collapsed_table)
+            glob: $('*' + inputs.collapsed_table)
     in:
       table: input_table
       taxonomy_file: taxonomy_file
@@ -87,7 +87,7 @@ steps:
         out_comp_table:
           type: File
           outputBinding:
-            glob: $(inputs.composition)
+            glob: $('*' + inputs.composition)
     in:
       table: collapse/out_collapsed_table
       seqs_prefix: seqs_prefix
@@ -122,7 +122,7 @@ steps:
         out_visual:
           type: File
           outputBinding:
-            glob: $(inputs.feat_visualization)
+            glob: $('*' + inputs.feat_visualization)
     in:
       comp_table: add_pseudocount/out_comp_table
       metadata_file: metadata_file

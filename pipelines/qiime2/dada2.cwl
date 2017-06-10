@@ -39,11 +39,11 @@ outputs:
   out_rep_seqs:
     type: File
     outputBinding:
-      glob: $(inputs.rep_seqs)
+      glob: $('*' + inputs.rep_seqs)
   out_table:
     type: File
     outputBinding:
-      glob: $(inputs.table)
+      glob: $('*' + inputs.table)
   out_prefix:
     type: string
     outputBinding:

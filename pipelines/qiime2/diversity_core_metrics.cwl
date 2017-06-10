@@ -34,5 +34,5 @@ outputs:
   out_dir:
     type: Directory
     outputBinding:
-      glob: $(inputs.output_dir)
+      glob: $('*' + inputs.output_dir)
 baseCommand: ["qiime", "diversity", "core-metrics"]

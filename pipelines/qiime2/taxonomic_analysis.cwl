@@ -58,7 +58,7 @@ steps:
         out_taxa:
           type: File
           outputBinding:
-            glob: $(inputs.taxonomy)
+            glob: $('*' + inputs.taxonomy)
     in:
       rep_seqs: rep_seqs
       classifier: classifier
@@ -85,7 +85,7 @@ steps:
         out_visual:
           type: File
           outputBinding:
-            glob: $(inputs.taxa_visualization)
+            glob: $('*' + inputs.taxa_visualization)
     in:
       taxa_data: classify_sklearn/out_taxa
       seqs_prefix: seqs_prefix
@@ -119,7 +119,7 @@ steps:
         barplots:
           type: File
           outputBinding:
-            glob: $(inputs.plots)
+            glob: $('*' + inputs.plots)
     in:
       table: input_table
       taxa_data: classify_sklearn/out_taxa

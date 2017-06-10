@@ -30,6 +30,6 @@ outputs:
   out_table_visual:
     type: File
     outputBinding:
-      glob: $(inputs.table_visualization)
+      glob: $('*' + inputs.table_visualization)
 
 baseCommand: ["qiime", "feature-table", "summarize"]
