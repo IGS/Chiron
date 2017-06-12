@@ -1,6 +1,5 @@
 # Amazon AWS EC2 Setup 
 <a name="top"></a>
-***
 
 ## Contents
 
@@ -82,6 +81,8 @@ Back on the AWS dashboard, click on the "**EC2**"" link under the “**Compute**
 <p align="center">
 <img src="https://github.com/IGS/Chiron/raw/master/docs/images/ec2.png" width="500">
 </p>
+
+[top](#top)
 
 ## <a name="keypairs"></a>Key Pairs
 

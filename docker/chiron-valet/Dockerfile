@@ -4,7 +4,7 @@ FROM umigs/chiron-core:latest
 ## VALET ##
 ###########
 
-RUN apt-get install -y bedtools r-base r-base-dev libfile-copy-link-perl
+RUN apt-get install -y bedtools libfile-copy-link-perl
 
 RUN wget -O /opt/bowtie2-2.3.2-linux-x86_64.zip https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.3.2/bowtie2-2.3.2-linux-x86_64.zip/download
 RUN unzip -d /opt /opt/bowtie2-2.3.2-linux-x86_64.zip

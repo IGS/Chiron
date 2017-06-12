@@ -50,25 +50,13 @@ This will download the Docker image if you don't already have it, then drop you 
 - umigs/chiron-qiime2
 
 # Try a Cloud session on Amazon
-The following instructions will help you launch the analysis on Amazon Cloud.
+To create and configure your Amazon AWS cloud environment to execute the tools and Docker containers presented in the workshop, please use the following guide:
 
-How to create account.
-https://aws.amazon.com/console/
+[Cloud Workshop AWS Setup Guide](/docs/amazon_aws_setup.md)
 
-Switch to US East.
+For general instructions about launching virtual machines on AWS, Amazon has provided useful instructions here:
 
-How to generate key-pair.
-
-Set security settings.
-
-Launch AMI. 
-ami-21530437
-
-Connecting to Amazon Instance using ssh.
-
-
-https://aws.amazon.com/getting-started/tutorials/launch-a-virtual-machine/
-
+[Launch a VM on Amazon AWS](https://aws.amazon.com/getting-started/tutorials/launch-a-virtual-machine/)
 
 # Related Links:
 
