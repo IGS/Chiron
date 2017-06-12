@@ -12,6 +12,9 @@ RUN apt-get -y update && apt-get install -y build-essential autoconf libtool pkg
 RUN apt-get install -y --no-install-recommends git nano python python-pip python-dev python-setuptools python3.6 python3-setuptools subversion unzip wget less
 RUN pip install --upgrade pip
 
+# R things
+RUN apt-get install -y r-base r-base-dev r-cran-getopt r-cran-reshape2
+
 # For reference databases needed by tools
 RUN mkdir /dbs
 
