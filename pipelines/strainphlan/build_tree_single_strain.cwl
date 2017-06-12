@@ -15,6 +15,7 @@ inputs:
     inputBinding:
       prefix: --ifn_alignments
     type: File
+    secondaryFiles: '^.polymorphic'
   num_cores:
     inputBinding:
       prefix: --nprocs
