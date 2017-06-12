@@ -11,7 +11,8 @@ hints:
     dockerPull: umigs/chiron-phlan
   - class: InitialWorkDirRequirement
     listing:
-      - $(inputs.alignment_input)
+      - entry: $(inputs.alignment_input)
+        writable: true
 
 inputs:
   alignment_input:
@@ -31,15 +32,14 @@ inputs:
 outputs:
   out_tree:
     type: File
+    streamable: true
     outputBinding:
       glob: $(inputs.alignment_input.nameroot + '.tree')
   out_log:
     type: File
     outputBinding:
       glob: 'build_tree_single_string.log'
-  out_dir:
-    type: Directory
-    outputBinding:
-      glob: $(inputs.alignment_input.dirname)
+
+stdout: $(inputs.alignment_input.nameroot + '.tree')
 
 baseCommand: ["build_tree_single_strain.py"]

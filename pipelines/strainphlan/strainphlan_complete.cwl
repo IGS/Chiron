@@ -61,12 +61,12 @@ outputs:
   best_tree:
     type: File
     outputSource: build_tree/out_tree
-  dendrogram_png:
-    type: File
-    outputSource: create_dendrogram/out_png
-  single_strain_dendrogram_png:
-    type: File
-    outputSource: create_single_strain_dendrogram/out_png
+#  dendrogram_png:
+#    type: File
+#    outputSource: create_dendrogram/out_png
+#  single_strain_dendrogram_png:
+#    type: File
+#    outputSource: create_single_strain_dendrogram/out_png
 
 steps:
   metaphlan2:
