@@ -36,6 +36,10 @@ Under the Chiron/bin/ directory this creates, you'll find scripts to run each to
 
 This will download the Docker image if you don't already have it, then drop you to a terminal within it.
 
+# Run a pre-build analysis pipeline
+
+Docker-enabled pipelines have been written for several analysis tools using [Common Workflow Language](https://github.com/common-workflow-language/common-workflow-language) (CWL).  These are available for viewing [here](https://github.com/IGS/Chiron/tree/master/pipelines), but work is underway to create user-friendly launchers for them.  These should be available by June 15.
+
 # Existing tools/Docker images:
 
 - umigs/chiron-core - Includes the HMP Client and common utilities
