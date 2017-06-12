@@ -1,6 +1,5 @@
 # Amazon AWS EC2 Setup 
 <a name="top"></a>
-***
 
 ## Contents
 
