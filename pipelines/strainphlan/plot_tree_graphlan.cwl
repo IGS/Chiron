@@ -5,9 +5,9 @@ class: CommandLineTool
 
 requirements:
   - class: InlineJavascriptRequirement
-  - class: InitialWorkDirRequirement
-    listing:
-      - $(inputs.tree_input)
+#  - class: InitialWorkDirRequirement
+#    listing:
+#      - $(inputs.tree_input)
 
 hints:
   - class: DockerRequirement
@@ -36,5 +36,10 @@ outputs:
     type: File
     outputBinding:
       glob: $(inputs.tree_input + '.png')
+  # Script writes to input directory
+  out_dir:
+    type: Directory
+    outputBinding:
+      outputEval: $(inputs.tree_input.dirname)
 
 baseCommand: ["plot_tree_graphlan.py"]

@@ -133,40 +133,40 @@ steps:
       marker_in_clade: marker_in_clade
     out: [out_dir, out_tree, out_fasta]
 
-  add_metadata_to_tree:
-    run: add_metadata_tree.cwl
-    in:
-      tree_input: build_tree/out_tree
-      metadata_input: metadata_file
-      metadata_category: metadata_category
-    out: [out_tree]
+#  add_metadata_to_tree:
+#    run: add_metadata_tree.cwl
+#    in:
+#      tree_input: build_tree/out_tree
+#      metadata_input: metadata_file
+#      metadata_category: metadata_category
+#    out: [out_tree]
 
-  create_dendrogram:
-    run:  plot_tree_graphlan.cwl
-    in:
-      tree_input: add_metadata_to_tree/out_tree
-      metadata_category: metadata_category
-    out: [out_png]
+#  create_dendrogram:
+#    run:  plot_tree_graphlan.cwl
+#    in:
+#      tree_input: add_metadata_to_tree/out_tree
+#      metadata_category: metadata_category
+#    out: [out_png]
 
-  build_tree_single_strain:
-    run: build_tree_single_strain.cwl
-    in:
-      alignment_input: build_tree/out_fasta
-      num_cores: num_cores
-    out: [out_tree]
+#  build_tree_single_strain:
+#    run: build_tree_single_strain.cwl
+#    in:
+#      alignment_input: build_tree/out_fasta
+#      num_cores: num_cores
+#    out: [out_tree]
 
-  add_metadata_to_single_strain_tree:
-    run: add_metadata_tree.cwl
-    in:
-      tree_input: build_tree_single_strain/out_tree
-      metadata_input: metadata_file
-      metadata_category: metadata_category
-    out: [out_tree]
+#  add_metadata_to_single_strain_tree:
+#    run: add_metadata_tree.cwl
+#    in:
+#      tree_input: build_tree_single_strain/out_tree
+#      metadata_input: metadata_file
+#      metadata_category: metadata_category
+#    out: [out_tree]
 
-  create_single_strain_dendrogram:
-    run: plot_tree_graphlan.cwl
-    in:
-      tree_input: add_metadata_to_single_strain_tree/out_tree
-      metadata_category: metadata_category
-    out: [out_png]
+#  create_single_strain_dendrogram:
+#    run: plot_tree_graphlan.cwl
+#    in:
+#      tree_input: add_metadata_to_single_strain_tree/out_tree
+#      metadata_category: metadata_category
+#    out: [out_png]
 

@@ -5,13 +5,13 @@ class: CommandLineTool
 
 requirements:
   - class: InlineJavascriptRequirement
-  - class: InitialWorkDirRequirement
-    listing:
-      - $(inputs.alignment_input)
 
 hints:
   - class: DockerRequirement
     dockerPull: umigs/chiron-phlan
+  - class: InitialWorkDirRequirement
+    listing:
+      - $(inputs.alignment_input)
 
 inputs:
   alignment_input:
@@ -37,5 +37,9 @@ outputs:
     type: File
     outputBinding:
       glob: 'build_tree_single_string.log'
+  out_dir:
+    type: Directory
+    outputBinding:
+      glob: $(inputs.alignment_input.dirname)
 
 baseCommand: ["build_tree_single_strain.py"]

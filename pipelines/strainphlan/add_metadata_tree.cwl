@@ -5,10 +5,10 @@ class: CommandLineTool
 
 requirements:
   - class: InlineJavascriptRequirement
-  - class: InitialWorkDirRequirement
-    listing:
-      - $(inputs.metadata_input)
-      - $(inputs.tree_input)
+#  - class: InitialWorkDirRequirement
+#    listing:
+#      - $(inputs.metadata_input)
+#      - $(inputs.tree_input)
 
 hints:
   - class: DockerRequirement
@@ -32,5 +32,10 @@ outputs:
     type: File
     outputBinding:
       glob: $(inputs.tree_input + '.metadata')
+  # Script writes to input directory
+  out_dir:
+    type: Directory
+    outputBinding:
+      outputEval: $(inputs.tree_input.dirname)
 
 baseCommand: ["add_metadata_tree.py"]
