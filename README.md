@@ -65,4 +65,5 @@ For general instructions about launching virtual machines on AWS, Amazon has pro
 # Related Links:
 
 - [Discussion group site](https://groups.google.com/forum/#!forum/hmp-cloud-pilot) (Google groups, for collaborators)
-- [GDC interface](http://portal.ihmpdcc.org) - Click 'data' to get the facet search
+- [HMP data portal](http://portal.ihmpdcc.org) - click 'Data' to get to facet search
+- [HMP client](https://github.com/IGS/hmp_client) - client for downloading HMP data via manifest files generated at the HMP data portal
