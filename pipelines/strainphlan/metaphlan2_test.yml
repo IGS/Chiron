@@ -1,6 +1,11 @@
 fasta_input:
   class: File
-  path: ./fasta/13530241_SF05.fasta.gz
+  path: ./test_input/fasta/13530241_SF05.fasta.gz
+seq_prefix: '13530241_SF05'
 input_type: "multifasta"
-bowtie2_out: "1350241_SF05_bowtie2.txt"
-sam_out: "1350241_SF05.sam.bz2"
+index_dir:
+  class: Directory
+  path: ./test_input/db_v20
+base_str: 'mpa_v20_m200'
+mpa_pkl: 'mpa_v20_m200.pkl'
+num_cores: 4

@@ -1,0 +1,6 @@
+ifn_samples:
+  class: File
+  path: ./test_output/13530241_SF05.sam.bz2
+input_type: "sam"
+num_cores: 4
+output_dir: '.'

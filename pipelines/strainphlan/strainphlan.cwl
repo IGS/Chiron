@@ -3,21 +3,27 @@ cwlVersion: v1.0
 label: Strainphlan workflow test
 class: CommandLineTool
 
+requirements:
+  - class: ShellCommandRequirement
+
 hints:
   - class: DockerRequirement
     dockerPull: umigs/chiron-phlan
 
 inputs:
-  ifn_samples:
+  sample_markers:
+  # NOTE: I could not get the '*' path to work in CWL like the tutorial shows (but it works running the direct command in Docker).  However, the option accepts a space-separated list so we'll use that
+    label: List of sample marker files
     inputBinding:
       prefix: --ifn_samples
-    type: string
-    default: '*.markers'
-  ifn_markers:
+      itemSeparator: " "
+      shellQuote: false
+    type: File[]
+  ref_marker:
     inputBinding:
       prefix: --ifn_markers
-    type: string?
-  ifn_ref_genomes:
+    type: File?
+  input_ref_genome:
     inputBinding:
       prefix: --ifn_ref_genomes
     type: File?
@@ -37,11 +43,25 @@ inputs:
     inputBinding:
       prefix: --print_clades_only
     type: boolean?
+  num_cores:
+    inputBinding:
+      prefix: --nprocs_main
+    type: int
+    default: 1
 outputs:
-  outputdir:
+  out_dir:
     type: Directory
     outputBinding:
-      outputEval: $(inputs.output_dir)
+      glob: $(inputs.output_dir)
+  out_tree:
+    type: File?
+    outputBinding:
+      glob: $('RAxML_bestTree.*.tree')
+  out_fasta:
+    type: File?
+    outputBinding:
+      glob: $('*.fasta')
+    secondaryFiles: $('^.polymorphic')
   clades_out:
     type: stdout
 

@@ -1,0 +1,4 @@
+index_dir:
+  class: Directory
+  path: ./test_input/db_v20
+base_str: 'mpa_v20_m200'
