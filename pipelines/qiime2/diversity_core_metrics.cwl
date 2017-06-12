@@ -3,10 +3,12 @@ cwlVersion: v1.0
 label: QIIME2 - Compute core metrics for alpha/beta diversity analysis
 class: CommandLineTool
 
+requirements:
+  - class: InlineJavascriptRequirement
+
 hints:
   - class: DockerRequirement
     dockerPull: umigs/chiron-qiime2
-  - class: InlineJavascriptRequirement
 
 inputs:
   input_tree:
