@@ -5,6 +5,10 @@ class: CommandLineTool
 
 requirements:
   - class: InlineJavascriptRequirement
+  - class: InitialWorkDirRequirement
+    listing:
+      - $(inputs.metadata_input)
+      - $(inputs.tree_input)
 
 hints:
   - class: DockerRequirement
