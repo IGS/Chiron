@@ -11,13 +11,13 @@ hints:
     dockerPull: umigs/chiron-phlan
   - class: InitialWorkDirRequirement
     listing:
-      - entry: $(inputs.alignment_input)
-        writable: true
+      - $(inputs.alignment_input)
 
 inputs:
   alignment_input:
     inputBinding:
       prefix: --ifn_alignments
+      valueFrom: $(self.basename)
     type: File
     secondaryFiles: '^.polymorphic'
   num_cores:
@@ -32,14 +32,11 @@ inputs:
 outputs:
   out_tree:
     type: File
-    streamable: true
     outputBinding:
-      glob: $(inputs.alignment_input.nameroot + '.tree')
+      glob: $('RAxML_bestTree.' + inputs.alignment_input.nameroot + '.remove_multiple_strains.tree')
   out_log:
     type: File
     outputBinding:
-      glob: 'build_tree_single_string.log'
-
-stdout: $(inputs.alignment_input.nameroot + '.tree')
+      glob: 'build_tree_single_strain.log'
 
 baseCommand: ["build_tree_single_strain.py"]

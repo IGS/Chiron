@@ -5,9 +5,9 @@ class: CommandLineTool
 
 requirements:
   - class: InlineJavascriptRequirement
-#  - class: InitialWorkDirRequirement
-#    listing:
-#      - $(inputs.tree_input)
+  - class: InitialWorkDirRequirement
+    listing:
+      - $(inputs.tree_input)
 
 hints:
   - class: DockerRequirement
@@ -17,6 +17,7 @@ inputs:
   tree_input:
     inputBinding:
       prefix: --ifn_tree
+      valueFrom: $(self.basename)
     type: File
   metadata_category:
     label: Metadata categories to be colorized
@@ -35,11 +36,6 @@ outputs:
   out_png:
     type: File
     outputBinding:
-      glob: $(inputs.tree_input + '.png')
-  # Script writes to input directory
-  out_dir:
-    type: Directory
-    outputBinding:
-      outputEval: $(inputs.tree_input.dirname)
+      glob: $(inputs.tree_input.basename + '.png')
 
 baseCommand: ["plot_tree_graphlan.py"]

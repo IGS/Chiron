@@ -10,4 +10,4 @@
   * Section 3.1
   * Section 3.2
   * Section 3.3
-* TODO: Create humann group tests for Section 4.2
+* TODO: Create humann group tests for Section 4.2 (join features into one table)
