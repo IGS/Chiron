@@ -6,7 +6,14 @@ cwl-runner <cwl tool/workflow script> <input parameter yml/json>
 ```
 The first parameter is a valid cwl tool or workflow script.  In this directory, these have the extension __.cwl__.
 
-The second parameter is YAML or JSON file consisting of input parameters for the CWL script.  In this directory, YAML examples are provided and are listed with the extension __.yml__.
+The second parameter is a YAML or JSON file consisting of input parameters for the CWL script.  In this directory, YAML examples are provided and are listed with the extension __.yml__.
+
+## Running the QIIME2 pipeline
+```
+cwl-runner ./qiime2_complete.cwl ./qiime2_complete_test.yml
+```
+
+The file "qiime2\_complete\_test.yml" is an example of a typical QIIME2 run using example inputs from the workshop tutorial.  Passing in multiple input files will parallelize the pipeline runs per sample.
 
 ## Misc Notes
 Any additional command-line options must be provided before the "cwl tool/workflow script"

@@ -10,6 +10,13 @@ The second parameter is YAML or JSON file consisting of input parameters for the
 
 Any additional command-line options must be provided before the "cwl tool/workflow script"
 
+## Running the Humann2 pipeline
+```
+cwl-runner ./humann2_complete.cwl ./humann2_complete_test.yml
+```
+
+The file "humann2\_complete\_test.yml" is an example of a typical Humann2 run using example inputs from the workshop tutorial. Passing in multiple input files will parallelize the pipeline runs per sample.
+
 ## Misc Notes
 
 * If running on MacOS/OSX, must provide the following two options:

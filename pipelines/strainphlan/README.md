@@ -8,6 +8,13 @@ The first parameter is a valid cwl tool or workflow script.  In this directory, 
 
 The second parameter is YAML or JSON file consisting of input parameters for the CWL script.  In this directory, YAML examples are provided and are listed with the extension __.yml__.
 
+## Running the Strainphlan pipeline
+```
+cwl-runner ./strainphlan_complete.cwl ./strainphlan_complete_test.yml
+```
+
+The file "strainphlan\_complete\_test.yml" is an example of a typical Strainphlan run using example inputs from the workshop tutorial. Passing in multiple input files will parallelize the pipeline runs per sample up to the point where "strainphlan" is called to build trees, in which case it uses all input markers in one command.
+
 ## Misc Notes
 * If running on MacOS/OSX, must provide the following two options:
   * --tmpdir-prefix=./tmp
