@@ -36,7 +36,7 @@ Under the Chiron/bin/ directory this creates, you'll find scripts to run each to
 
 This will download the Docker image if you don't already have it, then drop you to a terminal within it.
 
-# Run a pre-build analysis pipeline
+# Run a pre-built analysis pipeline
 
 Docker-enabled pipelines have been written for several analysis tools using [Common Workflow Language](https://github.com/common-workflow-language/common-workflow-language) (CWL).  These are available for viewing [here](https://github.com/IGS/Chiron/tree/master/pipelines), but work is underway to create user-friendly launchers for them.  These should be available by June 15.
 
@@ -65,4 +65,5 @@ For general instructions about launching virtual machines on AWS, Amazon has pro
 # Related Links:
 
 - [Discussion group site](https://groups.google.com/forum/#!forum/hmp-cloud-pilot) (Google groups, for collaborators)
-- [GDC interface](http://portal.ihmpdcc.org) - Click 'data' to get the facet search
+- [HMP data portal](http://portal.ihmpdcc.org) - click 'Data' to get to facet search
+- [HMP client](https://github.com/IGS/hmp_client) - client for downloading HMP data via manifest files generated at the HMP data portal
