@@ -49,7 +49,7 @@ ENV PATH $PATH:/opt/hclust2
 
 # These have to be done sequentially, as there's a current problem with the dependency order resolution
 RUN pip install numpy
-RUN pip install matplotlib scipy biom-format h5py
+RUN pip install matplotlib scipy==0.18.0 biom-format h5py
 RUN wget -O /opt/metaphlan2.zip https://bitbucket.org/biobakery/metaphlan2/get/default.zip
 RUN unzip -d /opt/metaphlan2 /opt/metaphlan2.zip
 RUN mv /opt/metaphlan2/biobakery-metaphlan2* /opt/metaphlan2/biobakery-metaphlan2
