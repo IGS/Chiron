@@ -74,14 +74,14 @@ visit = opt$visit
 count = opt$count
 region = opt$region
 
-# setwd("/Users/amahurkar/Documents/Projects/DACC/CloudPilot")
-# m16s_metafile = "16s_metadata.tsv"
-# visit = 1
-# count = 20
-# body_site1 = "Stool"
-# body_site2 = "Anterior_nares"
-# region = "V35"
-# outfile = "stool_nares_subsamples.tsv"
+setwd("/Users/amahurkar/Documents/Projects/DACC/CloudPilot")
+m16s_metafile = "16s_metadata.tsv"
+visit = 1
+count = 20
+body_site1 = "Stool"
+body_site2 = "Anterior_nares"
+region = "V35"
+outfile = "stool_nares_subsamples.tsv"
 
 # Read the metadata files
 m16s_sample_info = read.table(m16s_metafile, sep = "\t", header = TRUE)
