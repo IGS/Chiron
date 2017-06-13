@@ -2,7 +2,7 @@
 FROM ubuntu:yakkety
 
 MAINTAINER Joshua Orvis <jorvis@gmail.com>
-LABEL Description="Common utilities / tools for Chiron-related docker images" Version="0.1"
+LABEL Description="Common utilities / tools for Chiron-related docker images"
 
 ################
 ## The basics ##

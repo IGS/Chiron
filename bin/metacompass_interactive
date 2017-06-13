@@ -2,6 +2,7 @@
 
 # Set defaults
 LOCAL_BASE=''
+IMAGE_VERSION='1.0.0'
 
 while getopts :l:c: opt; do
   case $opt in
@@ -19,8 +20,8 @@ while getopts :l:c: opt; do
   esac
 done
 
-if [[ "$(docker images -q umigs/chiron-metacompass 2> /dev/null)" == "" ]]; then
-  echo "Docker image for MetaCompass not found.  Downloading first ..."
+if [[ "$(docker images -q umigs/chiron-metacompass:${IMAGE_VERSION} 2> /dev/null)" == "" ]]; then
+  echo "Docker image v${IMAGE_VERSION} for MetaCompass not found.  Downloading first ..."
 fi
 
 if [ -z $LOCAL_BASE ]; then
@@ -37,7 +38,7 @@ if [ ! -d ${LOCAL_BASE} ]; then
 fi
 
 echo "Saving files to /output in this Docker image will make them available in ${LOCAL_BASE} outside of it."
-docker run --rm -v ${LOCAL_BASE}:/output -i -t umigs/chiron-metacompass /bin/bash
+docker run --rm -v ${LOCAL_BASE}:/output -i -t umigs/chiron-metacompass:${IMAGE_VERSION} /bin/bash
 
 
 
