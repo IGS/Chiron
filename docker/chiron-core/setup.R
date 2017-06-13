@@ -1,6 +1,1 @@
-source("https://bioconductor.org/biocLite.R")
-biocLite(c("phyloseq", "metagenomeSeq"))
-install.packages("devtools", repos='http://cran.revolutionanalytics.com/')
-library(devtools)
-install_github("epiviz/metavizr", dependencies=TRUE)
-install.packages(c('getopt', 'reshape2', 'dplyr'))
+install.packages(c('getopt', 'reshape2', 'dplyr'), repos='http://cran.revolutionanalytics.com/')
