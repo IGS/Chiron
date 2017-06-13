@@ -1,9 +1,9 @@
 library(reshape2)
-require(getopt)
+library(getopt)
+library(dplyr)
 
 # R Script to take a list of 16S samples and WGS samples and randomly generates a matched list
 # of samples that can be used for comparison for a particular visit and body site
-library("getopt")
 
 # Get the options specified on the command line
 spec = matrix(c('m16s', 's', 1, "character",
@@ -11,6 +11,8 @@ spec = matrix(c('m16s', 's', 1, "character",
                 'bodysite', 'b', 1, "character",
                 'visit', 'v', 1, "integer",
                 'count', 'c', 1, "integer",
+                'm16s_list', 'm', 1, "character",
+                'wgs_list', '', 1, "character",
                 'help', 'h', 0, "logical"
 ), 
 byrow = TRUE, ncol=4)
@@ -51,8 +53,22 @@ if ( is.null(opt$count) ) {
   q(status=1);
 }
 
+if ( is.null(opt$m16s_list) ) {
+  print("16S samples file not specified.\n")
+  cat(getopt(spec, usage=TRUE));
+  q(status=1);
+}
+
+if ( is.null(opt$wgs_list) ) {
+  print("WGS samples file not specified.\n")
+  cat(getopt(spec, usage=TRUE));
+  q(status=1);
+}
+
 m16s_metafile = opt$m16s
 wgs_metafile = opt$wgs
+m16s_list = opt$m16s_list
+wgs_list = opt$wgs_list
 body_site = opt$bodysite
 visit = opt$visit
 count = opt$count
@@ -63,6 +79,8 @@ count = opt$count
 # visit = 1
 # count = 20
 # body_site = "Stool"
+# m16s_list = "stool_16s_rand_samples.tsv"
+# wgs_list = "stool_wgs_rand_samples.tsv"
 
 # Read the metadata files
 wgs_sample_info = read.table(wgs_metafile, sep = "\t", header = TRUE)
@@ -95,9 +113,21 @@ rand = sample(1:rowcount, count, replace=FALSE)
 subjects = data.frame(unique_subject_ids[rand])
 colnames(subjects) = c("RSID")
 subset_of_samples = visit_subset[which(visit_subset$RSID %in% subjects$RSID), ]
-write.table(file = filename, subset_of_samples, 
-            sep = "\t", quote = FALSE, row.names = FALSE, col.names = TRUE)
+
+# generate unique lists if samples
+# write.table(file = filename, subset_of_samples, 
+#             sep = "\t", quote = FALSE, row.names = FALSE, col.names = TRUE)
 
 
+# Make a unique list of 16S samples and write file
+m16s_stool_rand_samples = subset_of_samples[(which(subset_of_samples$Type == "16S")), ]
+m16S_stool_rand_samples = distinct(m16s_stool_rand_samples, RSID, Gender, STSite, Visit, SN, .keep_all = TRUE)
+write.table(m16S_stool_rand_samples, file = m16s_list,  sep = "\t",
+            col.names = TRUE, quote = FALSE, row.names = FALSE)
 
+# Make a unique list of WGS samples and write file
+wgs_stool_rand_samples = subset_of_samples[(which(subset_of_samples$Type == "WGS")), ]
+WGS_stool_rand_samples = distinct(wgs_stool_rand_samples, RSID, Gender, STSite, Visit, SN, .keep_all = TRUE)
+write.table(WGS_stool_rand_samples, file = wgs_list, sep = "\t",
+            col.names = TRUE, quote = FALSE, row.names = FALSE)
 
