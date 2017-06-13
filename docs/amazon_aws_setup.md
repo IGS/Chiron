@@ -178,17 +178,15 @@ Now we will launch an Amazon Machine Image (AMI)
 
 1. Under “**Images**” on the left, click “**AMIs**”.
 
-2. Type “**chiron**” into the search box at the top of the dashboard.
+2. Type “**chiron**” into the search box at the top (with **Public Images** selected).
 
 <p align="center">
 <img src="https://github.com/IGS/Chiron/raw/master/docs/images/launch1.png" width="500">
 </p>
 
-3. After entering “**chiron**” into the search box at the top (with "**Public Images**" selected).
+3. A single AMI result should appear with an ID of: **ami-21530437**.
 
-4. A single AMI result should appear with an ID of: **ami-21530437**.
-
-5. Hit "**Enter**" on your keyboard.
+4. Hit "**Enter**" on your keyboard.
 
 <p align="center">
 <img src="https://github.com/IGS/Chiron/raw/master/docs/images/launch2.png" width="500">
@@ -196,57 +194,69 @@ Now we will launch an Amazon Machine Image (AMI)
 
 The **chiron** AMI is a custom image created for the workshop and has Docker pre-installed on it for your use.
 
-5. Ensure the **chiron** AMI row is selected
+5. Ensure the **chiron** AMI row's checkbox is selected.
 
-6. Click the “**Launch**” button at the upper left
+6. Click the “**Launch**” button at the upper left.
 
 <p align="center">
 <img src="https://github.com/IGS/Chiron/raw/master/docs/images/launch3.png" width="500">
 </p>
 
-7. Click the “**Edit security groups**” link on the right side of the screen.
+7. On the "**Step 2**" screen after selecting "**Launch**", one must select an instance type.
 
-8. Choose “**Select an existing security group**” and check the previously created “**cloud_workshop_sg**” row as shown.
+Instance types describe the features of the virtual machine that will be instantiated, such as how much RAM (memory) and how many CPUs it will have. The more resources you assign, the greater the expense will be per hour of use.
 
-<p align="center">
-<img src="https://github.com/IGS/Chiron/raw/master/docs/images/launch4.png" width="500">
-</p>
-
-9. Click “**Review and Launch**”.
-
-On the “Step 2” screen, after clicking “**Launch**”, one must select an instance type. Instance types describe the features of the virtual machine that will be instantiated, such as how much RAM (memory) and how many CPUs it will have. The more resources you assign, the greater the expense will be per hour of use.
-
-10. Scroll down and select “**m3.xlarge**”.
-
-11. Click the “**Review and Launch**” button.
+8. Scroll down and select "**m3.xlarge**".
 
 <p align="center">
 <img src="https://github.com/IGS/Chiron/raw/master/docs/images/launch5.png" width="500">
 </p>
 
-12. Click the “**Edit security groups**” link on the right side of the screen.
+9. Click the "**Next: Configure Instance Details**" button.
 
-13. Choose “**Select an existing security group**” and check the previously created “**cloud_workshop_sg**”.
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/launch4.png" width="500">
+</p>
 
-14. Click “**Review and Launch**”.
+10. Under "**Subnet**", select the subnet that maps to "**Default in us-east-1d**".
 
 <p align="center">
 <img src="https://github.com/IGS/Chiron/raw/master/docs/images/launch6.png" width="500">
 </p>
 
-15. Select “**Choose an existing key pair**”. It should be the default.
+11. Click the "**Next: Add Storage**" button.
 
-16. Choose the previously created “**cloud_workshop**” key pair.
+12. On the "**Step 4: Add Storage**" screen, no changes are needed.
 
-17. Acknowledge that you have the private key file (which you downloaded earlier) by checking the checkbox.
+13. Click the “**Next: Add Tags**" button.
+
+14. On the "**Step 5: Add Tags**" screen, there are also no changes needed.
+
+15. Click the "**Next: Configure Security Group**" button.
+
+16. On the "**Step 6: Configure Security Group**" screen, choose "**Select an existing security group**".
+
+17. Check the previously created "**cloud_workshop_sg**" row as shown.
+
+18. Click "**Review and Launch**".
+
+19. Review, and if all the settings are correct, click the blue "**Launch**" button.
+
+20. Select "**Choose an existing key pair**". It should be the default.
+
+21. Choose the previously created "**cloud_workshop**" key pair.
+
+22. Acknowledge that you have the private key file (which you downloaded earlier) by checking the checkbox.
+
+23. Click "**Launch Instances**".
 
 <p align="center">
 <img src="https://github.com/IGS/Chiron/raw/master/docs/images/launch7.png" width="500">
 </p>
 
-18. Verify the details of the running instance match up with the selections you have made.
+24. Verify the details of the running instance match up with the selections you have made.
 
-19. Take special note of the “**IPv4 Public IP**” internet address. We will need this later in order to connect to our cloud machine.
+25. Take special note of the “**IPv4 Public IP**” internet address. We will need this later in order to connect to our cloud machine.
 
 <p align="center">
 <img src="https://github.com/IGS/Chiron/raw/master/docs/images/launch8.png" width="700">
@@ -261,7 +271,7 @@ On the “Step 2” screen, after clicking “**Launch**”, one must select an 
 2. Select “**Attach volume**”, then, under “**Instance**”, select our newly launched virtual machine instance, which should be “running”.
 
 3. Make a note of the device. It will probably be **/dev/sdf**, or something similar.
-
+ck
 4. Click “**Attach**”. After a brief period, the volume state will change to indicate that it is “in-use”.
 
 <p align="center">
@@ -348,7 +358,6 @@ Filesystem Size Used Avail Use% Mounted on
 # /etc/init.d/docker start
 ```
 
-<<<<<<< HEAD
 6. Exit from "root" back to "ubuntu"
 
 ```
@@ -357,9 +366,8 @@ Filesystem Size Used Avail Use% Mounted on
 $ whoami
 ubuntu
 ```
-=======
+
 [top](#top)
->>>>>>> 71ed17b791ba898b744099edcf85433223ed3793
 
 ## <a name="tearing_down"></a> Tearing Down
 
