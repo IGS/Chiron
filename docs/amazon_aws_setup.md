@@ -234,11 +234,11 @@ Instance types describe the features of the virtual machine that will be instant
 
 17. Check the previously created "**cloud_workshop_sg**" row as shown.
 
-18. Click "**Review and Launch**".
-
 <p align="center">
 <img src="https://github.com/IGS/Chiron/raw/master/docs/images/launch4.png" width="500">
 </p>
+
+18. Click "**Review and Launch**".
 
 19. Review, and if all the settings are correct, click the blue "**Launch**" button.
 
