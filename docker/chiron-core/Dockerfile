@@ -13,7 +13,7 @@ RUN apt-get install -y --no-install-recommends git nano python python-pip python
 RUN pip install --upgrade pip
 
 # R things
-RUN apt-get install -y r-base r-base-dev r-cran-getopt r-cran-reshape2
+RUN apt-get install -y r-base r-base-dev r-cran-getopt r-cran-reshape2 r-cran-dplyr
 
 # For reference databases needed by tools
 RUN mkdir /dbs
