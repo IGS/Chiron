@@ -341,14 +341,13 @@ Your prompt should change to a “#” character.
 # /etc/init.d/docker stop
 ```
 
-You should see an “ok” message if you do so successfully..
+You should see an “ok” message if you do so successfully.
 
 4. Mount the volume and verify you have approximately 500GB available
 
 ```
 # mount -t ext4 /dev/xvdf /opt
 
-# chmod 
 # df -h /opt
 Filesystem Size Used Avail Use% Mounted on
 /dev/xvdf 493G 70M 467G 1% /opt
