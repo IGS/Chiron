@@ -1,6 +1,6 @@
 #!/usr/bin/env cwl-runner
 cwlVersion: v1.0
-label: Humann2 - Complete pipeline
+label: Humann2 - Complete pipeline that merges Humann2 output first
 class: Workflow
 
 requirements:
@@ -11,23 +11,12 @@ requirements:
   - class: InlineJavascriptRequirement
 
 inputs:
-  input_file:
-    label: Sample inputs
-    type: File[]
-# Humann2 options
-  humann2_output_dir:
-    label: Output Directory used for storing humann2 output
+  input_dir:
+    label: Directory with some Humann2 output
+    type: Directory[]
+  file_name:
+    label: File type to merge (i.e. 'genefamilies')
     type: string
-    default: '.'
-  gap_fill:
-    type: string
-    default: "off"
-  bypass_translated_search:
-    type: boolean
-    default: false
-  num_cores:
-    type: int
-    default: 1
 # Rename Table option
   feat_db:
     type: string
@@ -60,21 +49,20 @@ outputs:
 
 steps:
 
-  humann2:
-    run: humann2.cwl
+  humann2_join_tables:
+    run: humann2_join_tables.cwl
     in:
-      input_file: input_file
-      output_dir: humann2_output_dir
-      gap_fill: gap_fill
-      bypass_translated_search: bypass_translated_search
-      num_threads: num_cores
-    out: [out_dir, out_gene_families]
-    scatter: [input_file]
+      input_dir: input_dir
+      file_name: file_name
+      output_tsv:
+        valueFrom: $(inputs.input_dir.basename + '_' + inputs.file_name + '.tsv')
+    out: [out_tsv]
+    scatter: [input_dir]
 
   rename_table:
     run: humann2_rename_table.cwl
     in:
-      input_tsv: humann2/out_gene_families
+      input_tsv: humann2_join_tables/out_tsv
       output_tsv:
         valueFrom: $(inputs.input_tsv.nameroot + '-names.tsv')
       names: feat_db
@@ -84,7 +72,7 @@ steps:
   renorm_table:
     run: humann2_renorm_table.cwl
     in:
-      input_tsv: humann2/out_gene_families
+      input_tsv: humann2_join_tables/out_tsv
       output_tsv:
         valueFrom: $(inputs.input_tsv.nameroot + '-' + inputs.units + '.tsv')
       units: normalize_units

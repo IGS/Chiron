@@ -11,11 +11,24 @@ The second parameter is YAML or JSON file consisting of input parameters for the
 Any additional command-line options must be provided before the "cwl tool/workflow script"
 
 ## Running the Humann2 pipeline
+### Standard humann2 run
 ```
 cwl-runner ./humann2_complete.cwl ./humann2_complete_test.yml
 ```
 
 The file "humann2\_complete\_test.yml" is an example of a typical Humann2 run using example inputs from the workshop tutorial. Passing in multiple input files will parallelize the pipeline runs per sample.
+
+### Pipeline that merges Humann2 output first
+```
+cwl-runner ./humann2_join_complete.cwl ./humann2_join_complete_test.yml
+```
+
+The file "humann2\_join\_complete\_test.yml" is an example of a typical Humann2 run that first merges all humann2 output files in a given directory before running the downstream steps. Passing in multiple input directories will parallelize the pipeline runs per directory.
+
+## Outputs (for both pipelines)
+* Feature .tsv file from humann2\_rename\_table
+* Normalized .tsv file from humann2\_renorm\_table
+* Regrouped .tsv file from humann2\_regroup\_table
 
 ## Misc Notes
 
