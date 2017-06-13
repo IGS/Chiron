@@ -6,19 +6,12 @@ class: CommandLineTool
 hints:
   - class: DockerRequirement
     dockerPull: umigs/chiron-humann2
-#  - class: InitialWorkDirRequirement
-#    listing:
-#      - $(inputs.input_tsv.dirname)
 
 inputs:
   input_tsv:
     inputBinding:
       prefix: --input
     type: File
-#  input_dir:
-#    inputBinding:
-#      valueFrom: $(inputs.input_tsv.dirname)
-#    type: Directory
   output_tsv:
     inputBinding:
       prefix: --output

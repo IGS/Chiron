@@ -1,0 +1,6 @@
+paired_reads:
+  - class: File
+    path: ./test_input/SRS044742/SRS044742.denovo_duplicates_marked.trimmed.1.fastq
+  - class: File
+    path: ./test_input/SRS044742/SRS044742.denovo_duplicates_marked.trimmed.2.fastq
+output_directory: 'SRS044742_out'

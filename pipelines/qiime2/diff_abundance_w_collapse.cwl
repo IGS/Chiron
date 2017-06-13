@@ -6,6 +6,8 @@ class: Workflow
 hints:
   - class: DockerRequirement
     dockerPull: umigs/chiron-qiime2
+  - class: StepInputExpressionRequirement
+  - class: InlineJavascriptRequirement
 
 inputs:
   metadata_file:
@@ -18,6 +20,8 @@ inputs:
     type: int
   taxonomy_file:
     type: File
+  seqs_prefix:
+    type: string?
 outputs:
   feat_visual:
     type: File
@@ -37,6 +41,8 @@ steps:
           inputBinding:
             prefix: --i-taxonomy
           type: File
+        seqs_prefix:
+          type: string?
         collapse_level:
           inputBinding:
             prefix: --p-level
@@ -45,17 +51,19 @@ steps:
         collapsed_table:
           inputBinding:
             prefix: --o-collapsed-table
+            valueFrom: $(inputs.seqs_prefix + 'level' + inputs.collapse_level + '-coll-table.qza')
           type: string
-          default: "coll-table.qza"
+          default: 'coll-table.qza'
       outputs:
         out_collapsed_table:
           type: File
           outputBinding:
-            glob: $(inputs.collapsed_table)
+            glob: $('*' + inputs.collapsed_table)
     in:
       table: input_table
       taxonomy_file: taxonomy_file
       collapse_level: collapse_level
+      seqs_prefix: seqs_prefix
     out: [out_collapsed_table]
 
   add_pseudocount:
@@ -67,18 +75,22 @@ steps:
           inputBinding:
             prefix: --i-table
           type: File
+        seqs_prefix:
+          type: string?
         composition:
           inputBinding:
             prefix: --o-composition-table
+            valueFrom: $(inputs.seqs_prefix + 'comp-table.qza')
           type: string
-          default: "comp-table.qza"
+          default: 'comp-table.qza'
       outputs:
         out_comp_table:
           type: File
           outputBinding:
-            glob: $(inputs.composition)
+            glob: $('*' + inputs.composition)
     in:
       table: collapse/out_collapsed_table
+      seqs_prefix: seqs_prefix
     out: [out_comp_table]
 
   ancom:
@@ -98,18 +110,22 @@ steps:
           inputBinding:
             prefix: --m-metadata-category
           type: string
+        seqs_prefix:
+          type: string?
         feat_visualization:
           inputBinding:
             prefix: --o-visualization
+            valueFrom: $(inputs.seqs_prefix + 'ancom.qzv')
           type: string
-          default: ancom.qzv
+          default: 'ancom.qzv'
       outputs:
         out_visual:
           type: File
           outputBinding:
-            glob: $(inputs.feat_visualization)
+            glob: $('*' + inputs.feat_visualization)
     in:
       comp_table: add_pseudocount/out_comp_table
       metadata_file: metadata_file
       metadata_category: metadata_category
+      seqs_prefix: seqs_prefix
     out: [out_visual]

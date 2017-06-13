@@ -1,0 +1,6 @@
+sample_markers: 
+  - class: File
+    path: './test_output/13530241_SF05.markers'
+output_dir: '.'
+print_clades_only: true
+num_cores: 1

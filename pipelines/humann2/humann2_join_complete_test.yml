@@ -1,0 +1,8 @@
+input_dir:
+  - class: Directory
+    path: ./test_input/763577454
+file_name: "genefamilies"
+feat_db: 'uniref90'
+normalize_units: 'cpm'
+update_snames: true
+regrouping_category: 'uniref90_level4ec'

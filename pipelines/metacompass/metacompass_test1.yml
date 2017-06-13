@@ -1,0 +1,4 @@
+unpaired_reads:
+  - class: File
+    path: ./test_input/SRS044742.fastq
+output_directory: 'SRS044742_unpaired_out'

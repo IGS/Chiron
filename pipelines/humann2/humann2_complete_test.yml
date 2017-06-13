@@ -1,0 +1,11 @@
+input_file:
+  - class: File
+    path: ./test_input/demo.fastq
+humann2_output_dir: '.'
+gap_fill: "on"
+bypass_translated_search: false
+num_cores: 1
+feat_db: 'uniref90'
+normalize_units: 'cpm'
+update_snames: true
+regrouping_category: 'uniref90_level4ec'

@@ -1,0 +1,13 @@
+sample_markers: 
+  - class: File
+    path: ./test_output/13530241_SF05.markers
+ref_marker:
+  class: File
+  path: ./test_input/s__Eubacterium_siraeum.markers.fasta
+ifn_ref_genomes:
+  class: File
+  path: ./test_input/GCF_000154325.fna.bz2
+output_dir: '.'
+num_cores: 1
+clades: 's__Eubacterium_siraeum'
+marker_in_clade: 0.2

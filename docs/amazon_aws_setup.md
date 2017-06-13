@@ -1,10 +1,10 @@
 # Amazon AWS EC2 Setup 
 <a name="top"></a>
-***
 
 ## Contents
 
 * [Logging into Amazon AWS](#login)
+* [Applying the Workshop Credit](#credit)
 * [Regions](#regions)
 * [EC2 (Elastic Compute Cloud) Environment](#ec2)
 * [Key Pairs](#keypairs)
@@ -23,9 +23,45 @@ Here we go through the various steps to quickly create a Docker enabled virtual 
 ## <a name="login"></a> Logging into Amazon AWS
 
 * You should already have an Amazon AWS account if you followed with workshop preparations
-* If not, browse to [aws.amazon.com)(https://aws.amazon.com), click the button at the upper right, and follow the directions
+* If not, browse to [aws.amazon.com](https://aws.amazon.com), click the button at the upper right, and follow the directions
 
-![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/login.png "")
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/create_account.png" width="500">
+</p>
+
+[top](#top)
+
+## <a name="credit"></a> Applying the Workshop Credit
+
+You should have an Amazon credit code that has been given to you by virtue of attending this workshop. The credit is worth $50.00.
+
+1. To apply the credit, navigate to the upper right, where you find your username, and select "**My Billing Dashboard**".
+
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/credit1.png">
+</p>
+
+2. On the navigation bar at left, select click the "**Credits**" link.
+
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/credit2.png">
+</p>
+
+3. Enter your code, and complete the security captcha (solve the obscured text to prove that you're not a bot).
+
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/credit3.png">
+</p>
+
+4. Click the "**Redeem**" button.
+
+5. Verify that the credit has been applied in the amount of $50.00.
+
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/credit4.png">
+</p>
+
+[top](#top)
 
 ## <a name="regions"></a> Regions
 
@@ -34,19 +70,27 @@ Here we go through the various steps to quickly create a Docker enabled virtual 
 * In this workshop, we will work exclusively with the **US-East (N. Virginia)** region.
 * Please switch to it if you find yourself in a different region.
 
-![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/regions.png "")
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/regions.png" width="500">
+</p>
 
 ## <a name="ec2"></a> EC2 (Elastic Compute Cloud) Environment
 
 Back on the AWS dashboard, click on the "**EC2**"" link under the “**Compute**” section.
 
-![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/ec2.png "")
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/ec2.png" width="500">
+</p>
+
+[top](#top)
 
 ## <a name="keypairs"></a>Key Pairs
 
 Click on the "**Key Pairs**" link
 
-![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/keys1.png "keys1")
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/keys1.png" width="500">
+</p>
 
 Most interactions with Amazon AWS resources will involve key-based encryption for security. Amazon EC2 will work with SSH generated keys, but for this workshop, we will use a key pair created via Amazon AWS's web console.
 
@@ -54,7 +98,9 @@ Most interactions with Amazon AWS resources will involve key-based encryption fo
 
 2. Accept the download and save the .pem file.
 
-![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/keys2.png "keys2")
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/keys2.png" width="500">
+</p>
 
 ### Make copies of the the .pem file for use by "Secure Shell"
 
@@ -64,13 +110,17 @@ Most interactions with Amazon AWS resources will involve key-based encryption fo
 
 * Make a note of where these files are located on your laptop’s filesystem
 
-* This is necessary because the “Secure Shell” Chrome app doesn’t work well, with just a PEM file, and is looking for a pair of files.
+* This is necessary because the “Secure Shell” Chrome app doesn’t work well with just a PEM file, and is looking for a pair of files (public & private key files).
 
 * OSX/Linux users intending to use SSH can probably skip this step because SSH's "-i" flag can work with .pem files.
 
 You should now have a "**cloud_workshop**" key pair listed in the "Key Pairs" section
 
-![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/keys3.png "keys3")
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/keys3.png" width="500">
+</p>
+
+[top](#top)
 
 ## <a name="security_groups"></a> Security Groups
 
@@ -88,7 +138,11 @@ Amazon locks everything down tightly. We have to create rules to allow traffic t
     * For SSH
     * For “Custom TCP” port **8888**. Sources should be set to “**Anywhere**”.
 
-![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/security1.png "security1")
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/security1.png" width="500">
+</p>
+
+[top](#top)
 
 ## <a name="volumes"></a> Volumes
 
@@ -100,7 +154,9 @@ To address this, we will create a “Volume” to greatly expand the amount of d
 
 2. Click on the “**Create Volume**” button
 
-![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/volumes1.png "volumes1")
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/volumes1.png" width="700">
+</p>
 
 3. Make the following selections: “**Throughput optimized**”, **500** GB in size, and “**us-east-1d**” for the Availability Zone.
 
@@ -110,7 +166,11 @@ To address this, we will create a “Volume” to greatly expand the amount of d
 
 6. Verify that the volume is in the correct availability zone and that it has the correct size.
 
-![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/volumes2.png "volumes2")
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/volumes2.png" width="700">
+</p>
+
+[top](#top)
 
 ## <a name="launch"></a> Launching an AMI (Amazon Machine Image)
 
@@ -120,7 +180,9 @@ Now we will launch an Amazon Machine Image (AMI)
 
 2. Type “**chiron**” into the search box at the top of the dashboard.
 
-![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/launch1.png "launch1")
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/launch1.png" width="500">
+</p>
 
 3. After entering “**chiron**” into the search box at the top (with "**Public Images**" selected).
 
@@ -128,7 +190,9 @@ Now we will launch an Amazon Machine Image (AMI)
 
 5. Hit "**Enter**" on your keyboard.
 
-![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/launch2.png "launch2")
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/launch2.png" width="500">
+</p>
 
 The **chiron** AMI is a custom image created for the workshop and has Docker pre-installed on it for your use.
 
@@ -136,13 +200,17 @@ The **chiron** AMI is a custom image created for the workshop and has Docker pre
 
 6. Click the “**Launch**” button at the upper left
 
-![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/launch3.png "launch3")
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/launch3.png" width="500">
+</p>
 
 7. Click the “**Edit security groups**” link on the right side of the screen.
 
 8. Choose “**Select an existing security group**” and check the previously created “**cloud_workshop_sg**” row as shown.
 
-![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/launch4.png "launch4")
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/launch4.png" width="500">
+</p>
 
 9. Click “**Review and Launch**”.
 
@@ -152,7 +220,9 @@ On the “Step 2” screen, after clicking “**Launch**”, one must select an 
 
 11. Click the “**Review and Launch**” button.
 
-![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/launch5.png "launch5")
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/launch5.png" width="500">
+</p>
 
 12. Click the “**Edit security groups**” link on the right side of the screen.
 
@@ -160,7 +230,9 @@ On the “Step 2” screen, after clicking “**Launch**”, one must select an 
 
 14. Click “**Review and Launch**”.
 
-![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/launch6.png "launch6")
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/launch6.png" width="500">
+</p>
 
 15. Select “**Choose an existing key pair**”. It should be the default.
 
@@ -168,13 +240,19 @@ On the “Step 2” screen, after clicking “**Launch**”, one must select an 
 
 17. Acknowledge that you have the private key file (which you downloaded earlier) by checking the checkbox.
 
-![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/launch7.png "launch7")
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/launch7.png" width="500">
+</p>
 
 18. Verify the details of the running instance match up with the selections you have made.
 
 19. Take special note of the “**IPv4 Public IP**” internet address. We will need this later in order to connect to our cloud machine.
 
-![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/launch8.png "launch8")
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/launch8.png" width="700">
+</p>
+
+[top](#top)
 
 ## <a name="attach_volume"></a> Attaching Volume to Instance
 
@@ -186,7 +264,11 @@ On the “Step 2” screen, after clicking “**Launch**”, one must select an 
 
 4. Click “**Attach**”. After a brief period, the volume state will change to indicate that it is “in-use”.
 
-![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/attach_volume.png "attach_volume")
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/attach_volume.png" width="700">
+</p>
+
+[top](#top)
 
 ## <a name="instance_connect"></a> Connecting to Instance
 
@@ -200,13 +282,17 @@ On the “Step 2” screen, after clicking “**Launch**”, one must select an 
 
 5. For identity, click the “**Import...**” button and browse to the “**cloud_workshop**” file you recently copied from your .pem file. The "Identity" field should take on the value of "**cloud_workshop**".
 
-![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/connect1.png "connect1")
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/connect1.png" width="700">
+</p>
 
 6. After configuring the connection in “*Secure Shell*”, click the “**Connect**” button at the lower right.
 
 7. The connection should be established. Once established, you will have a working terminal that looks similar to:
 
-![alt text](https://github.com/IGS/Chiron/raw/master/docs/images/connect2.png "connect2")
+<p align="center">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/connect2.png" width="700">
+</p>
 
 [top](#top)
 
@@ -262,6 +348,7 @@ Filesystem Size Used Avail Use% Mounted on
 # /etc/init.d/docker start
 ```
 
+<<<<<<< HEAD
 6. Exit from "root" back to "ubuntu"
 
 ```
@@ -270,6 +357,9 @@ Filesystem Size Used Avail Use% Mounted on
 $ whoami
 ubuntu
 ```
+=======
+[top](#top)
+>>>>>>> 71ed17b791ba898b744099edcf85433223ed3793
 
 ## <a name="tearing_down"></a> Tearing Down
 
@@ -292,5 +382,8 @@ Remove the 500GB volume that was created.
 ## <a name="related"></a> Related Links:
 
 - [Official Docker Installation](https://docs.docker.com/engine/installation/)
+- [Secure Shell Chrome App](https://chrome.google.com/webstore/detail/secure-shell/pnhechapfaindjhompbnflcldabbghjo?hl=en)
+- [Amazon Key Pairs](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair)
+- [Amazon Security Groups](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html)
 
 [top](#top)

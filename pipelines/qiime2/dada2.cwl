@@ -3,6 +3,9 @@ cwlVersion: v1.0
 label: QIIME2 - DADA2 denoiser
 class: CommandLineTool
 
+requirements:
+  - class: InlineJavascriptRequirement
+
 hints:
   - class: DockerRequirement
     dockerPull: umigs/chiron-qiime2
@@ -25,21 +28,27 @@ inputs:
   rep_seqs:
     inputBinding:
       prefix: --o-representative-sequences
+      valueFrom: $(inputs.input_seqs.nameroot + '-rep-seqs.qza')
     type: string
-    default: "rep-seqs.qza"
+    default: 'rep-seqs.qza'
   table:
     inputBinding:
       prefix: --o-table
+      valueFrom: $(inputs.input_seqs.nameroot + '-table.qza')
     type: string
-    default: "table.qza"
+    default: 'table.qza'
 outputs:
   out_rep_seqs:
     type: File
     outputBinding:
-      glob: $(inputs.rep_seqs)
+      glob: $('*' + inputs.rep_seqs)
   out_table:
     type: File
     outputBinding:
-      glob: $(inputs.table)
+      glob: $('*' + inputs.table)
+  out_prefix:
+    type: string
+    outputBinding:
+      outputEval: $(inputs.input_seqs.nameroot + '-')
 
 baseCommand: ["qiime", "dada2", "denoise-single"]

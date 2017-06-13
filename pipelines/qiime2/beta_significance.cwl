@@ -3,15 +3,20 @@ cwlVersion: v1.0
 label: QIIME2 - Perform beta group significance analysis
 class: CommandLineTool
 
+requirements:
+  - class: InlineJavascriptRequirement
+
 hints:
   - class: DockerRequirement
     dockerPull: umigs/chiron-qiime2
 
 inputs:
-  input_matrix:
-    inputBinding:
-      prefix: --i-distance-matrix
-    type: File
+  input_dir:
+    type: Directory
+  matrix_file_base:
+    type: string
+  in_prefix:
+    type: string?
   metadata_file:
     inputBinding:
       prefix: --m-metadata-file
@@ -30,5 +35,8 @@ outputs:
     outputBinding:
       glob: $(inputs.out_visualization)
 
-arguments: ["--p-pairwise"]
+arguments:
+  - valueFrom: $(inputs.input_dir.path + '/' + inputs.matrix_file_base)
+    prefix: --i-distance-matrix
+  - prefix: --p-pairwise"
 baseCommand: ["qiime", "diversity", "beta-group-significance"]

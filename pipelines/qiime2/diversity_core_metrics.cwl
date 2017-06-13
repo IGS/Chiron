@@ -3,6 +3,9 @@ cwlVersion: v1.0
 label: QIIME2 - Compute core metrics for alpha/beta diversity analysis
 class: CommandLineTool
 
+requirements:
+  - class: InlineJavascriptRequirement
+
 hints:
   - class: DockerRequirement
     dockerPull: umigs/chiron-qiime2
@@ -16,35 +19,22 @@ inputs:
     inputBinding:
       prefix: --i-table
     type: File
+  in_prefix:
+    type: string?
   sampling_depth:
     inputBinding:
-      prefix: ---p-sampling-depth
+      prefix: --p-sampling-depth
     type: int
     default: 1080
   output_dir:
     inputBinding:
       prefix: --output-dir
+      valueFrom: $(inputs.in_prefix + 'core-metrics-results')
     type: string
-    default: "core-metrics-results"
+    default: 'core-metrics-results'
 outputs:
   out_dir:
     type: Directory
     outputBinding:
-      glob: $(inputs.output_dir)
-  distance_matrix:
-    type: File
-    outputBinding:
-      glob: $(inputs.output_dir + '/unweighted_unifrac_distance_matrix.qza')
-  pcoa_results:
-    type:
-      type: array
-      items: File
-    outputBinding:
-      glob: [$(inputs.output_dir + '/unweighted_unifrac_pcoa_results.qza')][$(inputs.output_dir + '/bray_curtis_pcoa_results.qza')]
-  alpha_vector:
-    type:
-      type: array
-      items: File
-    outputBinding:
-      glob: [$(inputs.output_dir + '/faith_pd_vector.qza')][$(inputs.output_dir + '/evenness_vector.qza')]
+      glob: $('*' + inputs.output_dir)
 baseCommand: ["qiime", "diversity", "core-metrics"]

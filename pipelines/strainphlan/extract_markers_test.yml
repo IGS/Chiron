@@ -1,0 +1,8 @@
+index_dir:
+  class: Directory
+  path: ./test_input/db_v20
+mpa_pkl: 'mpa_v20_m200.pkl'
+ifn_markers:
+  class: File
+  path: ./test_input/all_markers.fasta
+clade: 's__Eubacterium_siraeum'

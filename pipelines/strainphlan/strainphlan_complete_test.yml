@@ -1,0 +1,30 @@
+input_file:
+  - class: File
+    path:  ./test_input/fasta/13530241_SF05.fasta.gz
+  - class: File
+    path:  ./test_input/fasta/13530241_SF06.fasta.gz
+  - class: File
+    path:  ./test_input/fasta/19272639_SF05.fasta.gz
+  - class: File
+    path:  ./test_input/fasta/19272639_SF06.fasta.gz
+  - class: File
+    path:  ./test_input/fasta/40476924_SF05.fasta.gz
+  - class: File
+    path:  ./test_input/fasta/40476924_SF06.fasta.gz
+seq_prefix: ['13530241_SF05', '13530241_SF06', '19272639_SF05', '19272639_SF06', '40476924_SF05', '40476924_SF06']
+input_type: 'multifasta'
+bowtie2_index_dir:
+  class: Directory
+  path: ./test_input/db_v20
+bowtie2_base_str: 'mpa_v20_m200'
+mpa_pkl_filename: 'mpa_v20_m200.pkl'
+genome_input:
+  class: File
+  path: ./test_input/GCF_000154325.fna.bz2
+clades: 's__Eubacterium_siraeum'
+marker_in_clade: 0.2
+metadata_file:
+  class: File
+  path: ./test_input/metadata.txt
+metadata_category: 'subjectID'
+num_cores: 2

@@ -1,7 +1,43 @@
 #!/bin/bash
 
+# Set defaults
+LOCAL_BASE=''
+
+while getopts :l:c: opt; do
+  case $opt in
+    l)
+      LOCAL_BASE=$OPTARG
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      exit 1
+      ;;
+    :)
+      echo "Option -$OPTARG requires an argument." >&2
+      exit 1
+      ;;
+  esac
+done
+
 if [[ "$(docker images -q umigs/chiron-humann2 2> /dev/null)" == "" ]]; then
   echo "Docker image for HUMAnN2 not found.  Downloading first ..."
 fi
 
-docker run -i -t umigs/chiron-humann2 /bin/bash
+if [ -z $LOCAL_BASE ]; then
+    if [ -w "/opt" ]; then
+        LOCAL_BASE="/opt/chiron/humann2"
+    else
+        LOCAL_BASE="${HOME}/chiron/humann2"
+    fi
+fi
+
+if [ ! -d ${LOCAL_BASE} ]; then
+    echo "Creating local output directory: ${LOCAL_BASE}"
+    mkdir -p ${LOCAL_BASE}
+fi
+
+echo "Saving files to /output in this Docker image will make them available in ${LOCAL_BASE} outside of it."
+docker run --rm -v ${LOCAL_BASE}:/output -i -t umigs/chiron-humann2 /bin/bash
+
+
+

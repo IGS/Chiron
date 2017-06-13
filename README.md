@@ -1,7 +1,9 @@
-# Chiron
-Centralized access to Dockerized tools and pipelines for metagenomics developed by the Human Microbiome Project members.  Initially developed HMP Cloud Pilot workshop.
+# Chiron*
+Centralized access to Dockerized tools and pipelines for metagenomics developed by the Human Microbiome Project members.  Initially developed for the HMP Cloud Workshop.
 
 This is under very active development and isn't likely to be stable until June 10th at the earliest.
+
+\* Pronounced KY-rən
 
 # Why Chiron?
 
@@ -34,6 +36,10 @@ Under the Chiron/bin/ directory this creates, you'll find scripts to run each to
 
 This will download the Docker image if you don't already have it, then drop you to a terminal within it.
 
+# Run a pre-built analysis pipeline
+
+Docker-enabled pipelines have been written for several analysis tools using [Common Workflow Language](https://github.com/common-workflow-language/common-workflow-language) (CWL).  These are available for viewing [here](https://github.com/IGS/Chiron/tree/master/pipelines), but work is underway to create user-friendly launchers for them.  These should be available by June 15.
+
 # Existing tools/Docker images:
 
 - umigs/chiron-core - Includes the HMP Client and common utilities
@@ -48,27 +54,16 @@ This will download the Docker image if you don't already have it, then drop you 
 - umigs/chiron-qiime2
 
 # Try a Cloud session on Amazon
-The following instructions will help you launch the analysis on Amazon Cloud.
+To create and configure your Amazon AWS cloud environment to execute the tools and Docker containers presented in the workshop, please use the following guide:
 
-How to create account.
-https://aws.amazon.com/console/
+[Cloud Workshop AWS Setup Guide](/docs/amazon_aws_setup.md)
 
-Switch to US East.
+For general instructions about launching virtual machines on AWS, Amazon has provided useful instructions here:
 
-How to generate key-pair.
-
-Set security settings.
-
-Launch AMI. 
-ami-21530437
-
-Connecting to Amazon Instance using ssh.
-
-
-https://aws.amazon.com/getting-started/tutorials/launch-a-virtual-machine/
-
+[Launch a VM on Amazon AWS](https://aws.amazon.com/getting-started/tutorials/launch-a-virtual-machine/)
 
 # Related Links:
 
 - [Discussion group site](https://groups.google.com/forum/#!forum/hmp-cloud-pilot) (Google groups, for collaborators)
-- [GDC interface](http://portal.ihmpdcc.org) - Click 'data' to get the facet search
+- [HMP data portal](http://portal.ihmpdcc.org) - click 'Data' to get to facet search
+- [HMP client](https://github.com/IGS/hmp_client) - client for downloading HMP data via manifest files generated at the HMP data portal

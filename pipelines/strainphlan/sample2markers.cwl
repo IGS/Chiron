@@ -3,6 +3,9 @@ cwlVersion: v1.0
 label: BioBakery sample2markers script
 class: CommandLineTool
 
+requirements:
+  - class: InlineJavascriptRequirement
+
 hints:
   - class: DockerRequirement
     dockerPull: umigs/chiron-phlan
@@ -16,7 +19,7 @@ inputs:
     inputBinding:
       prefix: --input_type
     type: string
-    default: sam
+    default: 'sam'
   output_dir:
     inputBinding:
       prefix: --output_dir
@@ -30,6 +33,6 @@ outputs:
   out_marker:
     type: File
     outputBinding:
-      glob: '*.markers'
+      glob: "*.markers"
 
 baseCommand: ["sample2markers.py"]
