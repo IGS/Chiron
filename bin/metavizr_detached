@@ -1,8 +1,40 @@
 #!/bin/bash
 
+# Set defaults
+LOCAL_BASE=''
+
+while getopts :l:c: opt; do
+  case $opt in
+    l)
+      LOCAL_BASE=$OPTARG
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      exit 1
+      ;;
+    :)
+      echo "Option -$OPTARG requires an argument." >&2
+      exit 1
+      ;;
+  esac
+done
+
 if [[ "$(docker images -q umigs/chiron-metaviz 2> /dev/null)" == "" ]]; then
   echo "Docker image for MetaViz not found.  Downloading first ..."
 fi
 
+if [ -z $LOCAL_BASE ]; then
+    if [ -w "/opt" ]; then
+        LOCAL_BASE="/opt/chiron"
+    else
+        LOCAL_BASE="${HOME}/chiron"
+    fi
+fi
+
+if [ ! -d ${LOCAL_BASE} ]; then
+    echo "Creating local output directory: ${LOCAL_BASE}"
+    mkdir -p ${LOCAL_BASE}
+fi
+
 # metavizr
-docker run -d -p 8787:8787 -p 7123:7123 -t umigs/chiron-metaviz
+docker run -v ${LOCAL_BASE}:/output -d -p 8787:8787 -p 7123:7123 -t umigs/chiron-metaviz
