@@ -47,6 +47,13 @@ inputs:
     type: int
 
 outputs:
+# Dada2 outputs
+  rep_seqs:
+    type: File[]
+    outputSource: dada2/out_seqs
+  rep_table:
+    type: File[]
+    outputSource: dada2/out_table
 # FeatureTable and FeatureData outputs
   feat_table_visual:
     type: File[]
@@ -54,6 +61,10 @@ outputs:
   feat_seqs_visual:
     type: File[]
     outputSource: feat_tbl_tabulate/out_seqs_visual
+# Phylogenetic analysis
+  rooted_tree:
+    type: File[]
+    outputSource: phylogenetic_analysis/rooted_tree
 # Alpha/Beta diversity output
   alpha_faith_visual:
     type: File[]
