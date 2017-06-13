@@ -15,6 +15,9 @@ cwl-runner ./metacompass.cwl ./metacompass_test1.yml
 
 The file "metacomposs\_test1.yml" is an example of a typical Metacompass run using example inputs from the workshop tutorial.
 
+## Output
+The output for the metacompass tool is the output directory itself.  Within this directory is the FASTA file of contigs and other misc. log files
+
 ## Misc Notes
 * If running on MacOS/OSX, must provide the following two options:
   * --tmpdir-prefix=./tmp
