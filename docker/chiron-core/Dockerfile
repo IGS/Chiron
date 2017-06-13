@@ -13,7 +13,12 @@ RUN apt-get install -y --no-install-recommends git nano python python-pip python
 RUN pip install --upgrade pip
 
 # R things
-RUN apt-get install -y r-base r-base-dev r-cran-getopt r-cran-reshape2 r-cran-dplyr
+COPY setup.R setup.R
+RUN apt-get install -y apt-transport-https
+RUN echo "deb http://cran.revolutionanalytics.com/bin/linux/ubuntu yakkety/" >> /etc/apt/sources.list
+RUN apt-get update
+RUN apt-get install -y r-base r-base-dev --allow-unauthenticated
+RUN Rscript setup.R
 
 # For reference databases needed by tools
 RUN mkdir /dbs
