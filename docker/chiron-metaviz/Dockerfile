@@ -1,4 +1,4 @@
-FROM umigs/chiron-core:latest
+FROM umigs/chiron-core:1.1.0
 
 #############
 ## METAVIZ ##
