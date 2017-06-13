@@ -41,7 +41,7 @@ You should have an Amazon credit code that has been given to you by virtue of at
 <img src="https://github.com/IGS/Chiron/raw/master/docs/images/credit1.png">
 </p>
 
-2. On the navigation bar at left, select click the "**Credits**" link.
+2. On the navigation bar at left, click the "**Credits**" link.
 
 <p align="center">
 <img src="https://github.com/IGS/Chiron/raw/master/docs/images/credit2.png">
@@ -347,18 +347,26 @@ You should see an “ok” message if you do so successfully..
 
 ```
 # mount -t ext4 /dev/xvdf /opt
+
+# chmod 
 # df -h /opt
 Filesystem Size Used Avail Use% Mounted on
 /dev/xvdf 493G 70M 467G 1% /opt
 ```
 
-5. Restart the docker process.
+5. Change the ownership so the default "ubuntu" user can use the directory.
+
+```
+# chown ubuntu.ubuntu /opt
+```
+
+6. Restart the docker process.
 
 ```
 # /etc/init.d/docker start
 ```
 
-6. Exit from "root" back to "ubuntu"
+7. Exit from "root" back to "ubuntu"
 
 ```
 # exit
