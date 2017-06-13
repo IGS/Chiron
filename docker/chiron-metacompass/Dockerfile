@@ -11,10 +11,12 @@ RUN pip3 install snakemake psutil
 RUN add-apt-repository ppa:webupd8team/java
 RUN apt-get update && echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections && apt-get -y install oracle-java8-installer
 
-RUN wget -O /opt/bowtie2-2.3.2-linux-x86_64.zip https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.3.2/bowtie2-2.3.2-linux-x86_64.zip/download
-RUN unzip -d /opt /opt/bowtie2-2.3.2-linux-x86_64.zip
-RUN rm /opt/bowtie2-2.3.2-linux-x86_64.zip
-ENV PATH /opt/bowtie2-2.3.2:$PATH
+# We install bowtie2-legacy since normal bowtie2 doesn't want to play nicely.
+RUN wget -O /opt/bowtie2-2.3.2-legacy-linux-x86_64.zip https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.3.2/bowtie2-2.3.2-legacy-linux-x86_64.zip/download
+RUN unzip -d /opt/ /opt/bowtie2-2.3.2-legacy-linux-x86_64.zip
+RUN rm /opt/bowtie2-2.3.2-legacy-linux-x86_64.zip
+ENV PATH /opt/bowtie2-2.3.2-legacy:$PATH
+ENV BT2_HOME=/opt/bowtie2-2.3.2-legacy
 
 RUN svn checkout https://svn.code.sf.net/p/kmer/code/trunk /opt/kmer
 RUN make -C /opt/kmer
