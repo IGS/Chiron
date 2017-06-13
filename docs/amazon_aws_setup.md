@@ -180,13 +180,13 @@ Now we will launch an Amazon Machine Image (AMI)
 
 2. Type “**chiron**” into the search box at the top (with **Public Images** selected).
 
+3. Hit "**Enter**" on your keyboard.
+
 <p align="center">
 <img src="https://github.com/IGS/Chiron/raw/master/docs/images/launch1.png" width="500">
 </p>
 
-3. A single AMI result should appear with an ID of: **ami-21530437**.
-
-4. Hit "**Enter**" on your keyboard.
+4. A single AMI result should appear with an ID of: **ami-21530437**.
 
 <p align="center">
 <img src="https://github.com/IGS/Chiron/raw/master/docs/images/launch2.png" width="500">
