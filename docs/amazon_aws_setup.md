@@ -215,13 +215,13 @@ Instance types describe the features of the virtual machine that will be instant
 9. Click the "**Next: Configure Instance Details**" button.
 
 <p align="center">
-<img src="https://github.com/IGS/Chiron/raw/master/docs/images/launch4.png" width="500">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/launch6.png" width="500">
 </p>
 
 10. Under "**Subnet**", select the subnet that maps to "**Default in us-east-1d**".
 
 <p align="center">
-<img src="https://github.com/IGS/Chiron/raw/master/docs/images/launch6.png" width="500">
+<img src="https://github.com/IGS/Chiron/raw/master/docs/images/launch4.png" width="500">
 </p>
 
 11. Click the "**Next: Add Storage**" button.
