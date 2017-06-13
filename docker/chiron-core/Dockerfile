@@ -37,9 +37,10 @@ ENV LANG C.UTF-8
 
 RUN pip3 install boto
 
-RUN wget -O /opt/hmp_client.zip https://github.com/IGS/hmp_client/archive/v1.1.zip
+RUN wget -O /opt/hmp_client.zip https://github.com/IGS/hmp_client/archive/v1.2.zip
 RUN unzip -d /opt/hmp_client /opt/hmp_client.zip
-RUN ln -s /opt/hmp_client/hmp_client-1.1/bin/client.py /usr/local/bin/hmp_client
+RUN ln -s /opt/hmp_client/hmp_client-1.2/bin/client.py /usr/local/bin/hmp_client
+RUN ln -s /opt/hmp_client/hmp_client-1.2/test /opt/hmp_client/test
 
 # Place the examples
 RUN mkdir /tutorials/hmp_client
