@@ -52,6 +52,9 @@ outputs:
   out_profile:
     type: File[]
     outputSource: metaphlan2/out_profile
+  out_bowtie2:
+    type: File[]
+    outputSource: metaphlan2/out_bowtie2
   out_clades:
     type: File
     outputSource: identify_clades/clades_out
