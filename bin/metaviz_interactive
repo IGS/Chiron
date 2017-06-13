@@ -25,9 +25,9 @@ fi
 
 if [ -z $LOCAL_BASE ]; then
     if [ -w "/opt" ]; then
-        LOCAL_BASE="/opt/chiron/metaviz"
+        LOCAL_BASE="/opt/chiron"
     else
-        LOCAL_BASE="${HOME}/chiron/metaviz"
+        LOCAL_BASE="${HOME}/chiron"
     fi
 fi
 
