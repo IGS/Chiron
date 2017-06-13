@@ -38,4 +38,12 @@ RUN ln -s /opt/hmp_client/hmp_client-1.1/bin/client.py /usr/local/bin/hmp_client
 
 # Place the examples
 RUN mkdir /tutorials/hmp_client
-COPY ../../examples/hmp_data_exercise/*.* /tutorials/hmp_client/
+ADD https://github.com/IGS/Chiron/raw/master/examples/hmp_data_exercise/16s_metadata.tsv /tutorials/hmp_client/
+ADD https://github.com/IGS/Chiron/raw/master/examples/hmp_data_exercise/extract_qiime_subset.R /tutorials/hmp_client/
+ADD https://github.com/IGS/Chiron/raw/master/examples/hmp_data_exercise/extract_subset.R /tutorials/hmp_client/
+ADD https://github.com/IGS/Chiron/raw/master/examples/hmp_data_exercise/generate_matched_two_site_samples.R /tutorials/hmp_client/
+ADD https://github.com/IGS/Chiron/raw/master/examples/hmp_data_exercise/generate_matched_visit_samples.R /tutorials/hmp_client/
+ADD https://github.com/IGS/Chiron/raw/master/examples/hmp_data_exercise/identify_visit_samples.R /tutorials/hmp_client/
+ADD https://github.com/IGS/Chiron/raw/master/examples/hmp_data_exercise/wgs_metadata.tsv /tutorials/hmp_client/
+
+
