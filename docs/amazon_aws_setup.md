@@ -184,9 +184,11 @@ Now we will launch an Amazon Machine Image (AMI)
 <img src="https://github.com/IGS/Chiron/raw/master/docs/images/launch1.png" width="500">
 </p>
 
-3. After entering “**chiron**” into the search box, a single AMI result should appear.
+3. After entering “**chiron**” into the search box at the top (with "**Public Images**" selected).
 
-4. The AMI that is found should have an ID of: **ami-21530437**.
+4. A single AMI result should appear with an ID of: **ami-21530437**.
+
+5. Hit "**Enter**" on your keyboard.
 
 <p align="center">
 <img src="https://github.com/IGS/Chiron/raw/master/docs/images/launch2.png" width="500">
@@ -334,7 +336,7 @@ You should see an “ok” message if you do so successfully..
 4. Mount the volume and verify you have approximately 500GB available
 
 ```
-# mount –t ext4 /dev/xvdf /opt
+# mount -t ext4 /dev/xvdf /opt
 # df -h /opt
 Filesystem Size Used Avail Use% Mounted on
 /dev/xvdf 493G 70M 467G 1% /opt
@@ -346,7 +348,18 @@ Filesystem Size Used Avail Use% Mounted on
 # /etc/init.d/docker start
 ```
 
+<<<<<<< HEAD
+6. Exit from "root" back to "ubuntu"
+
+```
+# exit
+
+$ whoami
+ubuntu
+```
+=======
 [top](#top)
+>>>>>>> 71ed17b791ba898b744099edcf85433223ed3793
 
 ## <a name="tearing_down"></a> Tearing Down
 
