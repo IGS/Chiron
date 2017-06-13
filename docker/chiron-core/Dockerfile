@@ -36,3 +36,6 @@ RUN wget -O /opt/hmp_client.zip https://github.com/IGS/hmp_client/archive/v1.0.z
 RUN unzip -d /opt/hmp_client /opt/hmp_client.zip
 RUN ln -s /opt/hmp_client/hmp_client-1.0/bin/client.py /usr/local/bin/hmp_client
 
+# Place the examples
+RUN mkdir /tutorials/hmp_client
+COPY ../../examples/hmp_data_exercise/*.* /tutorials/hmp_client/
