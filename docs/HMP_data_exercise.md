@@ -58,6 +58,7 @@ cd /output/ex1
 cp /tutorials/hmp_client/community_profiles_manifest.tsv .
 hmp_client -endpoint_priority S3,HTTP -manifest community_profiles_manifest.tsv -destination /output/ex1
 gunzip ./otu_table_psn_v35.txt.gz
+bunzip2 hmp1-II_metaphlan2-mtd-qcd.pcl.bz2
 ```
 
 This should download the following files:  
@@ -136,7 +137,7 @@ extract_qiime_subset.R
 
 The following command will generate the abundance matrices for the specified subset of samples.
 ```
-Rscript $EX_SCRIPTS/extract_qiime_subset.R --qiime v35_psn_otu.genus.fixed.txt \
+Rscript $EX_SCRIPTS/extract_qiime_subset.R --qiime otu_table_psn_v35.txt \
   --samples stool_16s_rand_samples.tsv --outfile stool_16s_qiime.csv
 ```
 
@@ -152,7 +153,7 @@ extract_metaphlan_subset.R
 
 The following command will generate the abundance matrices for the specified subset of samples.
 ```
-Rscript $EX_SCRIPTS/extract_subset.R --metaphlan hmp1-II_metaphlan2-mtd-qcd.pcl.txt \
+Rscript $EX_SCRIPTS/extract_metaphlan_subset.R --metaphlan hmp1-II_metaphlan2-mtd-qcd.pcl \
   --samples stool_wgs_rand_samples.tsv --outfile stool_wgs_metaphlan.csv
 ```
 
@@ -163,9 +164,10 @@ Before you can proceed to the visualization you will need to exit from the hmp_c
 
 ```
 exit
-bin/metaviz_interactive
 ```
 
+Please follow the instructions for using Metaviz to compare these generated files using the link below:  
+[Compare 16S and WGS using Metaviz](https://github.com/IGS/Chiron/blob/master/docs/step-by-step-metavizr.Rmd)
 [Top](#top)
 
 ## <a name="compare_16s_across_sites"></a>2. Compare the 16S community profiles for two different body sites
@@ -332,8 +334,10 @@ cp /tutorials/hmp_client/stool_nares_16s_rand_5_samples_manifest.tsv .
 The following commands will download trimmed 16S sequences for the 5 randomly selected subject visits to the directory specified by the <em>destination</em> parameter. Once the data has been downloaded exit the current Docker image.
 
 ```
-hmp_client  -endpoint_priority S3,HTTP -manifest stool_nares_16s_rand_5_samples_manifest.tsv -destination stool_nares_16s
+hmp_client  -endpoint_priority S3,HTTP -manifest stool_nares_16s_rand_5_samples_manifest.tsv \
+  -destination stool_nares_16s
 exit
+cd /opt/chiron/hmp_client/ex4
 ```
 
 ###   <a name="launch_16s_analysis"></a>4.2.  Launch workflows to analyze downloaded data
@@ -356,7 +360,7 @@ Before running the command, the 'qiime2_config_template' file needs to be copied
 The following command will run the QIIME2 process on all the files in the specified input directory.
 
 ```
-create_qiime_workflow --input_dir stool_16s --config_file stool_16s_config.yml -out_dir stool_16s_results
+qiime2_pipeline --input_dir stool_16s --config_file stool_16s_config.yml -out_dir stool_16s_results
 ```
 
 This workflow will process the individual files in the specified data directory and write the individual OTU tables. It will then create a combined OTU table for all the samples.
