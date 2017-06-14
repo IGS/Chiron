@@ -58,6 +58,7 @@ cd /output/ex1
 cp /tutorials/hmp_client/community_profiles_manifest.tsv .
 hmp_client -endpoint_priority S3,HTTP -manifest community_profiles_manifest.tsv -destination /output/ex1
 gunzip ./otu_table_psn_v35.txt.gz
+bunzip2 hmp1-II_metaphlan2-mtd-qcd.pcl.bz2
 ```
 
 This should download the following files:  
@@ -136,7 +137,7 @@ extract_qiime_subset.R
 
 The following command will generate the abundance matrices for the specified subset of samples.
 ```
-Rscript $EX_SCRIPTS/extract_qiime_subset.R --qiime v35_psn_otu.genus.fixed.txt \
+Rscript $EX_SCRIPTS/extract_qiime_subset.R --qiime otu_table_psn_v35.txt \
   --samples stool_16s_rand_samples.tsv --outfile stool_16s_qiime.csv
 ```
 
@@ -166,6 +167,8 @@ exit
 bin/metaviz_interactive
 ```
 
+Please follow the instructions for using Metaviz to compare these generated files using the link below:  
+[Compare 16S and WGS using Metaviz](https://github.com/IGS/Chiron/blob/master/docs/step-by-step-metavizr.Rmd)
 [Top](#top)
 
 ## <a name="compare_16s_across_sites"></a>2. Compare the 16S community profiles for two different body sites
