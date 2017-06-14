@@ -1,0 +1,19 @@
+# File containing metadata sample information
+metadata_file:
+  class: File
+  path: # FULL METADATA FILE PATH GOES HERE
+# Pre-trained naive Bayes classifier file
+training_classifier:
+  class: File
+  location: # FULL TRAINING CLASSIFIER PATH GOES HERE
+metadata_category: # CATEGORY NAME GOES HERE
+# Level to collapse taxonomy before performing differential abudance.  Default is 2
+collapse_level: 2
+# Name to give axes for PCoA plots
+custom_axis: # AXES NAME GOES HERE
+# Diversity rarefaction depth.  Default is 1080
+sampling_depth: 1080
+# DADA2 number of left-side bases to trim.  Default is 0
+trim_left: 0
+# DADA2 length to truncate sequence.  Default is 120
+trunc_len: 120
