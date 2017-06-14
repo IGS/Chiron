@@ -153,7 +153,7 @@ extract_metaphlan_subset.R
 
 The following command will generate the abundance matrices for the specified subset of samples.
 ```
-Rscript $EX_SCRIPTS/extract_subset.R --metaphlan hmp1-II_metaphlan2-mtd-qcd.pcl.txt \
+Rscript $EX_SCRIPTS/extract_metaphlan_subset.R --metaphlan hmp1-II_metaphlan2-mtd-qcd.pcl \
   --samples stool_wgs_rand_samples.tsv --outfile stool_wgs_metaphlan.csv
 ```
 
@@ -164,7 +164,6 @@ Before you can proceed to the visualization you will need to exit from the hmp_c
 
 ```
 exit
-bin/metaviz_interactive
 ```
 
 Please follow the instructions for using Metaviz to compare these generated files using the link below:  
