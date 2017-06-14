@@ -1,0 +1,157 @@
+---
+title: "Step-by-step-metavizr"
+author: "Justin Wagner"
+date: "June 12, 2017"
+output: html_document
+---
+
+Today we will discuss using the metavizr Bioconductor package to compare 16s to WGS data for the same samples.
+
+## Docker instructions
+
+In the ~/Chiron/bin directory, run the command:
+
+ 1) $: ./metavizr_detached
+
+This will start an Rstudio-server session in a Docker container
+
+Now, on your laptop, 
+
+ 3) Open Chrome and type [IPv4 Public IP]:8787 into the navigation bar. Upon loading the page, this will now open an Rstudio session. 
+
+![](images/metavizr_initial_load.png)
+
+&nbsp;
+
+ 4) Login with username "metaviz" and password "metaviz" 
+
+![](images/metavizr_login.png)
+
+&nbsp;
+ 
+An Rstudio session will now appear in the window. Rstudio is a program that runs R and gives a view of the computing environment. The left hand panel is an R console where R commands can be run. The upper right hand panel shows the variables and other information in the current R session. The lower left hand panel shows the file system.
+
+![](images/metavizr_rstudio_screen.png)
+
+
+  5) In the R console, run the following command.
+	$: download.file('https://raw.githubusercontent.com/jmwagner/Chiron/master/examples/hmp_data_exercise/metavizr_step_by_step.R', destfile = 'workshopScript.R')
+
+![](images/metavizr_setup_download.png)
+
+&nbsp;
+
+  6) If you don't see the file 'workshopScript.R', click "Home" in the lower right hand window.
+
+![](images/metavizr_clicked_home.png)
+
+&nbsp;
+
+  7) Click "workshopScript.R" in the lower right hand window. The file will now show up in a new window in the upper left hand corner of the Rstudio session.
+
+![](images/metavizr_clicked_workshopScript.png)
+
+&nbsp;
+
+  8) Highlight lines 1-7 of the script and in the upper right of that window, click run.
+
+![](images/metavizr_highlight_and_run.png) 
+
+&nbsp;
+
+  9) Highlight line 9, then click run. This is how we will run a line. This will download a data file containing WGS and 16s data for the same samples.  The file will now be visible in the lower right hand window.
+
+![](images/metavizr_highlight_and_run_2_result.png)
+
+&nbsp;
+
+  10) Highlight line 11, then click run. This will load the downloaded data into an R object named 'wgs_16s_compare_obj'
+
+![](images/metavizr_highlight_and_run_3.png)
+
+&nbsp;
+
+  11) Highlight line 13, then click run. This will load the 'metavizr' library.
+
+![](images/metavizr_highlight_and_run_4.png)
+
+&nbsp;
+
+  12) Highlight line 15, then click run.
+
+![](images/metavizr_highlight_and_run_5.png)
+
+&nbsp;
+
+This will start the Metaviz application. Rstudio server will attempt to open a new window but be blocked. Click 'try again' in the pop-up window.
+
+![](images/metavizr_launch_metavizr_popup.png)
+
+&nbsp;
+
+Now a Metaviz UI is open in a new browser.
+
+![](images/metavizr_metaviz_launched.png)
+
+&nbsp;
+
+  13) Click back to the Rstudio tab. Highlight line 17, then click run.
+
+![](images/metavizr_highlight_and_run_6.png)
+
+&nbsp;
+
+Now in the Metaviz tab, a FacetZoom is loaded. 
+
+  14) In Metaviz, click 'Add Visualization' and select 'Stacked Plot'.
+
+![](images/metavizr_adding_first_stacked_plot.png)  
+
+&nbsp;
+  
+  15) In the measurement browser, scroll on the left column until 'source' is available. Click on 'source', click on '16s', and check the box next to 'wgs_16s_compare_1'
+  
+![](images/metavizr_measurement_select_16s.png)
+
+&nbsp;
+
+ 16) Click 'Ok' and then a chart will pop-up. A spinning wheel will appear - this is expected behavior at the time. Go onto the next step.
+ 
+![](images/metavizr_chose_16s_samples.png) 
+
+&nbsp;
+
+  17) In Metaviz, click 'Add Visualization', select 'Stacked Plot', scroll on the left column until 'source' is available. Click on 'source', click on 'wgs', check the box next to 'wgs_16s_compare_1', and click 'Ok'. Again, a spinning wheel will appear - this is expected behavior at the time. Go onto the next step.
+  
+![](images/metavizr_chose_wgs_samples.png)  
+
+&nbsp;
+
+  18) Click on the Rstudio tab, highlight line 21, then click run.
+  
+![](images/metavizr_run_httpuv.png)
+
+&nbsp;
+
+  19) Click on the Metaviz tab. Now the charts will be loaded. This is a comparison at the "Order" level of the taxonomy. 
+  
+![](images/metavizr_charts_loaded.png)
+
+&nbsp;
+
+  20) Now click 'Add Visualization', select 'Scatter Plot', scroll on the left column until 'sample' is available. Click on 'sample', click on the third sample, check the box next to 'wgs_16s_compare_1', and click 'Ok'. Again, a spinning wheel will appear - this is expected behavior at the time. Go onto the next step.
+  
+![](images/metavizr_scatter_plot.png)
+
+&nbsp;
+
+  21) Click on the Rstudio tab, highlight line 21, then click run.
+  
+![](images/metavizr_scatter_plot_run_httpuv.png)
+
+&nbsp;
+
+  22) Click on the Metaviz tab. Now the scatter plot will be loaded. This is a comparison at the "Order" level of the taxonomy with all taxa for one sample, data for 16s on the X axis and data for wgs on the Y axis.
+  
+![](images/metavizr_scatter_plot_loaded.png)
+  
