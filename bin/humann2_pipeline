@@ -60,7 +60,7 @@ def main():
     for f in glob.glob(r'*.genefamilies.tsv'):
         print("Copying {0} to {1}").format(f, merged_outdir)
         shutil.copy(f, merged_outdir)
-    run_cwl_command(args.outdir, final_yaml, CWL_WORKFLOW_JOIN)
+    run_cwl_command(args.out_dir, final_yaml, CWL_WORKFLOW_JOIN)
 
     # Lots of output dirs were created that weren't removed.  Remove them
     rm_tmp_cmd = "rm -rf tmp*"
