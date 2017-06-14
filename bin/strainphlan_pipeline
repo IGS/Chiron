@@ -79,12 +79,12 @@ def read_in_list(list_in):
 
 def add_input_files_to_yaml(yaml_dict, inputs):
     """ Join the list of input files into the existing YAML dictionary """
-    yaml_dict['input_files'] = list()
+    yaml_dict['input_file'] = list()
     yaml_dict['seq_prefix'] = list()
     for i in inputs:
         # Add the sequence to the YAML dict
         input_dict = {'class': 'File', 'path': i}
-        yaml_dict['input_files'].append(input_dict)
+        yaml_dict['input_file'].append(input_dict)
         # Add name_root of input file as the seq_prefix
         i_base = os.path.basename(i)
         i_base = re.sub(r'\.gz|\.gzip', '', i_base)
@@ -111,7 +111,7 @@ def run_cwl_command(outdir, job_input):
     with subprocess.Popen(cwl_cmd, stdout = subprocess.PIPE,
         stderr = subprocess.STDOUT, shell = True) as p:
         for line in p.stdout:
-            print(line.decode('ascii'))
+            print(line)
     if p.returncode != 0:
         raise subprocess.CalledProcessError(p.returncode, p.args)
 
