@@ -1,8 +1,8 @@
-EX_SCRIPTS/# HMP Data Exercise
+HMP Data Exercise
 <a name="top"></a>
 This document walks you through the steps of extracting data from the HMP Cloud Archive and completing the following analysis tasks.
 
-1. [Compare 16S and WGS community profiles for a body site](#compare_16s_wgs)
+1. [Compare 16S and WGS community profiles for a body site](#compare_16s_wgs)  
   1.1. [Download Qiime and MetaPhlAn2 community profiles](#download_profiles)  
   1.2. [Create random subset of samples for the body site](#create_random_subsamples)  
   1.3. [Extract matrices for subsamples](#extract_wgs_16s_matrices)  
