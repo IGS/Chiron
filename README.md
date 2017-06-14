@@ -52,6 +52,7 @@ Docker-enabled pipelines have been written for several analysis tools using [Com
   - PanPhlAn
   - StrainPhlAn
 - umigs/chiron-qiime2
+- umigs/chiron-valet
 
 # Try a Cloud session on Amazon
 To create and configure your Amazon AWS cloud environment to execute the tools and Docker containers presented in the workshop, please use the following guide:
