@@ -38,10 +38,10 @@ qiime_file = opt$qiime
 samples_file = opt$samples
 outfile = opt$outfile
 
-setwd("/Users/amahurkar/Documents/Projects/DACC/CloudPilot")
-qiime_file = "otu_table_psn_v35.txt"
-samples_file = "stool_nares_subsamples.tsv"
-outfile = paste("stool_nares_subsamples_", qiime_file, sep = "")
+# setwd("/Users/amahurkar/Documents/Projects/DACC/CloudPilot")
+# qiime_file = "otu_table_psn_v35.txt"
+# samples_file = "stool_nares_subsamples.tsv"
+# outfile = paste("stool_nares_subsamples_", qiime_file, sep = "")
 
 # Read the samples file
 samples = read.csv(samples_file, sep = "\t", header = TRUE, 
