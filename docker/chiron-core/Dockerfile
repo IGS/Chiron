@@ -26,12 +26,6 @@ RUN mkdir /dbs
 # For demonstration datasets
 RUN mkdir /tutorials
 
-##############################
-## Common Workflow Language ##
-##############################
-
-RUN pip3 install pyyaml
-RUN pip install pyyaml cwlref-runner
 
 ################
 ## HMP client ##
