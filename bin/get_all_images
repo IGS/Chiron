@@ -1,0 +1,15 @@
+#!/bin/bash
+
+docker pull umigs/chiron-core
+
+docker pull umigs/chiron-humann2
+
+docker pull umigs/chiron-metacompass
+
+docker pull umigs/chiron-metaviz
+
+docker pull umigs/chiron-phlan
+
+docker pull umigs/chiron-qiime2
+
+docker pull umigs/chiron-valet
