@@ -114,7 +114,7 @@ generate_matched_visit_samples.R
 The following command will extract matched samples for 25 randomly selected subjects from the Stool samples. The output is written to the specified files.
 
 ```
-RScript $EX_SCRIPTS/generate_matched_visit_samples.R --wgs wgs_metadata.tsv \
+Rscript $EX_SCRIPTS/generate_matched_visit_samples.R --wgs wgs_metadata.tsv \
   --m16s 16s_metadata.tsv --count 25 --visit 1 --bodysite Stool \
   --16s_list stool_16s_rand_samples.tsv --wgs_list stool_wgs_rand_samples.tsv
 ```
@@ -135,7 +135,7 @@ extract_qiime_subset.R
 
 The following command will generate the abundance matrices for the specified subset of samples.
 ```
-RScript $RScript $EX_SCRIPTS/extract_qiime_subset.R --qiime v35_psn_otu.genus.fixed.txt \
+Rscript $EX_SCRIPTS/extract_qiime_subset.R --qiime v35_psn_otu.genus.fixed.txt \
   --samples stool_16s_rand_samples.tsv --outfile stool_16s_qiime.csv
 ```
 
@@ -151,7 +151,7 @@ extract_metaphlan_subset.R
 
 The following command will generate the abundance matrices for the specified subset of samples.
 ```
-RScript $EX_SCRIPTS/extract_subset.R --metaphlan hmp1-II_metaphlan2-mtd-qcd.pcl.txt \
+Rscript $EX_SCRIPTS/extract_subset.R --metaphlan hmp1-II_metaphlan2-mtd-qcd.pcl.txt \
   --samples stool_wgs_rand_samples.tsv --outfile stool_wgs_metaphlan.csv
 ```
 
@@ -205,7 +205,7 @@ generate_matched_visit_samples.R
 The following command will extract matched samples for 25 randomly selected subjects from the Stool samples. The output is written to the file bodysite_rand_samples.txt
 
 ```
-RScript $EX_SCRIPTS/generate_matched_two_site_samples.R --m16s 16s_metadata.tsv --visit 1 \
+Rscript $EX_SCRIPTS/generate_matched_two_site_samples.R --m16s 16s_metadata.tsv --visit 1 \
   --count 20 --bodysite1 Stool --bodysite2 Anterior_nares \
   --outfile  stool_nares_subsamples.csv \
   --region V35
@@ -225,7 +225,7 @@ extract_qiime_subset.R
 
 The following command will generate the abundance matrices for the specified subset of samples.
 ```
-RScript $EX_SCRIPTS/extract_qiime_subset.R --qiime v35_psn_otu.genus.fixed.txt \
+Rscript $EX_SCRIPTS/extract_qiime_subset.R --qiime v35_psn_otu.genus.fixed.txt \
   --samples stool_nares_subsamples.tsv --outfile stool_nares_subsamples_v35_psn_otu.genus.fixed.txt
 ```
 
@@ -260,11 +260,9 @@ cp /tutorials/hmp_client/stool_wgs_rand_5_samples_manifest.tsv .
 cp /tutorials/hmp_client/stool_16s_rand_5_samples_manifest.tsv .
 ```
 
-The following commands will download trimmed 16S sequences and the corresponding WGS samples for the 25 randomly selected subject visits to the directory specified by the <em>destination</em> parameter. Once the data has been downloaded exit the current Docker image.
+The following commands will download trimmed 16S sequences and the corresponding WGS samples for the 5 randomly selected subject visits to the directory specified by the <em>destination</em> parameter. Once the data has been downloaded exit the current Docker image.
 
 ```
-cp examples/hmp_data_exercise/stool_rand_16s_manifest.tsv examples//hmp_data_exercise/stool_rand_wgs_manifest.tsv .
-EX_SCRIPTS/-manifest stool_rand_wgs_manifest.tsv -destination stool_wgs
 hmp_client  -endpoint_priority S3,HTTP -manifest stool_16s_rand_5_samples_manifest.tsv -destination stool_16s
 hmp_client  -endpoint_priority S3,HTTP -manifest stool_wgs_rand_5_samples_manifest.tsv -destination stool_wgs
 exit
@@ -325,10 +323,9 @@ cd /output/ex4
 cp /tutorials/hmp_client/stool_nares_16s_rand_5_samples_manifest.tsv .
 ```
 
-The following commands will download trimmed 16S sequences for the 25 randomly selected subject visits to the directory specified by the <em>destination</em> parameter. Once the data has been downloaded exit the current Docker image.
+The following commands will download trimmed 16S sequences for the 5 randomly selected subject visits to the directory specified by the <em>destination</em> parameter. Once the data has been downloaded exit the current Docker image.
 
 ```
-cp examples/hmp_data_exercise/stool_rand_16s_manifest.tsv examples//hmp_data_exercise/stool_rand_wgs_manifest.tsv .
 hmp_client  -endpoint_priority S3,HTTP -manifest stool_nares_16s_rand_5_samples_manifest.tsv -destination stool_nares_16s
 exit
 ```
