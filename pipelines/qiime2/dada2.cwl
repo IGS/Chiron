@@ -28,27 +28,21 @@ inputs:
   rep_seqs:
     inputBinding:
       prefix: --o-representative-sequences
-      valueFrom: $(inputs.input_seqs.nameroot + '-rep-seqs.qza')
     type: string
     default: 'rep-seqs.qza'
   table:
     inputBinding:
       prefix: --o-table
-      valueFrom: $(inputs.input_seqs.nameroot + '-table.qza')
     type: string
     default: 'table.qza'
 outputs:
   out_rep_seqs:
     type: File
     outputBinding:
-      glob: $('*' + inputs.rep_seqs)
+      glob: $(inputs.rep_seqs)
   out_table:
     type: File
     outputBinding:
-      glob: $('*' + inputs.table)
-  out_prefix:
-    type: string
-    outputBinding:
-      outputEval: $(inputs.input_seqs.nameroot + '-')
+      glob: $(inputs.table)
 
 baseCommand: ["qiime", "dada2", "denoise-single"]

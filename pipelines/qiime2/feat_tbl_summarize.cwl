@@ -17,12 +17,9 @@ inputs:
     inputBinding:
       prefix: --m-sample-metadata-file
     type: File
-  in_prefix:
-    type: string?
   table_visualization:
     inputBinding:
       prefix: --o-visualization
-      valueFrom: $(inputs.in_prefix + 'table.qzv')
     type: string
     default: 'table.qzv'
 
@@ -30,6 +27,6 @@ outputs:
   out_table_visual:
     type: File
     outputBinding:
-      glob: $('*' + inputs.table_visualization)
+      glob: $(inputs.table_visualization)
 
 baseCommand: ["qiime", "feature-table", "summarize"]
