@@ -18,11 +18,12 @@ This document walks you through the steps of extracting data from the HMP Cloud 
   4.1. [Download the 16S trimmed sequence from Cloud repository](#download_16s_data)  
   4.2. [Launch workflows to analyze downloaded data](#launch_16s_analysis)
 
-Before you can start any of these exercises please launch the Docker image for the hmp_client using the following command:
+Before you can start any of these exercises please launch the Docker image for the hmp_client using the following command and set the environment variable EX_SCRIPTS where some of the scripts exist:
 
 ### <a name="run_hmp_client_interactive"></a>Run HMP Interactive Docker Image
 ```
 bin/hmp_client_interactive
+export EX_SCRIPTS=/tutorials/hmp_client/
 ```
 
 This will launch the Docker image with the tools necessary for the exercises.
@@ -54,7 +55,7 @@ In the data_exercise directory you will find a manifest file which has the infor
 ```
 mkdir /output/ex1
 cd /output/ex1
-cp /tutorials/hmp_client/hmp_data/community_profiles_manifest.tsv .
+cp /tutorials/hmp_client/hmp_client  -endpoint_priority S3,HTTP community_profiles_manifest.tsv .
 hmp_client -endpoint_priority S3,HTTP -manifest community_profiles.tsv -destination /output/ex1
 ```
 
@@ -66,8 +67,8 @@ This should download the following files:
 In the data exercise directory you will find the files that have the metadata associated with 16S and WGS data. Copy the two files (16s_metadata.tsv, wgs_metadata.tsv) to the local working directory.
 
 ```
-cp /tutorials/hmp_client/hmp_data_exercise/16s_metadata.tsv .
-cp /tutorials/hmp_client/hmp_data_exercise/wgs_metadata.tsv .
+cp /tutorials/hmp_client/16s_metadata.tsv .
+cp /tutorials/hmp_client/wgs_metadata.tsv .
 ```
 
 <a name="hmp_bodysites"></a>The HMP samples were collected from the following body sites:
@@ -184,7 +185,7 @@ In the data_exercise directory you will find the files that have the metadata as
 ```
 mkdir /output/ex2
 cd /output/ex2
-cp /tutorials/hmp_client/hmp_data_exercise/16s_metadata.tsv .
+cp /tutorials/hmp_client/16s_metadata.tsv .
 ```
 
 Use the script <em>generate_matched_two_site_samples.R</em> to create a list of randomized samples from two body sites and a particular visit. The usage of the script is described below.
@@ -255,8 +256,8 @@ In the data_exercise directory you will find the files that have the metadata as
 ```
 mkdir /output/ex3
 cd /output/ex3
-cp /tutorials/hmp_client/hmp_data_exercise/stool_wgs_rand_5_samples_manifest.tsv .
-cp /tutorials/hmp_client/hmp_data_exercise/stool_16s_rand_5_samples_manifest.tsv .
+cp /tutorials/hmp_client/stool_wgs_rand_5_samples_manifest.tsv .
+cp /tutorials/hmp_client/stool_16s_rand_5_samples_manifest.tsv .
 ```
 
 The following commands will download trimmed 16S sequences and the corresponding WGS samples for the 25 randomly selected subject visits to the directory specified by the <em>destination</em> parameter. Once the data has been downloaded exit the current Docker image.
@@ -321,7 +322,7 @@ In the data_exercise directory you will find the files that have the metadata as
 ```
 mkdir /output/ex4
 cd /output/ex4
-cp /tutorials/hmp_client/hmp_data_exercise/stool_nares_16s_rand_5_samples_manifest.tsv .
+cp /tutorials/hmp_client/stool_nares_16s_rand_5_samples_manifest.tsv .
 ```
 
 The following commands will download trimmed 16S sequences for the 25 randomly selected subject visits to the directory specified by the <em>destination</em> parameter. Once the data has been downloaded exit the current Docker image.
