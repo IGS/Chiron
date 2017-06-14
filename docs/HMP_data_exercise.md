@@ -56,7 +56,7 @@ In the data_exercise directory you will find a manifest file which has the infor
 mkdir /output/ex1
 cd /output/ex1
 cp /tutorials/hmp_client/community_profiles_manifest.tsv .
-hmp_client -endpoint_priority S3,HTTP -manifest community_profiles.tsv -destination /output/ex1
+hmp_client -endpoint_priority S3,HTTP -manifest community_profiles_manifest.tsv -destination /output/ex1
 ```
 
 This should download the following files:
