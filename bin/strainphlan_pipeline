@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-qiime2_pipeline.py - Invoke a CWL QIIME2 workflow
+strainphlan_pipeline.py - Invoke a CWL Strainphlan workflow
 By: Shaun Adkins (sadkins@som.umaryland.edu)
 
 """
@@ -15,8 +15,9 @@ import yaml
 import os
 import subprocess
 import shlex
+import re
 
-CWL_WORKFLOW = os.path.dirname(__file__) + "../pipelines/qiime2/qiime2_complete.cwl"
+CWL_WORKFLOW = os.path.dirname(__file__) + "../pipelines/strainphlan/strainphlan_complete.cwl"
 
 ########
 # Main #
@@ -24,9 +25,9 @@ CWL_WORKFLOW = os.path.dirname(__file__) + "../pipelines/qiime2/qiime2_complete.
 
 def main():
     # Set up options parser and help statement
-    description = "Invoke a QIIME2 pipeline using the Common Workflow Language"
+    description = "Invoke a Strainphlan pipeline using the Common Workflow Language"
     parser = ArgumentParser(description=description)
-    parser.add_argument("--input_file_list", "-i", help="List file containing demultiplexed sequences", metavar="/path/to/input.list", required=True)
+    parser.add_argument("--input_file_list", "-i", help="List file containing paths to samples", metavar="/path/to/input.list", required=True)
     parser.add_argument("--config_file", "-c", help="YAML-based config file of parameters to add", metavar="/path/to/config.yml", required=True)
     parser.add_argument("--outdir", "-o", help="Optional. Directory to stage output files.  Default is ./cwl_output", metavar="/path/to/outdir", default="./cwl_output")
 
@@ -35,8 +36,8 @@ def main():
     check_args(args, parser)
 
     yaml_dict = read_config(args.config_file)
-    seq_inputs = read_in_list(args.input_file_list)
-    add_seq_inputs_to_yaml(yaml_dict, seq_inputs)
+    inputs = read_in_list(args.input_file_list)
+    add_input_files_to_yaml(yaml_dict, inputs)
     #print(yaml.dump(yaml_dict))
 
     # Write out YAML
@@ -73,12 +74,19 @@ def read_in_list(list_in):
     file_list = [line.rstrip('\n') for line in open(list_in)]
     return file_list
 
-def add_seq_inputs_to_yaml(yaml_dict, seq_inputs):
-    """ Join the list of seq input files into the existing YAML dictionary """
-    yaml_dict['input_seqs'] = list()
-    for seq_i in seq_inputs:
-        seq_dict = {'class': 'File', 'path': seq_i}
-        yaml_dict['input_seqs'].append(seq_dict)
+def add_input_files_to_yaml(yaml_dict, inputs):
+    """ Join the list of input files into the existing YAML dictionary """
+    yaml_dict['input_files'] = list()
+    yaml_dict['seq_prefix'] = list()
+    for i in inputs:
+        # Add the sequence to the YAML dict
+        input_dict = {'class': 'File', 'path': i}
+        yaml_dict['input_files'].append(input_dict)
+        # Add name_root of input file as the seq_prefix
+        i_base = os.path.basename(i)
+        i_base = re.sub(r'\.gz|\.gzip', '', i_base)
+        yaml_dict['seq_prefix'].append(os.path.splitext(i_base)[0])
+
 
 def create_final_yaml_name(orig_yaml_name):
     """ Use YAML template to create final file name """
