@@ -25,13 +25,13 @@ If you want to use a specific tool's docker image, you'll need to first make sur
 Docker [installed](https://docs.docker.com/engine/installation/), reboot, then [download](https://github.com/IGS/Chiron/archive/master.zip) or clone Chiron like this:
 
 ```
-git clone https://github.com/IGS/Chiron.git
+$ git clone https://github.com/IGS/Chiron.git
 ```
 
 Under the Chiron/bin/ directory this creates, you'll find scripts to run each tool such as:
 
 ```
-./Chiron/bin/humann2_interactive
+$ ./Chiron/bin/humann2_interactive
 ```
 
 This will download the Docker image if you don't already have it, then drop you to a terminal within it.
