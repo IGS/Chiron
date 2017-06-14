@@ -334,7 +334,8 @@ cp /tutorials/hmp_client/stool_nares_16s_rand_5_samples_manifest.tsv .
 The following commands will download trimmed 16S sequences for the 5 randomly selected subject visits to the directory specified by the <em>destination</em> parameter. Once the data has been downloaded exit the current Docker image.
 
 ```
-hmp_client  -endpoint_priority S3,HTTP -manifest stool_nares_16s_rand_5_samples_manifest.tsv -destination stool_nares_16s
+hmp_client  -endpoint_priority S3,HTTP -manifest stool_nares_16s_rand_5_samples_manifest.tsv \
+  -destination stool_nares_16s
 exit
 ```
 
