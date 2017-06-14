@@ -25,13 +25,13 @@ If you want to use a specific tool's docker image, you'll need to first make sur
 Docker [installed](https://docs.docker.com/engine/installation/), reboot, then [download](https://github.com/IGS/Chiron/archive/master.zip) or clone Chiron like this:
 
 ```
-git clone https://github.com/IGS/Chiron.git
+$ git clone https://github.com/IGS/Chiron.git
 ```
 
 Under the Chiron/bin/ directory this creates, you'll find scripts to run each tool such as:
 
 ```
-./Chiron/bin/humann2_interactive
+$ ./Chiron/bin/humann2_interactive
 ```
 
 This will download the Docker image if you don't already have it, then drop you to a terminal within it.
@@ -52,6 +52,7 @@ Docker-enabled pipelines have been written for several analysis tools using [Com
   - PanPhlAn
   - StrainPhlAn
 - umigs/chiron-qiime2
+- umigs/chiron-valet
 
 # Try a Cloud session on Amazon
 To create and configure your Amazon AWS cloud environment to execute the tools and Docker containers presented in the workshop, please use the following guide:

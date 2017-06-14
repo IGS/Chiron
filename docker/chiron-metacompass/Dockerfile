@@ -41,6 +41,7 @@ RUN g++ -Wall -W -O2 -o /opt/MetaCompass/bin/buildcontig /opt/MetaCompass/src/bu
 RUN wget --no-check-certificate https://gembox.cbcb.umd.edu/metacompass/markers.tar.gz -P /opt/MetaCompass/src/metaphyler
 RUN tar -xzvf /opt/MetaCompass/src/metaphyler/markers.tar.gz -C /opt/MetaCompass/src/metaphyler/
 RUN rm /opt/MetaCompass/src/metaphyler/markers.tar.gz
+ENV PATH /opt/MetaCompass:/opt/MetaCompass/bin:$PATH
 
 # This needs to happen separately within a startup/init script
 RUN wget -O /opt/MetaCompass/refseq.tar.gz --no-check-certificate https://gembox.cbcb.umd.edu/metacompass/refseq.tar.gz

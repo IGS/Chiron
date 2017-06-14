@@ -1,6 +1,0 @@
-2017-05-04
-----------
-From carze:
-I think we are including humann2 (https://bitbucket.org/biobakery/humann2/wiki/Home) and metaphlan2 (https://bitbucket.org/biobakery/metaphlan2) — instructions to install both of these tools are available on each of the repository pages. The lab also has tool installation available through linux brew if that makes things easier for you (you can see an example of installation here: https://bitbucket.org/biobakery/biobakery/src/a5e151f4850b4617068e76d2abdd43b0dd6d3ec5/vagrant/provision-biobakery-core.sh?at=default&fileviewer=file-view-default)
-
-Walkthroughs/Demos/Manuals are available on the tool repository pages as well

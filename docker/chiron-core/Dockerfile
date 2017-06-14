@@ -9,7 +9,7 @@ LABEL Description="Common utilities / tools for Chiron-related docker images"
 ################
 
 RUN apt-get -y update && apt-get install -y build-essential autoconf libtool pkg-config 
-RUN apt-get install -y --no-install-recommends git nano python python-pip python-dev python-setuptools python3.6 python3-setuptools subversion unzip wget less
+RUN apt-get install -y --no-install-recommends git nano python python-pip python-dev python-setuptools python3.6 python3-setuptools python3-pip subversion unzip wget less
 RUN pip install --upgrade pip
 
 # R things
@@ -26,11 +26,10 @@ RUN mkdir /dbs
 # For demonstration datasets
 RUN mkdir /tutorials
 
+
 ################
 ## HMP client ##
 ################
-
-RUN apt-get install -y --no-install-recommends python3-pip
 
 ENV LC_ALL C.UTF-8
 ENV LANG C.UTF-8
