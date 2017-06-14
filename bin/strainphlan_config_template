@@ -1,0 +1,26 @@
+# Input type of sample - choose between "multifasta" or "multifastq"
+input_type: 'multifasta'
+# Path where the Bowtie2 index directory is located
+bowtie2_index_dir:
+  class: Directory
+  path: # FULL PATH TO BOWTIE2 INDEX GOES HERE
+# Base prefix for the bowtie2 reference index to use in the index directory
+bowtie2_base_str: 'mpa_v20_m200'
+# Metadata pickle filename within the Bowtie2 index directory
+mpa_pkl_filename: 'mpa_v20_m200.pkl'
+# Path to the reference genome FASTA file to use
+genome_input:
+  class: File
+  path: # FULL PATH TO REFERENCE GENOME FASTA GOES HERE
+# Clade organism to look at further
+clades: 's__Eubacterium_siraeum'
+# In each sample, the clades with the percentage of present markers less than this threshold are removed. Default 0.2
+marker_in_clade: 0.2
+# Path to the sample metadata file to use in Graphlan
+metadata_file:
+  class: File
+  path: # FULL PATH TO METADATA FILE GOES HERE
+# Metadata category to create a dendrogram tree
+metadata_category: 'subjectID'
+# Number of cores to utilize when running programs.  Default is 2
+num_cores: 2

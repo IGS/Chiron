@@ -50,6 +50,9 @@ def main():
     rm_out_cmd = "rm -rf tmp_out*"
     args = shlex.split(rm_out_cmd) # Split cmd using shell-like syntax
     subprocess.call(args)
+    rm_tmp_cmd = "rm -rf tmp*"
+    args = shlex.split(rm_tmp_cmd) # Split cmd using shell-like syntax
+    subprocess.call(args)
 
 def check_args(args, parser):
     """ Validate the passed arguments """
