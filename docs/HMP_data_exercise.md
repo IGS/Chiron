@@ -57,11 +57,13 @@ mkdir /output/ex1
 cd /output/ex1
 cp /tutorials/hmp_client/community_profiles_manifest.tsv .
 hmp_client -endpoint_priority S3,HTTP -manifest community_profiles_manifest.tsv -destination /output/ex1
+gunzip ./otu_table_psn_v35.txt.gz
 ```
 
 This should download the following files:
     hmp1-II_metaphlan2-mtd-qcd.pcl.txt
     v35_psn_otu.genus.fixed.txt
+    otu_table_psn_v35.txt
 
 ### <a name="create_random_subsamples"></a>1.2. Create random subset of samples for the body site
 In the data exercise directory you will find the files that have the metadata associated with 16S and WGS data. Copy the two files (16s_metadata.tsv, wgs_metadata.tsv) to the local working directory.
