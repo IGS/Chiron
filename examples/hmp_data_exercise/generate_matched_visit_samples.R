@@ -1,6 +1,6 @@
 library(reshape2)
 library(getopt)
-library(dplyr)
+suppressPackageStartupMessages(library(dplyr))
 
 # R Script to take a list of 16S samples and WGS samples and randomly generates a matched list
 # of samples that can be used for comparison for a particular visit and body site
