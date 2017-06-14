@@ -1,8 +1,6 @@
-input_seqs:
-  - class: File
-    location: ./test_input/demux.qza
-  - class: File
-    location: ./test_input/demux1.qza
+staging_dir:
+  class: Directory
+  location: ./test_input/emp-single-end-sequences
 metadata_file:
   class: File
   location: ./test_input/sample-metadata.tsv

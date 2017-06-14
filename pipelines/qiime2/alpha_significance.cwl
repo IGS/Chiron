@@ -15,8 +15,6 @@ inputs:
     type: Directory
   vector_file_base:
     type: string
-  in_prefix:
-    type: string?
   metadata_file:
     inputBinding:
       prefix: --m-metadata-file

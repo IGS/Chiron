@@ -13,7 +13,7 @@ The second parameter is a YAML or JSON file consisting of input parameters for t
 cwl-runner ./qiime2_complete.cwl ./qiime2_complete_test.yml
 ```
 
-The file "qiime2\_complete\_test.yml" is an example of a typical QIIME2 run using example inputs from the workshop tutorial.  Passing in multiple input files will parallelize the pipeline runs per sample.
+The file "qiime2\_complete\_test.yml" is an example of a typical QIIME2 run using example inputs from the workshop tutorial.
 
 ## Outputs from CWL pipeline
 * Representative sequences .qza file (post-denoising)
