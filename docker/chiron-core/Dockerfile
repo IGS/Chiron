@@ -44,11 +44,23 @@ RUN ln -s /opt/hmp_client/hmp_client-1.2/test /opt/hmp_client/test
 # Place the examples
 RUN mkdir /tutorials/hmp_client
 ADD https://github.com/IGS/Chiron/raw/master/examples/hmp_data_exercise/16s_metadata.tsv /tutorials/hmp_client/
+ADD https://github.com/IGS/Chiron/raw/master/examples/hmp_data_exercise/community_profiles_manifest.tsv /tutorials/hmp_client/
+ADD https://github.com/IGS/Chiron/raw/master/examples/hmp_data_exercise/extract_metaphlan_subset.R /tutorials/hmp_client/
 ADD https://github.com/IGS/Chiron/raw/master/examples/hmp_data_exercise/extract_qiime_subset.R /tutorials/hmp_client/
 ADD https://github.com/IGS/Chiron/raw/master/examples/hmp_data_exercise/extract_subset.R /tutorials/hmp_client/
 ADD https://github.com/IGS/Chiron/raw/master/examples/hmp_data_exercise/generate_matched_two_site_samples.R /tutorials/hmp_client/
 ADD https://github.com/IGS/Chiron/raw/master/examples/hmp_data_exercise/generate_matched_visit_samples.R /tutorials/hmp_client/
 ADD https://github.com/IGS/Chiron/raw/master/examples/hmp_data_exercise/identify_visit_samples.R /tutorials/hmp_client/
+ADD https://github.com/IGS/Chiron/raw/master/examples/hmp_data_exercise/prepare_16s_wgs_compare.R /tutorials/hmp_client/
+ADD https://github.com/IGS/Chiron/raw/master/examples/hmp_data_exercise/stool_16s_rand_5_samples_manifest.tsv /tutorials/hmp_client/
+ADD https://github.com/IGS/Chiron/raw/master/examples/hmp_data_exercise/stool_16s_rand_manifest.tsv /tutorials/hmp_client/
+ADD https://github.com/IGS/Chiron/raw/master/examples/hmp_data_exercise/stool_16s_rand_samples.tsv /tutorials/hmp_client/
+ADD https://github.com/IGS/Chiron/raw/master/examples/hmp_data_exercise/stool_nares_16s_rand_5_samples_manifest.tsv /tutorials/hmp_client/
+ADD https://github.com/IGS/Chiron/raw/master/examples/hmp_data_exercise/stool_nares_16s_rand_manifest.tsv /tutorials/hmp_client/
+ADD https://github.com/IGS/Chiron/raw/master/examples/hmp_data_exercise/stool_nares_16s_rand_samples.tsv /tutorials/hmp_client/
+ADD https://github.com/IGS/Chiron/raw/master/examples/hmp_data_exercise/stool_wgs_rand_5_samples_manifest.tsv /tutorials/hmp_client/
+ADD https://github.com/IGS/Chiron/raw/master/examples/hmp_data_exercise/stool_wgs_rand_manifest.tsv /tutorials/hmp_client/
+ADD https://github.com/IGS/Chiron/raw/master/examples/hmp_data_exercise/stool_wgs_rand_samples.tsv /tutorials/hmp_client/
 ADD https://github.com/IGS/Chiron/raw/master/examples/hmp_data_exercise/wgs_metadata.tsv /tutorials/hmp_client/
 
 
