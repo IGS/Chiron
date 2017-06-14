@@ -50,7 +50,7 @@ outputs:
 # Dada2 outputs
   rep_seqs:
     type: File[]
-    outputSource: dada2/out_seqs
+    outputSource: dada2/out_rep_seqs
   rep_table:
     type: File[]
     outputSource: dada2/out_table
