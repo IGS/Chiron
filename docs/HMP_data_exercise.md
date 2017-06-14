@@ -339,19 +339,21 @@ To make the usage of the Docker images and for the ease of the exercises, we hav
 #### Launch workflow to analyze the 16S data using Qiime
 ```
 Usage:
-usage: create_qiime_workflow
+usage: qiime2_pipeline
     [-h]
-    -data_dir <character> (location of the files to process)
-    -out_dir <character> (location of analysis results)
-
-```
-The following command will run the Qiime process on all the files in the specified data directory.
-
-```
-create_qiime_workflow -data_dir stool_16s -out_dir stool_16s_results
+    --input_dir /path/to/input/dir
+    --config_file /path/to/qiime2_config.yml
+    [--out_dir /path/to/outdir]
 ```
 
-This workflow will process the individual files in the specified data directory and write the individual OTU tables. It will then create a combined OTU table for all the samples.
+Before running the command, the 'qiime2_config_template' file needs to be copied and any necessary parameters, such as various file paths or category names need to be filled in.  Some parameters are left filled in as default settings.  This complete copy (let's call it stool_16s_config.yml for this example) will be used to specify parameters for the pipeline.
+
+The following command will run the Qiime process on all the files in the specified input directory.
+
+```
+create_qiime_workflow --input_dir stool_16s --config_file stool_16s_config.yml -out_dir stool_16s_results
+```
+
 This workflow will process the individual files in the specified data directory and write the individual OTU tables. It will then create a combined OTU table for all the samples.
 
 [top](#top)

@@ -26,17 +26,16 @@ def main():
     # Set up options parser and help statement
     description = "Invoke a QIIME2 pipeline using the Common Workflow Language"
     parser = ArgumentParser(description=description)
-    parser.add_argument("--input_file_list", "-i", help="List file containing demultiplexed sequences", metavar="/path/to/input.list", required=True)
+    parser.add_argument("--input_dir", "-i", help="Directory containing the fastq sequences", metavar="/path/to/input/dir", required=True)
     parser.add_argument("--config_file", "-c", help="YAML-based config file of parameters to add", metavar="/path/to/config.yml", required=True)
-    parser.add_argument("--outdir", "-o", help="Optional. Directory to stage output files.  Default is ./cwl_output", metavar="/path/to/outdir", default="./cwl_output")
+    parser.add_argument("--out_dir", "-o", help="Optional. Directory to stage output files.  Default is ./cwl_output", metavar="/path/to/outdir", default="./cwl_output")
 
     parser.add_argument("--debug", "-d", help="Set the debug level", default="ERROR", metavar="DEBUG/INFO/WARNING/ERROR/CRITICAL")
     args = parser.parse_args()
     check_args(args, parser)
 
     yaml_dict = read_config(args.config_file)
-    seq_inputs = read_in_list(args.input_file_list)
-    add_seq_inputs_to_yaml(yaml_dict, seq_inputs)
+    add_input_dir_to_yaml(yaml_dict, args.input_dir)
     #print(yaml.dump(yaml_dict))
 
     # Write out YAML
@@ -76,12 +75,9 @@ def read_in_list(list_in):
     file_list = [line.rstrip('\n') for line in open(list_in)]
     return file_list
 
-def add_seq_inputs_to_yaml(yaml_dict, seq_inputs):
+def add_input_dir_to_yaml(yaml_dict, input_dir):
     """ Join the list of seq input files into the existing YAML dictionary """
-    yaml_dict['input_seqs'] = list()
-    for seq_i in seq_inputs:
-        seq_dict = {'class': 'File', 'path': seq_i}
-        yaml_dict['input_seqs'].append(seq_dict)
+    yaml_dict['staging_dir'] = {'class': 'Directory', 'path': input_dir}
 
 def create_final_yaml_name(orig_yaml_name):
     """ Use YAML template to create final file name """
