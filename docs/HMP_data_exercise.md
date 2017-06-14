@@ -164,7 +164,6 @@ Before you can proceed to the visualization you will need to exit from the hmp_c
 
 ```
 exit
-bin/metavizr_detached
 ```
 
 Please follow the instructions for using Metaviz to compare these generated files using the link below:  
