@@ -278,37 +278,42 @@ To make the usage of the Docker images and for the ease of the exercises, we hav
 #### Launch workflow to analyze the 16S data using Qiime
 ```
 Usage:
-usage: create_qiime_workflow
+usage: qiime2_pipeline
     [-h]
-    -data_dir <character> (location of the files to process)
-    -out_dir <character> (location of analysis results)
+    --input_dir /path/to/input/dir
+    --config_file /path/to/qiime2_config.yml
+    [--out_dir /path/to/outdir]
+```
+Before running the command, the 'qiime2_config_template' file needs to be copied and any necessary parameters, such as various file paths or category names need to be filled in.  Some parameters are left filled in as default settings.  This complete copy (let's call it stool_16s_config.yml for this example) will be used to specify parameters for the pipeline.
+
+The following command will run the QIIME2 process on all the files in the specified data directory.
 
 ```
-The following command will run the Qiime process on all the files in the specified data directory.
-
-```
-create_qiime_workflow -data_dir stool_16s -out_dir stool_16s_results
+create_qiime_workflow --input_dir stool_16s --config_file stool_16s_config.yml -out_dir stool_16s_results
 ```
 
 This workflow will process the individual files in the specified data directory and write the individual OTU tables. It will then create a combined OTU table for all the samples.
+
 
 [top](#top)
 #### Launch the workflows to analyze the WGS data using HUMAnN2
 ```
 Usage:
-usage: create_humann2_workflow
+usage: humann2_pipeline
     [-h]
-    -data_dir <character> (location of the files to process)
-    -out_dir <character> (location of analysis results)
+    --input_file_list /path/to/input.list
+    --config_file /path/to/qiime2_config.yml
+    [--out_dir /path/to/outdir]
+```
+Before running the command, the 'humann2_config_template' file needs to be copied and any necessary parameters, such as various file paths or category names need to be filled in.  Some parameters are left filled in as default settings.  This complete copy (let's call it stool_16s_config.yml for this example) will be used to specify parameters for the pipeline.
+
+The following command will run the HUMAnN2 process on all the files in the specified input file list, one file per line.
 
 ```
-The following command will run the HUMAnN2 process on all the files in the specified data directory.
-
-```
-create_humann2_workflow -data_dir stool_wgs -out_dir stool_wgs_results
+humann2_pipeline --input_file_list stool_wgs.list --config_file stool_16s_config.yml -out_dir stool_wgs_results
 ```
 
-This workflow will process the individual files in the specified data directory and write the individual MetaPhlAn2 and HUMAnN2 tables. It will then create a combined relative abundance table for all the samples based on MetaPhlAn2 results.
+This workflow will process the individual files in the specified input file list and write the individual MetaPhlAn2 and HUMAnN2 tables. It will then create a combined relative abundance table for all the samples based on MetaPhlAn2 results.
 
 [top](#top)
 ## <a name="analyze_16s_wgs"></a>4. Analyze the 16S community profiles for two different body sites
@@ -348,7 +353,7 @@ usage: qiime2_pipeline
 
 Before running the command, the 'qiime2_config_template' file needs to be copied and any necessary parameters, such as various file paths or category names need to be filled in.  Some parameters are left filled in as default settings.  This complete copy (let's call it stool_16s_config.yml for this example) will be used to specify parameters for the pipeline.
 
-The following command will run the Qiime process on all the files in the specified input directory.
+The following command will run the QIIME2 process on all the files in the specified input directory.
 
 ```
 create_qiime_workflow --input_dir stool_16s --config_file stool_16s_config.yml -out_dir stool_16s_results
