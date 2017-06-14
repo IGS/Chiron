@@ -1,0 +1,333 @@
+---
+title: "Step-by-step-metaviz"
+author: "Justin Wagner"
+date: "June 12, 2017"
+output: html_document
+---
+
+Today we will discuss using the all the UI features of Metaviz to examine data from the Inflammatory Bowel Disease Multi'omics Database.  The subset of data we will examine consists of samples from individuals with Crohn's disease and Ulcerative Colitis. We will examine a total of 62 samples today.  We will explore the data in detail using the Metaviz navigation utility, an interactive heatmap, and two stacked line plots at all levels of the taxonomic hierarchy.
+
+## Docker instructions
+
+In the ~/Chiron/bin directory, run the command:
+
+ 1) $: ./metaviz_interactive
+
+In the docker container shell, run the following command:
+
+ 2) $: ./bin/metaviz_start.sh
+
+This will start the Metaviz backend database, data provider, and front end
+
+Now, on your laptop, 
+
+ 3) Open Chrome type [IPv4 Public IP]:8888 into the navigation bar
+
+![](images/metaviz_chrome_initial.png)
+
+&nbsp;
+
+Upon loading the page, this will now open a Metaviz session where there will be an initial dialog while datasets load. 
+
+![](images/metaviz_initial_load.png)
+
+&nbsp;
+
+Once datasets are loaded, they will be listed.
+
+ 4) In the loaded windows, Click 'Start App'.
+
+![](images/metaviz_initial_loaded.png)
+
+&nbsp;
+ 
+A new window will load with Data Sources available.
+
+  5) In this window, select the 'ihmp_data' dataset then click 'Ok'.
+
+![](images/metaviz_selected_datasource.png)
+
+&nbsp;
+
+The Metaviz navigation utility will now show up.
+
+![](images/metaviz_facetzoom_initial.png)
+
+&nbsp;
+
+What is displayed in the Metaviz workspace is called a 'FacetZoom' control that shows a limited section of the taxonomic hierarchy at one time. A 'FacetZoom' control can be used to explore the observed features in the dataset and aggregate counts to specific nodes or levels in the hierarchy. A 'FacetZoom' controls the views of data visualizations we will add in the next sections.
+
+    - Design - show a subset of hierarchy at any time and then zoom in on demand
+    - Overview panel - Indicator which shows depth in taxonomy
+    - Selections - each node can be in one of three states, show all child node counts, aggregate all child node counts to itself, and remove node from all data visualizations 
+    - Ranges - range of taxonomic features to show in linked charts
+    - Reordering - move a node closer to another one
+    - Search by taxonomy - Auto-complete to all features that contain that string, set range to that feature
+
+## Creating Heatmap linked to FacetZoom
+
+The next Metaviz utility we will explore is linked charts that update on exploration with the ‘FacetZoom’ control. We will add a heatmap that is linked to the 'FacetZoom' navigation widget and show how the components are linked to allow us to explore the data.  For this demonstration, will select all samples from the IBDMDB data source. 
+
+ 6) Now add a heatmap by clicking on 'Add Visualization'.
+
+![](images/add_heatmap_dropdown.png)
+ 
+&nbsp;
+
+ 7) Select 'Heatmap'. 
+
+![](images/add_heatmap_hover_highlight.png)
+
+&nbsp;
+
+A measurement browser window will appear. This browser allows selection of samples based on metadata. 
+
+![](images/add_heatmap_measurement_browser.png)
+
+&nbsp;
+
+For the heatmap, we will choose all samples.
+
+ 8) Check the box that is next to 'ihmp_data' in the center of the measurement browser. Then click 'Ok'.
+
+![](images/add_heatmap_select_all_samples.png)
+
+&nbsp;
+
+A heatmap of all samples now is displayed in the Metaviz workspace.
+
+![](images/add_heatmap_initial_load.png)
+
+&nbsp;
+
+### Label by metadata - Change row label in chart settings for Heatmap to 'diagnosis'
+
+Every component in Metaviz has a settings menu from which to modify many of the charts attributes.  
+
+ 9) Change the settings by clicking the fourth icon in the upper right-hand menu of the Heatmap. 
+ 
+![](images/hover_settings_heatmap.png)
+
+&nbsp;
+
+A settings menu is now available. Changes in this menu will modify only this chart.
+
+![](images/heatmap_popup.png)
+
+&nbsp;
+
+Now adjust the settings in the pop-up menu.  By modifying the following fields:
+
+ 10) 'Left margin' - change the value from 60 to 150 by clicking in the textbox and changing the value. 
+
+![](images/heatmap_settings_right_margin.png)
+
+&nbsp;
+
+ 11) 'Row labels' - click on the drop-down and change the selection to 'diagnosis'. 
+ 
+![](images/heatmap_settings_dropdown_diagnosis.png)
+
+&nbsp;
+
+ 12) 'Row labels as colors' - Click on the 'ON' button. Then click 'Ok'.
+ 
+![](images/heatmap_row_colorby_on.png)
+
+&nbsp;
+
+The Heatmap settings are now changed. 
+
+![](images/heatmap_settings_completed.png)
+
+&nbsp;
+
+### Resizing Charts and FacetZoom
+
+Each item in the workspace can be resized. For the rest of the tutorial, we will need to see the Heatmap and FacetZoom in the same browser window. 
+
+13) Click and Drag the lower right hand corner of the heatmap to resize as needed to show in the browser.
+
+14) Click and DragDrag the lower right hand corner of the FacetZoom to resize as needed to show in the browser with the icons of the left hand column displayed.
+
+### Remove taxa using FacetZoom
+
+As an example of selecting and deselecting features using the FacetZoom, we will now walk through aggregating and removing taxa in the FacetZoom. The icon at the bottom left hand corner of each node controls aggregation or removed state of that feature. 
+
+ 15) Hover the mouse over the node labeled 'p__Firmicutes'.
+
+![](images/hover_p_firmicutes_icon.png)
+
+&nbsp;
+
+ 16) Click on the icon in the lower left corner of the node labeled 'p__Firmicutes'. Once clicked, the counts for all features in the p__Firmicutes lineage will be aggregated and shown as a column label 'p_Firmicutes in the heatmap.
+
+![](images/remove_firmicutes_first_click.png)
+
+&nbsp;
+
+  17) Now, click on the icon in the lower left corner of the node labeled 'p__Firmicutes'. Once removed, the feature is not shown in the Heatmap.
+
+![](images/firmicutes_removed.png)
+
+&nbsp;
+
+### Subset to taxa and expand
+
+Now we will examine lower levels of the hierarchy using the FacetZoom control. 
+
+ 18) click on the center of the node labeled 'p__Proteobacteria'. This updates the FacetZoom.
+
+![](images/facetzoom_proteobacteria_click.png)
+
+&nbsp;
+
+ 19) Click on the center of the node labeled 'p_Gammaproteobacteria'. This updates the FacetZoom again.
+
+![](images/facetzoom_gammaproteobacteria_click.png)
+
+&nbsp;
+
+To update the Heatmap features, change the range of features.
+
+  20) Click the middle button of the three buttons in the left upper hand corner of the FacetZoom.
+
+![](images/facetzoom_gammaproteobacteria_zoom.png)
+
+&nbsp;
+
+Finally, we can aggregate to the 'Family' level of the taxonomy for just the features under Gammaproteobacteria.
+
+  21) Click the icon on the left hand column for the node labeled 'F'.
+
+![](images/facetzoom_gammaproteobacteria_aggregate_family.png)
+
+
+### Zoom out
+
+Now, to prepare for the next analysis step, we will reset the FacetZoom to the original state. 
+
+  22) Click on the bottom node in the FacetZoom that is named 'k__Bacteria,p__Proteobacteria'. This action updates the FacetZoom.
+
+![](images/facetzoom_gammaproteobacteria_zoom_out.png)
+
+&nbsp;
+
+  23) Click on node labeled 'k_Bacteria'. Now the FacetZoom should be back to the original hierarchy level.
+
+![](images/facetzoom_proteobacteria_zoom_out.png)
+
+&nbsp;
+
+Now we want to reset the aggregation level.
+
+  24) Click the icon on the left hand column for the node labeled 'O'.
+
+![](images/facetzoom_aggregate_to_order.png)
+
+&nbsp;
+
+Finally, we want to expand the range of the feature selection bar.
+
+  25) Click the middle icon of the three icons in the upper left hand corner of the FacetZoom. The FacetZoom should be in its original state.
+
+![](images/facetzoom_expand_range.png)
+
+&nbsp;
+
+### Add stacked plots
+
+The next step will be to add stacked line plots for samples from Crohn's Disease and Ulcerative Colitis. The stacked line plots we will create show the proportion of features in each sample.
+
+  26) Click on 'Add Visualization' 
+
+![](images/stacked_plot_add_visualization.png)
+
+&nbsp;
+
+  27) Click on 'Stacked plot'
+
+ ![](images/stacked_plot_hover.png)
+
+&nbsp;
+ 
+The measurement browser will appear again.
+
+![](images/stackedplot_measurement_browser.png)
+
+&nbsp;
+
+ 28) Click on 'diagnosis'
+
+ ![](images/stacked_plot_measurementbrowser_diagnosis.png)
+ 
+&nbsp;
+
+  29) Check the box for 'Crohn's Disease'
+
+ ![](images/stacked_plot_crohns_disease.png)
+
+The number of samples, listed next to 'ihmp_data' in the center of the measurement window will be updated to 48.
+
+ 30) Check the box next to 'ihmp_data'.
+ 
+  ![](images/stacked_plot_crohns_select.png)
+
+&nbsp;
+
+  31) Click 'Ok'. Now a stacked plot will appear.
+  
+  ![](images/stackedplot_crohns_samples.png)
+
+&nbsp;  
+
+  32) Click on 'Add Visualization', select 'Stacked Plot', select 'diagnosis', check the box next to 'Ulcerative Colitis', and check the box next to 'ihmp_data'.
+  
+    ![](images/stackedplot_uc_selected.png)
+  
+  &nbsp;  
+
+  33) Click 'Ok'. Now a stacked plot for Ulcerative Colitis samples is present in the Metaviz workspace.
+  
+    ![](images/stackedplot_uc_samples_added.png)
+  
+&nbsp;  
+TODO: Have them set once its added
+
+  34) Change the following settings on Crohn's Disease stacked plot
+     - Name: Crohn's
+     - Top margin: 50
+     - Bottom margin: 75
+     - Use Group By: ON
+     - Group By: 'antibiotics' 
+  
+    ![](images/stackedplot_crohns_settings.png)  
+
+&nbsp;  
+
+  35) Change the following settings on Ulcerative Colitis stacked plot
+     - Name: Ulcerative Colitis
+     - Top margin: 50
+     - Bottom margin: 75
+     - Use Group By: ON
+     - Group By: 'antibiotics' 
+  
+    ![](images/stackedplot_uc_settings_done.png)
+
+&nbsp;
+  
+  36) Resize plots to fit in one screen
+
+![](images/stackedplots_resize.png)
+
+&nbsp;
+  
+  37) Hover on 'o_Bacteroidales' on Heatmap
+  
+![](images/stackedplot_hover_bacteroidales.png)
+  
+  
+## Finish
+
+  38) When going back to the docker shell, use the keyboard command Crtl-C to stop Metaviz.
+
