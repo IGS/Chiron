@@ -1,5 +1,38 @@
 library(tidyverse)
 library(metagenomeSeq)
+library(stringr)
+library(getopt)
+
+# Get the options specified on the command line
+spec = matrix(c('metaphlan', 'm', 1, "character",
+                'qiime', 'q', 1, "character",
+                'outfile', 'o', 1, "character",
+                'help', 'h', 0, "logical"
+), 
+byrow = TRUE, ncol=4)
+opt = getopt(spec)
+
+if ( !is.null(opt$help) ) {
+  cat(getopt(spec, usage=TRUE));
+  q(status=1);
+}
+
+if ( is.null(opt$qiime) ) {
+  print("Qiime OTU table missing.\n")
+  cat(getopt(spec, usage=TRUE));
+  q(status=1);
+}
+
+
+if ( is.null(opt$metaphlan) ) {
+  cat("MetaPhlAn table missing.\n")
+  cat(getopt(spec, usage=TRUE));
+  q(status=1);
+}
+
+filename_16s = opt$qiime
+filename_metaphlan = opt$metaphlan
+outfile = opt$outfile
 
 filename_16s <- "subset_of_v35_psn_otu.genus.fixed.txt"
 filename_metaphlan <- "subset_of_hmp1-II_metaphlan2-mtd-qcd.pcl.txt"
@@ -47,8 +80,6 @@ otu.ids <- dat_16s %>% magrittr::extract2("OTU.ID")
 count_16s <- dat_16s %>% select(-1,-Consensus.Lineage) %>% mutate_all(as.numeric) %>% as.matrix()
 rownames(count_16s) <- otu.ids
 
-library(stringr)
-
 annotate_absent <- function(x, otu.ids, code) {
   ifelse(str_detect(x, "__$") | is.na(x),
          paste0(code, "__", otu.ids),
@@ -68,7 +99,6 @@ fdata_16s <- dat_16s %>%
   as.data.frame()
 
 rownames(fdata_16s) <- otu.ids
-
 
 pdata_16s <- data.frame(sample=colnames(count_16s))
 rownames(pdata_16s) <- colnames(count_16s)
