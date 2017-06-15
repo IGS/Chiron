@@ -6,10 +6,12 @@ FROM umigs/chiron-core:latest
 
 RUN apt-get install -y bedtools bamtools libfile-copy-link-perl libncurses5 libncurses5-dev libtbb2
 
-RUN wget -O /opt/bowtie2-2.3.2-linux-x86_64.zip https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.3.2/bowtie2-2.3.2-linux-x86_64.zip/download
-RUN unzip -d /opt /opt/bowtie2-2.3.2-linux-x86_64.zip
-RUN rm /opt/bowtie2-2.3.2-linux-x86_64.zip
-ENV PATH /opt/bowtie2-2.3.2:$PATH
+# We install bowtie2-legacy since normal bowtie2 doesn't want to play nicely.
+RUN wget -O /opt/bowtie2-2.3.2-legacy-linux-x86_64.zip https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.3.2/bowtie2-2.3.2-legacy-linux-x86_64.zip/download
+RUN unzip -d /opt/ /opt/bowtie2-2.3.2-legacy-linux-x86_64.zip
+RUN rm /opt/bowtie2-2.3.2-legacy-linux-x86_64.zip
+ENV PATH /opt/bowtie2-2.3.2-legacy:$PATH
+ENV BT2_HOME=/opt/bowtie2-2.3.2-legacy
 
 RUN wget -O /tmp/samtools-1.4.1.tar.bz2 https://github.com/samtools/samtools/releases/download/1.4.1/samtools-1.4.1.tar.bz2
 RUN tar -xjf /tmp/samtools-1.4.1.tar.bz2 -C /tmp/
