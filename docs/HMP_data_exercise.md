@@ -22,12 +22,14 @@ Before you can start any of these exercises please launch the Docker image for t
 
 ### <a name="run_hmp_client_interactive"></a>Run HMP Interactive Docker Image
 ```
-bin/hmp_client_interactive
-export EX_SCRIPTS=/tutorials/hmp_client/
+Chiron/bin/hmp_client_interactive
 ```
 
-This will launch the Docker image with the tools necessary for the exercises.
+This will launch the Docker image with the tools necessary for the exercises. Once inside the Docker image set the environment variable necessary to execute some of the exercise scripts.
 
+```
+export EX_SCRIPTS=/tutorials/hmp_client/
+```
 ### <a name="hmp_client"></a>HMP Client
 For the exercises you will be using  data that is stored on the cloud. To make the data downloads easy we have written a tool, the [HMP data transfer tool](https://github.com/IGS/hmp_client), which has already been installed on your machine, to download files from Amazon Cloud to your machine. The data transfer tool works on a manifest file that you can generate (for this exercise we have pre generated the manifest files) using the [HMP Query interface](http://portal.ihmpdcc.org).
 
