@@ -4,7 +4,7 @@ FROM umigs/chiron-core:latest
 ## VALET ##
 ###########
 
-RUN apt-get install -y bedtools bamtools libfile-copy-link-perl libncurses5 libncurses5-dev libtbb2
+RUN apt-get install -y bedtools bamtools emacs libfile-copy-link-perl libncurses5 libncurses5-dev libtbb2
 
 # We install bowtie2-legacy since normal bowtie2 doesn't want to play nicely.
 RUN wget -O /opt/bowtie2-2.3.2-legacy-linux-x86_64.zip https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.3.2/bowtie2-2.3.2-legacy-linux-x86_64.zip/download
