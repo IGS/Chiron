@@ -1,7 +1,7 @@
 # File containing metadata sample information
 metadata_file:
   class: File
-  path: # FULL METADATA FILE PATH GOES HERE
+  path: ../examples/hmp_data_exercise/16s_metadata.tsv
 # Pre-trained naive Bayes classifier file
 training_classifier:
   class: File
