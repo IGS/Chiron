@@ -273,7 +273,14 @@ hmp_client  -endpoint_priority S3,HTTP -manifest stool_wgs_rand_5_samples_manife
 exit
 ```
 
+Because the Docker container is executed as root we need to change the permission of files to the ubuntu user. To accomplish this, run the following commands:
 
+```
+sudo su -
+chown -R ubuntu.ubuntu /opt/chiron/hmp_client/
+exit
+cd /opt/chiron/hmp_client/ex3
+```
 ###  <a name="launch_16s_wgs_analysis"></a>3.2. Launch workflows to analyze downloaded data
 To make the usage of the Docker images and for the ease of the exercises, we have built simple scripts that can create workflows defined in the Common Workflow Language (CWL). These workflows can be executed using the <em>cwl-runner</em>, a command-line tool to execute the workflows. The workflow runner uses the predefined Docker containers in batch modes to complete the analysis tasks. You can find workflows for all the tools used in this workshop including Qiime, HUMAnN2, MetaCompass, and StrainPhlAn.
 
@@ -293,7 +300,7 @@ usage: qiime2_pipeline
 The following command will run the QIIME2 process on all the files in the specified data directory.  The "qiime2_config_template.yml" file contains the necessary parameters to run the pipeline
 
 ```
-~/Chiron/bin/qiime2_pipeline --input_dir stool_16s --metadata_file stool_16s_rand_5_samples.tsv --config_file ~/Chiron/bin/qiime2_config_template.yml --out_dir stool_16s_results
+~/Chiron/bin/qiime2_pipeline --input_dir /opt/chiron/hmp_client/ex3/stool_16s --metadata_file stool_16s_rand_5_samples.tsv --config_file ~/Chiron/bin/qiime2_config_template.yml --out_dir stool_16s_results
 ```
 
 This workflow will process the individual files in the specified data directory and write the individual OTU tables. It will then create a combined OTU table for all the samples.
@@ -310,9 +317,14 @@ usage: humann2_pipeline
     [--out_dir /path/to/outdir]
 ```
 
+Before running this command, the files in the "stool_wgs" directory need to be unarchived.
+```
+tar -xvjf /opt/chiron/hmp_client/ex3/stool_wgs/*
+```
+
 This command takes in a list of input file paths instead of the input directory that the "qiime2_pipeline" script took.  To quickly create this list file, run the following command:
 ```
-readlink -f /opt/chiron/hmp_client/ex3stool_wgs/* > ~/stool_wgs.list
+readlink -f /opt/chiron/hmp_client/ex3/stool_wgs/* > ~/stool_wgs.list
 ```
 
 The following command will run the HUMAnN2 process on all the files in the specified input file list, one file per line.  The "humann2_config_template" file contains the necessary parameters to run the pipeline
@@ -373,7 +385,7 @@ usage: qiime2_pipeline
 The following command will run the QIIME2 process on all the files in the specified input directory.  The "qiime2_config_template.yml" file contains the necessary parameters to run the pipeline.
 
 ```
-~/Chiron/bin/qiime2_pipeline --input_dir stool_nares_16s --metadata_file stool_nares_16s_rand_5_samples.tsv --config_file ~/Chiron/bin/qiime2_config_template.yml --out_dir stool_nares_16s_results
+~/Chiron/bin/qiime2_pipeline --input_dir /opt/chiron/hmp_client/ex4/stool_nares_16s --metadata_file stool_nares_16s_rand_5_samples.tsv --config_file ~/Chiron/bin/qiime2_config_template.yml --out_dir stool_nares_16s_results
 ```
 
 This workflow will process the individual files in the specified data directory and write the individual OTU tables. It will then create a combined OTU table for all the samples.
