@@ -1,16 +1,12 @@
-# File containing metadata sample information
-metadata_file:
-  class: File
-  path: ../examples/hmp_data_exercise/16s_metadata.tsv
 # Pre-trained naive Bayes classifier file
 training_classifier:
   class: File
-  location: # FULL TRAINING CLASSIFIER PATH GOES HERE
-metadata_category: # CATEGORY NAME GOES HERE
+  location: ../examples/hmp_data_exercise/gg-13-8-99-515-806-nb-classifier.qza
+metadata_category: STSite
 # Level to collapse taxonomy before performing differential abudance.  Default is 2
 collapse_level: 2
-# Name to give axes for PCoA plots
-custom_axis: # AXES NAME GOES HERE
+# Category to give axes for PCoA plots
+custom_axis: STSite
 # Diversity rarefaction depth.  Default is 1080
 sampling_depth: 1080
 # DADA2 number of left-side bases to trim.  Default is 0
