@@ -230,7 +230,7 @@ extract_qiime_subset.R
 
 The following command will generate the abundance matrices for the specified subset of samples.
 ```
-Rscript $EX_SCRIPTS/extract_qiime_subset.R --qiime v35_psn_otu.genus.fixed.txt \
+Rscript $EX_SCRIPTS/extract_qiime_subset.R --qiime ../ex1/v35_psn_otu.genus.fixed.txt \
   --samples stool_nares_subsamples.tsv --outfile stool_nares_subsamples_v35_psn_otu.genus.fixed.txt
 ```
 
