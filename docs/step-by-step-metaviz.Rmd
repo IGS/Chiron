@@ -247,7 +247,7 @@ The next step will be to add stacked line plots for samples from Crohn's Disease
 
   27) Click on 'Stacked plot'
 
- ![](images/stacked_plot_hover.png)
+![](images/stacked_plot_hover.png)
 
 &nbsp;
  
@@ -259,40 +259,40 @@ The measurement browser will appear again.
 
  28) Click on 'diagnosis'
 
- ![](images/stacked_plot_measurementbrowser_diagnosis.png)
+![](images/stacked_plot_measurementbrowser_diagnosis.png)
  
 &nbsp;
 
   29) Check the box for 'Crohn's Disease'
 
- ![](images/stacked_plot_crohns_disease.png)
+![](images/stacked_plot_crohns_disease.png)
 
 The number of samples, listed next to 'ihmp_data' in the center of the measurement window will be updated to 48.
 
  30) Check the box next to 'ihmp_data'.
  
-  ![](images/stacked_plot_crohns_select.png)
+![](images/stacked_plot_crohns_select.png)
 
 &nbsp;
 
   31) Click 'Ok'. Now a stacked plot will appear.
   
-  ![](images/stackedplot_crohns_samples.png)
+![](images/stackedplot_crohns_samples.png)
 
 &nbsp;  
 
   32) Click on 'Add Visualization', select 'Stacked Plot', select 'diagnosis', check the box next to 'Ulcerative Colitis', and check the box next to 'ihmp_data'.
   
-    ![](images/stackedplot_uc_selected.png)
+![](images/stackedplot_uc_selected.png)
   
   &nbsp;  
 
   33) Click 'Ok'. Now a stacked plot for Ulcerative Colitis samples is present in the Metaviz workspace.
   
-    ![](images/stackedplot_uc_samples_added.png)
+![](images/stackedplot_uc_samples_added.png)
   
 &nbsp;  
-TODO: Have them set once its added
+
 
   34) Change the following settings on Crohn's Disease stacked plot
      - Name: Crohn's
@@ -301,7 +301,7 @@ TODO: Have them set once its added
      - Use Group By: ON
      - Group By: 'antibiotics' 
   
-    ![](images/stackedplot_crohns_settings.png)  
+![](images/stackedplot_crohns_settings.png)  
 
 &nbsp;  
 
@@ -312,7 +312,7 @@ TODO: Have them set once its added
      - Use Group By: ON
      - Group By: 'antibiotics' 
   
-    ![](images/stackedplot_uc_settings_done.png)
+![](images/stackedplot_uc_settings_done.png)
 
 &nbsp;
   
