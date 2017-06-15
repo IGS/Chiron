@@ -19,7 +19,7 @@ marker_in_clade: 0.2
 # Path to the sample metadata file to use in Graphlan
 metadata_file:
   class: File
-  path: # FULL PATH TO METADATA FILE GOES HERE
+  path: ../examples/hmp_data_exercise/wgs_metadata.tsv
 # Metadata category to create a dendrogram tree
 metadata_category: 'subjectID'
 # Number of cores to utilize when running programs.  Default is 2
