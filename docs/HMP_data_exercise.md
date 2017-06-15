@@ -230,8 +230,8 @@ extract_qiime_subset.R
 
 The following command will generate the abundance matrices for the specified subset of samples.
 ```
-Rscript $EX_SCRIPTS/extract_qiime_subset.R --qiime ../ex1/v35_psn_otu.genus.fixed.txt \
-  --samples stool_nares_subsamples.tsv --outfile stool_nares_subsamples_v35_psn_otu.genus.fixed.txt
+Rscript $EX_SCRIPTS/extract_qiime_subset.R --qiime ../ex1/otu_table_psn_v35.txt \
+  --samples stool_nares_subsamples.tsv --outfile stool_nares_subsamples_otu_table_psn_v35.txt
 ```
 
 #### <a name="run_metaviz_for_two_sites"></a>2.3. Run Metaviz to compare the abundance matrices for two sites
