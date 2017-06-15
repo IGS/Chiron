@@ -64,7 +64,7 @@ bunzip2 hmp1-II_metaphlan2-mtd-qcd.pcl.bz2
 ```
 
 This should download the following files:  
-    hmp1-II_metaphlan2-mtd-qcd.pcl.txt  
+    hmp1-II_metaphlan2-mtd-qcd.pcl
     otu_table_psn_v35.txt  
 
 ### <a name="create_random_subsamples"></a>1.2. Create random subset of samples for the body site
