@@ -37,6 +37,9 @@ inputs:
     default: 'uniref90_level4ec'
 
 outputs:
+  merged_tsv:
+    type: File
+    outputSource: humann2_join_tables/out_tsv
   feature_tsv:
     type: File
     outputSource: rename_table/out_tsv
@@ -63,7 +66,8 @@ steps:
     in:
       input_tsv: humann2_join_tables/out_tsv
       output_tsv:
-        valueFrom: $(inputs.input_tsv.nameroot + '-names.tsv')
+        source: humann2_join_tables/out_tsv
+        valueFrom: $(self.nameroot + '-names.tsv')
       names: feat_db
     out: [out_tsv]
 
@@ -72,7 +76,8 @@ steps:
     in:
       input_tsv: humann2_join_tables/out_tsv
       output_tsv:
-        valueFrom: $(inputs.input_tsv.nameroot + '-' + inputs.units + '.tsv')
+        source: humann2_join_tables/out_tsv
+        valueFrom: $(self.nameroot + '-' + inputs.units + '.tsv')
       units: normalize_units
       update_snames: update_snames
     out: [out_tsv]
@@ -82,6 +87,7 @@ steps:
     in:
       input_tsv: renorm_table/out_tsv
       output_tsv:
-        valueFrom: $(inputs.input_tsv.nameroot + '-' + inputs.groups +'.tsv')
+        source: renorm_table/out_tsv
+        valueFrom: $(self.nameroot + '-' + inputs.groups +'.tsv')
       groups: regrouping_category
     out: [out_tsv]
