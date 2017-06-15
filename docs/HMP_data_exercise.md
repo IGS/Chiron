@@ -212,7 +212,7 @@ The following command will extract matched samples for 25 randomly selected subj
 ```
 Rscript $EX_SCRIPTS/generate_matched_two_site_samples.R --m16s 16s_metadata.tsv --visit 1 \
   --count 20 --bodysite1 Stool --bodysite2 Anterior_nares \
-  --outfile  stool_nares_subsamples.csv \
+  --outfile  stool_nares_subsamples.tsv \
   --region V35
 ```
 
