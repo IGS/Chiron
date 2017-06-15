@@ -23,8 +23,14 @@ inputs:
       prefix: --gap-fill
     type: string?
   bypass_translated_search:
+    label: Runs all of the alignment steps except the translated search
     inputBinding:
       prefix: --bypass-translated-search
+    type: boolean?
+  bypass_nucleotide_search:
+    label: Bypasses all of the alignment steps before the translated search
+    inputBinding:
+      prefix: --bypass-nucleotide-search
     type: boolean?
   num_threads:
     inputBinding:
