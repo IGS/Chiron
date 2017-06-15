@@ -285,15 +285,15 @@ Usage:
 usage: qiime2_pipeline
     [-h]
     --input_dir /path/to/input/dir
+    --metadata_file /path/to/metadata.tsv
     --config_file /path/to/qiime2_config.yml
     [--out_dir /path/to/outdir]
 ```
-Before running the command, the 'qiime2_config_template' file needs to be copied and any necessary parameters, such as various file paths or category names need to be filled in.  Some parameters are left filled in as default settings.  This complete copy (let's call it stool_16s_config.yml for this example) will be used to specify parameters for the pipeline.
 
-The following command will run the QIIME2 process on all the files in the specified data directory.
+The following command will run the QIIME2 process on all the files in the specified data directory.  The "qiime2_config_template.yml" file contains the necessary parameters to run the pipeline
 
 ```
-create_qiime_workflow --input_dir stool_16s --config_file stool_16s_config.yml -out_dir stool_16s_results
+create_qiime_workflow --input_dir stool_16s --metadata_file stool_16s_rand_5_samples.tsv --config_file qiime2_config_template.yml -out_dir stool_16s_results
 ```
 
 This workflow will process the individual files in the specified data directory and write the individual OTU tables. It will then create a combined OTU table for all the samples.
@@ -306,15 +306,14 @@ Usage:
 usage: humann2_pipeline
     [-h]
     --input_file_list /path/to/input.list
-    --config_file /path/to/qiime2_config.yml
+    --config_file /path/to/humann2_config.yml
     [--out_dir /path/to/outdir]
 ```
-Before running the command, the 'humann2_config_template' file needs to be copied and any necessary parameters, such as various file paths or category names need to be filled in.  Some parameters are left filled in as default settings.  This complete copy (let's call it stool_16s_config.yml for this example) will be used to specify parameters for the pipeline.
 
-The following command will run the HUMAnN2 process on all the files in the specified input file list, one file per line.
+The following command will run the HUMAnN2 process on all the files in the specified input file list, one file per line.  The "humann2_config_template" file contains the necessary parameters to run the pipeline
 
 ```
-humann2_pipeline --input_file_list stool_wgs.list --config_file stool_16s_config.yml -out_dir stool_wgs_results
+humann2_pipeline --input_file_list stool_wgs.list --config_file humann2_config_template.yml -out_dir stool_wgs_results
 ```
 
 This workflow will process the individual files in the specified input file list and write the individual MetaPhlAn2 and HUMAnN2 tables. It will then create a combined relative abundance table for all the samples based on MetaPhlAn2 results.
@@ -361,21 +360,15 @@ Usage:
 usage: qiime2_pipeline
     [-h]
     --input_dir /path/to/input/dir
+    --metadata_file /path/to/metadata_file
     --config_file /path/to/qiime2_config.yml
     [--out_dir /path/to/outdir]
 ```
 
-Before running the command, the 'qiime2_config_template' file needs to be copied and any necessary parameters, such as various file paths or category names need to be filled in.  Some parameters are left filled in as default settings.  This complete copy (let's call it stool_16s_config.yml for this example) will be used to specify parameters for the pipeline.
-
-The following command will run the QIIME2 process on all the files in the specified input directory.
+The following command will run the QIIME2 process on all the files in the specified input directory.  The "qiime2_config_template.yml" file contains the necessary parameters to run the pipeline.
 
 ```
-cp ~/Chiron/bin/qiime2_config_template stool_nares_16s_config.yml
-```
-
-Edit the <em>stool_nares_16s_config.yml</em> file using nano editor to change the location of the sample metadata file to be <em>stool_nares_16s_rand_5_samples.tsv</em>.
-```
-~/Chiron/bin/qiime2_pipeline --input_dir stool_nares_16s --config_file stool_nares_16s_config.yml -out_dir stool_nares_16s_results
+~/Chiron/bin/qiime2_pipeline --input_dir stool_nares_16s --metadata_file stool_nares_16s_rand_5_samples.tsv --config_file qiime2_config_template.yml -out_dir stool_nares_16s_results
 ```
 
 This workflow will process the individual files in the specified data directory and write the individual OTU tables. It will then create a combined OTU table for all the samples.

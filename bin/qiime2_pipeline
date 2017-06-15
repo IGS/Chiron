@@ -15,8 +15,13 @@ import yaml
 import os
 import subprocess
 import shlex
+import requests
+
 
 CWL_WORKFLOW = os.path.dirname(__file__) + "../pipelines/qiime2/qiime2_complete.cwl"
+
+CLASSIFIER_URL = 'https://data.qiime2.org/2017.5/common/gg-13-8-99-515-806-nb-classifier.qza'
+CLASSIFIER_PATH = os.path.dirname(__file__) + "../examples/hmp_data_exercise/gg-13-8-99-515-806-nb-classifier.qza"
 
 ########
 # Main #
@@ -27,6 +32,7 @@ def main():
     description = "Invoke a QIIME2 pipeline using the Common Workflow Language"
     parser = ArgumentParser(description=description)
     parser.add_argument("--input_dir", "-i", help="Directory containing the fastq sequences", metavar="/path/to/input/dir", required=True)
+    parser.add_argument("--metadata_file", "-m", help="Path to the metadata file to use", metavar="/path/to/metadata.tsv", required=True)
     parser.add_argument("--config_file", "-c", help="YAML-based config file of parameters to add", metavar="/path/to/config.yml", required=True)
     parser.add_argument("--out_dir", "-o", help="Optional. Directory to stage output files.  Default is ./cwl_output", metavar="/path/to/outdir", default="./cwl_output")
 
@@ -34,7 +40,15 @@ def main():
     args = parser.parse_args()
     check_args(args, parser)
 
+    # Download training classifier if it does not exist
+    if not os.path.exists(CLASSIFIER_PATH):
+        logging.debug("Downloading Greengenes classifier")
+        r = requests.get(CLASSIFIER_URL)
+        with open(CLASSIFIER_PATH, 'wb') as outfile:
+            outfile.write(r.content)
+
     yaml_dict = read_config(args.config_file)
+    yaml_dict['metadata_file'] = {'class': 'File', 'path': args.metadata_file}
     add_input_dir_to_yaml(yaml_dict, args.input_dir)
     #print(yaml.dump(yaml_dict))
 
@@ -43,7 +57,7 @@ def main():
     write_final_yaml(yaml_dict, final_yaml)
 
     # Invoke CWL with new YAML job input
-    run_cwl_command(args.outdir, final_yaml)
+    run_cwl_command(args.out_dir, final_yaml)
 
     # Lots of output dirs were created that weren't removed.  Remove them
     rm_tmp_cmd = "rm -rf tmp*"
