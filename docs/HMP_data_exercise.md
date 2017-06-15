@@ -317,14 +317,14 @@ usage: humann2_pipeline
     [--out_dir /path/to/outdir]
 ```
 
-Before running this command, the files in the "stool_wgs" directory need to be unarchived.
+Before running this command, the .tar.bz2 files in the "stool_wgs" directory need to be unarchived.  This process can take about 1 hour to complete.  Unarchiving should result in FASTQ files in each newly present sample directory
 ```
-tar -xvjf /opt/chiron/hmp_client/ex3/stool_wgs/*
+for i in `ls -1 /opt/chiron/hmp_client/ex3/stool_wgs`; do tar -xvjf /opt/chiron/hmp_client/ex3/stool_wgs/${i}; done
 ```
 
 This command takes in a list of input file paths instead of the input directory that the "qiime2_pipeline" script took.  To quickly create this list file, run the following command:
 ```
-readlink -f /opt/chiron/hmp_client/ex3/stool_wgs/* > ~/stool_wgs.list
+readlink -f /opt/chiron/hmp_client/ex3/stool_wgs/*/*.fastq > ~/stool_wgs.list
 ```
 
 The following command will run the HUMAnN2 process on all the files in the specified input file list, one file per line.  The "humann2_config_template" file contains the necessary parameters to run the pipeline
