@@ -43,8 +43,9 @@ def main():
     add_input_files_to_yaml(yaml_dict, inputs)
 
     # Will eventually copy humann2_complete genefamilies.tsv files here
-    merged_outdir = args.out_dir + "/merged_dir"
-    yaml_dict['input_dir'] = {'class': 'Directory', 'path': merged_outdir}
+#    merged_outdir = args.out_dir + "/merged_dir"
+#    yaml_dict['input_dir'] = {'class': 'Directory', 'path': merged_outdir}
+    yaml_dict['input_dir'] = {'class': 'Directory', 'path': args.out_dir}
     #print(yaml.dump(yaml_dict))
 
     # Write out YAML
@@ -55,17 +56,17 @@ def main():
     run_cwl_command(args.out_dir, final_yaml, CWL_WORKFLOW)
 
     # Copy all genefamilies.tsv files to an inner output directory
-    if not os.path.exists(merged_outdir):
-        os.makedirs(merged_outdir)
-    for f in glob.glob(r'*genefamilies\.tsv'):
-        print("Copying {0} to {1}").format(f, merged_outdir)
-        shutil.copy(f, merged_outdir)
+    # if not os.path.exists(merged_outdir):
+    #     os.makedirs(merged_outdir)
+    # for f in glob.glob(r'*genefamilies.tsv'):
+    #     print("Copying {0} to {1}").format(f, merged_outdir)
+    #     shutil.copy(f, merged_outdir)
     run_cwl_command(args.out_dir, final_yaml, CWL_WORKFLOW_JOIN)
 
     # Lots of output dirs were created that weren't removed.  Remove them
-    rm_tmp_cmd = "rm -rf tmp*"
-    args = shlex.split(rm_tmp_cmd) # Split cmd using shell-like syntax
-    subprocess.call(args)
+    logging.debug("Removing temporary directories")
+    for f in glob.glob("tmp*"):
+        os.remove(f)
 
 def check_args(args, parser):
     """ Validate the passed arguments """
