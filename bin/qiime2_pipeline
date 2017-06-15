@@ -60,9 +60,9 @@ def main():
     run_cwl_command(args.out_dir, final_yaml)
 
     # Lots of output dirs were created that weren't removed.  Remove them
-    rm_tmp_cmd = "rm -rf tmp*"
-    args = shlex.split(rm_tmp_cmd) # Split cmd using shell-like syntax
-    subprocess.call(args)
+    logging.debug("Removing temporary directories")
+    for f in glob.glob("tmp*"):
+        os.remove(f)
 
 def check_args(args, parser):
     """ Validate the passed arguments """
