@@ -156,7 +156,7 @@ push @commands, "$smalt map -r 0 -x -y $options{y} $n_option $m_option -g $smalt
 
 # sort the bam by coordinate
 #push @commands, "$samtools sort $raw_bam $raw_bam.sort";
-push @commands, "$samtools sort -@ 2 -o $raw_bam.sort $raw_bam"
+push @commands, "$samtools sort -@ 2 -o $raw_bam.sort.bam $raw_bam";
 
 # remove duplicates
 push @commands, "$samtools rmdup $raw_bam.sort.bam $rmdup_bam";
