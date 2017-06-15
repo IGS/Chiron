@@ -23,6 +23,11 @@ inputs:
     type: string
     default: "off"
   bypass_translated_search:
+    label: Runs all of the alignment steps except the translated search
+    type: boolean
+    default: false
+  bypass_nucleotide_search:
+    label: Bypasses all of the alignment steps before the translated search
     type: boolean
     default: false
   num_cores:

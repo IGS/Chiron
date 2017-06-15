@@ -18,8 +18,8 @@ import shlex
 import glob
 import shutil
 
-CWL_WORKFLOW = os.path.dirname(__file__) + "../pipelines/humann2/humann2_complete.cwl"
-CWL_WORKFLOW_JOIN = os.path.dirname(__file__) + "../pipelines/humann2/humann2_join_complete.cwl"
+CWL_WORKFLOW = os.path.dirname(__file__) + "/../pipelines/humann2/humann2_complete.cwl"
+CWL_WORKFLOW_JOIN = os.path.dirname(__file__) + "/../pipelines/humann2/humann2_join_complete.cwl"
 
 
 ########
