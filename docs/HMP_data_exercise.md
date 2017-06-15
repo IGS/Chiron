@@ -331,6 +331,7 @@ In the data_exercise directory you will find the files that have the metadata as
 mkdir /output/ex4
 cd /output/ex4
 cp /tutorials/hmp_client/stool_nares_16s_rand_5_samples_manifest.tsv .
+cp /tutorials/hmp_client/stool_nares_16s_rand_5_samples.tsv .
 ```
 
 The following commands will download trimmed 16S sequences for the 5 randomly selected subject visits to the directory specified by the <em>destination</em> parameter. Once the data has been downloaded exit the current Docker image.
@@ -369,8 +370,12 @@ Before running the command, the 'qiime2_config_template' file needs to be copied
 The following command will run the QIIME2 process on all the files in the specified input directory.
 
 ```
-cp ~/Chiron/bin/qiime2_config_template .
-~/Chiron/bin/qiime2_pipeline --input_dir stool_nares_16s --config_file stool_16s_config.yml -out_dir stool_nares_16s_results
+cp ~/Chiron/bin/qiime2_config_template stool_nares_16s_config.yml
+```
+
+Edit the <em>stool_nares_16s_config.yml</em> file using nano editor to change the location of the sample metadata file to be <em>stool_nares_16s_rand_5_samples.tsv</em>.
+```
+~/Chiron/bin/qiime2_pipeline --input_dir stool_nares_16s --config_file stool_nares_16s_config.yml -out_dir stool_nares_16s_results
 ```
 
 This workflow will process the individual files in the specified data directory and write the individual OTU tables. It will then create a combined OTU table for all the samples.
