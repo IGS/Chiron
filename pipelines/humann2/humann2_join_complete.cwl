@@ -58,7 +58,7 @@ steps:
       input_dir: input_dir
       file_name: file_name
       output_tsv:
-        valueFrom: $(inputs.input_dir.basename + '_' + inputs.file_name + '.tsv')
+        valueFrom: $('merged_' + inputs.file_name + '.tsv')
     out: [out_tsv]
 
   rename_table:
@@ -66,8 +66,7 @@ steps:
     in:
       input_tsv: humann2_join_tables/out_tsv
       output_tsv:
-        source: humann2_join_tables/out_tsv
-        valueFrom: $(self.nameroot + '-names.tsv')
+        default: 'merged_genefamilies-names.tsv'
       names: feat_db
     out: [out_tsv]
 
@@ -76,8 +75,7 @@ steps:
     in:
       input_tsv: humann2_join_tables/out_tsv
       output_tsv:
-        source: humann2_join_tables/out_tsv
-        valueFrom: $(self.nameroot + '-' + inputs.units + '.tsv')
+        valueFrom: $('merged_genefamilies-' + inputs.units + '.tsv')
       units: normalize_units
       update_snames: update_snames
     out: [out_tsv]
@@ -87,7 +85,6 @@ steps:
     in:
       input_tsv: renorm_table/out_tsv
       output_tsv:
-        source: renorm_table/out_tsv
-        valueFrom: $(self.nameroot + '-' + inputs.groups +'.tsv')
+        valueFrom: $('merged_genefamilies-' + inputs.groups +'.tsv')
       groups: regrouping_category
     out: [out_tsv]

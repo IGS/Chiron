@@ -64,9 +64,11 @@ def main():
     run_cwl_command(args.out_dir, final_yaml, CWL_WORKFLOW_JOIN)
 
     # Lots of output dirs were created that weren't removed.  Remove them
-    logging.debug("Removing temporary directories")
-    for f in glob.glob("tmp*"):
-        os.remove(f)
+    # logging.debug("Removing temporary directories")
+    # for root, dirs, files in os.walk('.', topdown=False):
+    #     for name in dirs:
+    #         if name.startswith( 'tmp' ):
+    #             os.rmdir(os.path.join(root, name))
 
 def check_args(args, parser):
     """ Validate the passed arguments """
