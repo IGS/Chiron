@@ -339,9 +339,16 @@ The following commands will download trimmed 16S sequences for the 5 randomly se
 hmp_client  -endpoint_priority S3,HTTP -manifest stool_nares_16s_rand_5_samples_manifest.tsv \
   -destination stool_nares_16s
 exit
-cd /opt/chiron/hmp_client/ex4
 ```
 
+Because the Docker container is executed as root we need to change the permission of files to the ubuntu user. To accomplish this, run the following commands:
+
+```
+sudo su -
+chown -R ubuntu.ubuntu /opt/chiron/hmp_client/
+exit
+cd /opt/chiron/hmp_client/ex4
+```
 ###   <a name="launch_16s_analysis"></a>4.2.  Launch workflows to analyze downloaded data
 To make the usage of the Docker images and for the ease of the exercises, we have built simple scripts that can create workflows defined in the Common Workflow Language (CWL). These workflows can be executed using the <em>cwl-runner</em>, a command-line tool to execute the workflows. The workflow runner uses the predefined Docker containers in batch modes to complete the analysis tasks. You can find workflows for all the tools used in this workshop including Qiime, HUMAnN2, MetaCompass, and StrainPhlAn.
 
@@ -362,7 +369,8 @@ Before running the command, the 'qiime2_config_template' file needs to be copied
 The following command will run the QIIME2 process on all the files in the specified input directory.
 
 ```
-qiime2_pipeline --input_dir stool_16s --config_file stool_16s_config.yml -out_dir stool_16s_results
+cp ~/Chiron/bin/qiime2_config_template .
+~/Chiron/bin/qiime2_pipeline --input_dir stool_nares_16s --config_file stool_16s_config.yml -out_dir stool_nares_16s_results
 ```
 
 This workflow will process the individual files in the specified data directory and write the individual OTU tables. It will then create a combined OTU table for all the samples.
