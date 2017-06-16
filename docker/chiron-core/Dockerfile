@@ -62,5 +62,7 @@ ADD https://github.com/IGS/Chiron/raw/master/examples/hmp_data_exercise/stool_wg
 ADD https://github.com/IGS/Chiron/raw/master/examples/hmp_data_exercise/stool_wgs_rand_manifest.tsv /tutorials/hmp_client/
 ADD https://github.com/IGS/Chiron/raw/master/examples/hmp_data_exercise/stool_wgs_rand_samples.tsv /tutorials/hmp_client/
 ADD https://github.com/IGS/Chiron/raw/master/examples/hmp_data_exercise/wgs_metadata.tsv /tutorials/hmp_client/
+ADD https://github.com/IGS/Chiron/raw/master/examples/hmp_data_exercise/stool_nares_wgs_rand_metadata.tsv /tutorials/hmp_client/
+ADD https://github.com/IGS/Chiron/raw/master/examples/hmp_data_exercise/stool_nares_wgs_rand_manifest.tsv /tutorials/hmp_client/
 
 
