@@ -85,7 +85,6 @@ Palatine_Tonsils
 Posterior_fornix
 R_Antecubital_fossa
 R_Retroauricular_crease
-STSite
 Saliva
 Stool
 Subgingival_plaque
