@@ -1,4 +1,4 @@
-FROM umigs/chiron-core:latest
+FROM umigs/chiron-core:
 
 ###########
 ## VALET ##
@@ -37,6 +37,9 @@ RUN ln -s /usr/lib/x86_64-linux-gnu/libbamtools.so.2.4.0 /usr/lib/x86_64-linux-g
 RUN cp /opt/samtools-1.4.1/bin/samtools /opt/reapr/
 RUN cp /usr/bin/smalt /opt/reapr/
 RUN cp /usr/bin/bgzip /opt/reapr/tabix/
+RUN cp /usr/bin/tabix /opt/reapr/tabix/
+
+COPY get_sample_data /usr/bin/
 
 RUN git clone https://github.com/cmhill/VALET.git /opt/VALET
 ENV VALET /opt/VALET/src/py/
