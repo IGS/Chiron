@@ -1,4 +1,5 @@
-HMP Data Exercise
+# HMP Data Exercise
+
 <a name="top"></a>
 This document walks you through the steps of extracting data from the HMP Cloud Archive and completing the following analysis tasks.
 
@@ -11,8 +12,8 @@ This document walks you through the steps of extracting data from the HMP Cloud 
   2.1. [Create random subset of samples for two body sites](#create_random_subsamples_for_two_sites)  
   2.2. [Extract matrices for subsamples](#extract_two_site_matrices)  
   2.3. [Run Metaviz to visualize and compare the profiles](#run_metaviz_for_two_sites)  
-3. [Analyze WGS community profiles between two body site](#analyze_two_site_wgs)  
-  3.1. [Download the WGS data from Cloud repository](#download_two_site_wgs_data)  
+3. [Analyze WGS community profiles between two body sites](#analyze_two_site_wgs)  
+  3.1. [Download the WGS data from HMP Cloud Archive](#download_two_site_wgs_data)  
   3.2. [Launch workflows to analyze downloaded data](#launch_two_site_wgs_analysis)  
   3.3. [Run Metaviz to visualize and compare the MetaPhlAn2 profiles for two sites](#run_metaviz_for_two_wgs_sites)
 
@@ -255,7 +256,7 @@ In this part of the exercise you will first analyze the WGS data using MetaPhlAn
 ~/Chiron/bin/hmp_client_interactive
 ```
 
-###  <a name="download_two_site_wgs_data"></a>3.1. Download the WGS data from Cloud repository
+###  <a name="download_two_site_wgs_data"></a>3.1. Download the WGS data from HMP Cloud Archive
 In the /tutorials/hmp_client directory you will find the files that have the metadata associated with WGSS samples. For this exercise we will use samples from the first visit for the following two body sites: "Anterior_nares" and "Stool". Copy the manifest files <em>stool_nares_rand_wgs_5_manifest.tsv</em> in the /tutorials/hmp_client directory to the local directory and use the script <em>hmp_client</em> to download the data files specified in the manifest file.
 
 ```
@@ -282,7 +283,7 @@ exit
 cd /opt/chiron/hmp_client/ex3
 ```
 
-###  <a name="launch_wgs_analysis"></a>3.2. Launch workflows to analyze downloaded data
+###  <a name="launch_two_site_wgs_analysis"></a>3.2. Launch workflows to analyze downloaded data
 To make usage of the Docker images and for the ease of the exercises, we have built simple scripts that can create workflows defined in the Common Workflow Language (CWL). These workflows can be executed using the <em>cwl-runner</em>, a command-line tool to execute the workflows. The workflow runner uses the predefined Docker containers in batch modes to complete the analysis tasks. You can find workflows for all the tools used in this workshop including Qiime, HUMAnN2, MetaCompass, and StrainPhlAn.
 
 [top](#top)
@@ -290,7 +291,7 @@ To make usage of the Docker images and for the ease of the exercises, we have bu
 #### Launch the workflows to analyze the WGS data using HUMAnN2
 ```
 Usage:
-usage: humann2_pipeline
+humann2_pipeline
     [-h]
     --input_file_list /path/to/input.list
     --config_file /path/to/humann2_config.yml
