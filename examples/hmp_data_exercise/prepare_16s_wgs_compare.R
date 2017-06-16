@@ -2,11 +2,14 @@ library(tidyverse)
 library(metagenomeSeq)
 library(stringr)
 library(getopt)
+library(metavizr)
+library(RNeo4j)
 
 # Get the options specified on the command line
 spec = matrix(c('metaphlan', 'm', 1, "character",
                 'qiime', 'q', 1, "character",
                 'outfile', 'o', 1, "character",
+                'datasource', 'd', 1, "character",
                 'help', 'h', 0, "logical"
 ), 
 byrow = TRUE, ncol=4)
@@ -30,12 +33,16 @@ if ( is.null(opt$metaphlan) ) {
   q(status=1);
 }
 
+if ( is.null(opt$datasource) ) {
+  cat("Datasource name for Metaviz missing.\n")
+  cat(getopt(spec, usage=TRUE));
+  q(status=1);
+}
+
 filename_16s = opt$qiime
 filename_metaphlan = opt$metaphlan
 outfile = opt$outfile
-
-filename_16s <- "subset_of_v35_psn_otu.genus.fixed.txt"
-filename_metaphlan <- "subset_of_hmp1-II_metaphlan2-mtd-qcd.pcl.txt"
+datasource_name = opt$datasource
 
 dat_16s <- read_csv(filename_16s)
 dat_mph <- read_csv(filename_metaphlan)
@@ -159,21 +166,46 @@ rownames(missing_counts_16s) <- fdata_merged$genus[fdata_merged$source == "wgs"]
 counts_16s <- rbind(counts_16s, missing_counts_16s)
 counts_16s <- counts_16s[fdata_merged$genus, rownames(pdata_merged)[pdata_merged$source == "16s"]]
 
-new_counts_16s <- counts_16s
+scaled_counts_16s <- counts_16s
 colsums_16s <- colSums(counts_16s)
 for (i in seq(1,length(colsums_16s))){
-  new_counts_16s[,i] <- counts_16s[,i]/colsums_16s[i]
+  scaled_counts_16s[,i] <- counts_16s[,i]/colsums_16s[i]
 }
 
-new_counts_16s <- new_counts_16s * 1000
+scaled_counts_16s <- scaled_counts_16s * 1000
 
 counts_merged <- cbind(counts_mph, counts_16s)
-new_counts_merged <- cbind(counts_mph, new_counts_16s)
+scaled_counts_merged <- cbind(counts_mph, scaled_counts_16s)
 
-mr_genus_merged <- newMRexperiment(counts_merged,
+scaled_mr_genus_merged <- newMRexperiment(scaled_counts_merged,
                                    AnnotatedDataFrame(pdata_merged),
                                    AnnotatedDataFrame(fdata_merged))
 
-new_mr_genus_merged <- newMRexperiment(new_counts_merged,
-                                   AnnotatedDataFrame(pdata_merged),
-                                   AnnotatedDataFrame(fdata_merged))
+mr_have_both <- scaled_mr_genus_merged[which(!is.na(fData(scaled_mr_genus_merged)[,"genus_16s"])),]
+
+mobj <- metavizr:::EpivizMetagenomicsData$new(mr_have_both, feature_order=colnames(fData(mr_have_both))[1:6])
+mobj$toNEO4JDbHTTP(batch_url = "http://localhost:7474/db/data/batch", neo4juser = "neo4j", neo4jpass = "osdf1", datasource = datasource_name)
+
+graph = startGraph("http://localhost:7474/db/data/", username="neo4j", password="osdf1")
+query = "MATCH (ds:Datasource) return ds.label as label"
+dsFromGraph <- cypher(graph, query)
+datasources = dsFromGraph$label
+
+file_settings <- file("/graph-ui/epiviz-metaviz-4.1/site-settings.js")
+metaviz_text = "epiviz.Config.SETTINGS.dataServerLocation = 'http://epiviz.cbcb.umd.edu/data/';epiviz.Config.SETTINGS.workspacesDataProvider = sprintf('epiviz.data.WebServerDataProvider,%s,%s','workspaces_provider','http://epiviz.cbcb.umd.edu/data/main.php');";
+datasource_text = NULL
+docker_ip = Sys.getenv("HOST_IP")
+docker_ip = paste0(docker_ip, ":5000")
+
+for (ds in datasources) {
+  if(length(datasource_text) == 0) {
+    datasource_text = paste0("['epiviz.data.EpivizApiDataProvider','", ds, "','http://", docker_ip ,"/api',[],3,{3: epiviz.ui.charts.tree.NodeSelectionType.NODE}]")
+  }
+  else {
+    datasource_text = paste(datasource_text, paste0("['epiviz.data.EpivizApiDataProvider','", ds, "','http://", docker_ip ,"/api',[],3,{3: epiviz.ui.charts.tree.NodeSelectionType.NODE}]"), sep=",")
+  }
+}
+
+metaviz_text = paste0(metaviz_text, "epiviz.Config.SETTINGS.dataProviders = [", datasource_text, "];")
+writeLines(metaviz_text, file_settings)
+close(file_settings)
