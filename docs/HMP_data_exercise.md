@@ -50,7 +50,7 @@ The comparison of the 16S and corresponding WGS data is completed using the comm
 
 
 ### <a name="download_profiles"></a>1.1. Download Qiime and MetaPhlAn community profiles
-In the data_exercise directory you will find a manifest file which has the information that the GDC Client needs to download the precomputed community profiles. Copy the manifest file to the local working directory and run the following command to download the profiles:
+In the data_exercise directory you will find a manifest file which has the information that the <em>hmp_client</em> needs to download the precomputed community profiles. Copy the manifest file to the local working directory and run the following command to download the profiles:
 
 ```
 mkdir /output/ex1
