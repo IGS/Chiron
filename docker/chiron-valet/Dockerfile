@@ -1,4 +1,4 @@
-FROM umigs/chiron-core:
+FROM umigs/chiron-core:1.2.0
 
 ###########
 ## VALET ##
