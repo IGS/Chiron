@@ -178,7 +178,7 @@ The comparison of the 16S data across two body sites is completed using the comm
 
 #### Run the HMP Interactive Client Docker Image
 ```
-bin/hmp_client_interactive
+Chiron/bin/hmp_client_interactive
 ```
 
 #### Download Qiime Community Profiles
