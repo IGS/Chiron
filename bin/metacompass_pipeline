@@ -106,7 +106,8 @@ def write_final_yaml(yaml_dict, out_yaml):
 
 def run_cwl_command(outdir, job_input):
     """ Create and run the CWL-runner job """
-    cwl_cmd = "cwl-runner --tmp-outdir-prefix=tmp_out --tmpdir-prefix=./tmp --outdir={0} {1} {2}".format(outdir, CWL_WORKFLOW, job_input)
+    tmp_dir = get_tmpdir()
+    cwl_cmd = "cwl-runner --tmp-outdir-prefix=tmp_out --tmpdir-prefix={3} --outdir={0} {1} {2}".format(outdir, CWL_WORKFLOW, job_input, tmp_dir)
     args = shlex.split(cwl_cmd) # Split cmd using shell-like syntax
     # https://stackoverflow.com/questions/4417546/constantly-print-subprocess-output-while-process-is-running
     with subprocess.Popen(cwl_cmd, stdout = subprocess.PIPE,
@@ -115,6 +116,14 @@ def run_cwl_command(outdir, job_input):
             print(line.decode(), end='')
     if p.returncode != 0:
         raise subprocess.CalledProcessError(p.returncode, p.args)
+
+def get_tmpdir():
+    """ Determine where to write tmp files"""
+    base_dir = "/opt"
+    if not os.path.exists("/opt") or not os.access('/opt', os.W_OK):
+        base_dir = "."
+    tmp_dir = base_dir + "/tmp"
+    return tmp_dir
 
 if __name__ == '__main__':
     main()
