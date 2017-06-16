@@ -139,7 +139,7 @@ extract_qiime_subset.R
     [-[-help|h]]
 ```
 
-The following command will generate the abundance matrices for the specified subset of samples.
+The following command will generate the abundance matrices for the specified subset of samples. It should take just over a minute to run:
 ```
 Rscript $EX_SCRIPTS/extract_qiime_subset.R --qiime otu_table_psn_v35.txt \
   --samples stool_16s_rand_samples.tsv --outfile stool_16s_qiime.csv
