@@ -295,7 +295,7 @@ cp /tutorials/hmp_client/stool_nares_wgs_rand_manifest.tsv \
 The following commands will download WGS sequence data for randomly selected subject visits to the directory specified by the <em>destination</em> parameter. Once the data has been downloaded exit the current Docker image.
 
 ```
-hmp_client  -endpoint_priority S3,HTTP -manifest stool_nares_wgs_rand_manifest.tsv \
+hmp_client  -endpoint_priority HTTP,S3 -manifest stool_nares_wgs_rand_manifest.tsv \
 -destination wgs
 exit
 ```
