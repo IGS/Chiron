@@ -20,7 +20,7 @@ Before you can start any of these exercises please launch the Docker image for t
 
 ### <a name="run_hmp_client_interactive"></a>Run HMP Interactive Docker Image
 ```
-Chiron/bin/hmp_client_interactive
+~/Chiron/bin/hmp_client_interactive
 ```
 
 This will launch the Docker image with the tools necessary for the exercises. Once inside the Docker image set the environment variable necessary to execute some of the exercise scripts.
@@ -178,7 +178,7 @@ The comparison of the 16S data across two body sites is completed using the comm
 
 #### Run the HMP Interactive Client Docker Image
 ```
-Chiron/bin/hmp_client_interactive
+~/Chiron/bin/hmp_client_interactive
 ```
 
 #### Download Qiime Community Profiles
@@ -241,7 +241,7 @@ Before you can proceed to the visualization you will need to exit from the hmp_c
 
 ```
 exit
-bin/metaviz_interactive
+~/Chiron/bin/metaviz_interactive
 ```
 
 Please follow the instructions for using Metaviz to compare these generated files using the link below:  
@@ -255,7 +255,7 @@ In this part of the exercise you will first analyze the WGS data using MetaPhlAn
 
 ### Run the HMP Interactive Client Docker Image
 ```
-bin/hmp_client_interactive
+~/Chiron/bin/hmp_client_interactive
 ```
 
 ###  <a name="download_two_site_wgs_data"></a>3.1. Download the WGS data from Cloud repository
@@ -325,7 +325,7 @@ Before you can proceed to the visualization you will need to exit from the hmp_c
 
 ```
 exit
-bin/metaviz_interactive
+~/Chiron/bin/metaviz_interactive
 ```
 
 Please follow the instructions for using Metaviz to compare these generated files using the link below:  
