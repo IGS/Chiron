@@ -337,13 +337,13 @@ for i in `ls -1 /opt/chiron/hmp_client/ex3/wgs`; do tar -xvjf /opt/chiron/hmp_cl
 The pipeline creation script takes a list file to create a workflow to iterate over a set of input files. The following command can be used to create this list file:
 
 ```
-readlink -f /opt/chiron/hmp_client/ex3/wgs/*/*.fastq > ~/wgs.list
+readlink -f /opt/chiron/hmp_client/ex3/*/*.fastq > wgs.list
 ```
 
 The following command will run the MetaPhlAn2 process on all the files in the specified input file list, one file per line.  The "metaphlan2_config_template.yml" file contains the necessary parameters to run the pipeline. Before you can run the pipeline please make sure that you have completed the instructions to [Install Dependencies](https://github.com/IGS/Chiron#install-dependencies)
 
 ```
-~/Chiron/bin/metaphlan2_pipeline --input_file_list ~/wgs.list --config_file ~/Chiron/bin/metaphlan2_config_template.yml --out_dir wgs_results
+~/Chiron/bin/metaphlan2_pipeline --input_file_list wgs.list --config_file ~/Chiron/bin/metaphlan2_config_template.yml --out_dir wgs_results
 ```
 
 This workflow will process the individual files in the specified input file list and write the individual MetaPhlAn2 tables. It will then create a combined relative abundance table for all the samples based on MetaPhlAn2 results.  This will be located in "wgs_results" and named "merged_abundance_table.txt"
