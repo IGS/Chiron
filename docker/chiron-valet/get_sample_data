@@ -1,5 +1,7 @@
 #!/bin/bash
 
 wget -O /tutorials/valet.zip https://s3.amazonaws.com/umigs-chiron/valet/VALET_demo.zip
-
 unzip -d /tutorials/valet /tutorials/valet.zip
+
+wget -O /tutorials/carsonella.zip https://s3.amazonaws.com/umigs-chiron/valet/carsonella.zip
+unzip -d /tutorials/valet /tutorials/carsonella.zip
