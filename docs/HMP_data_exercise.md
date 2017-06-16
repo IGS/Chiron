@@ -272,8 +272,7 @@ In the /tutorials/hmp_client directory you will find the files that have the met
 ```
 mkdir /output/ex3
 cd /output/ex3
-cp /tutorials/hmp_client/stool_nares_wgs_rand_manifest.tsv \
-/tutorials/hmp_client/stool_nares_wgs_rand_metadata.tsv .
+cp /tutorials/hmp_client/stool_nares_wgs_rand_manifest.tsv .
 ```
 
 The following commands will download WGS sequence data for randomly selected subject visits to the directory specified by the <em>destination</em> parameter. Once the data has been downloaded exit the current Docker image.
