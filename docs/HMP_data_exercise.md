@@ -340,7 +340,7 @@ The pipeline creation script takes a list file to create a workflow to iterate o
 readlink -f /opt/chiron/hmp_client/ex3/wgs/*/*.fastq > ~/wgs.list
 ```
 
-The following command will run the HUMAnN2 process on all the files in the specified input file list, one file per line.  The "metaphlan2_config_template.yml" file contains the necessary parameters to run the pipeline
+The following command will run the MetaPhlAn2 process on all the files in the specified input file list, one file per line.  The "metaphlan2_config_template.yml" file contains the necessary parameters to run the pipeline. Before you can run the pipeline please make sure that you have completed the instructions to [Install Dependencies](https://github.com/IGS/Chiron#install-dependencies)
 
 ```
 ~/Chiron/bin/metaphlan2_pipeline --input_file_list ~/wgs.list --config_file ~/Chiron/bin/metaphlan2_config_template.yml --out_dir wgs_results
