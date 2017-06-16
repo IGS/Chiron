@@ -27,7 +27,7 @@ Before you can start any of these exercises please launch the Docker image for t
 This will launch the Docker image with the tools necessary for the exercises.
 
 ### <a name="hmp_client"></a>HMP Client
-For the exercises you will be using  data that is stored on the cloud. To make the data downloads easy we have written a tool, the [HMP data transfer tool](https://github.com/IGS/hmp_client), which has already been installed on your machine, to download files from Amazon Cloud to your machine. The data transfer tool works on a manifest file that you can generate (for this exercise we have pre generated the manifest files) using the [HMP Query interface](http://portal.ihmpdcc.org).
+For the exercises you will be using  data that is stored on the cloud. To make the data downloads easy we have written a tool, the [HMP client](https://github.com/IGS/hmp_client), which has already been installed on your machine, to download files from Amazon Cloud to your machine. The data transfer tool works on a manifest file that you can generate (for this exercise we have pre generated the manifest files) using the [HMP Portal](http://portal.ihmpdcc.org) query interface.
 
 The usage of the <em>hmp_client</em> tool is described below:
 
