@@ -109,7 +109,7 @@ generate_matched_visit_samples.R
     -[-count|c] <rand subject count>
     -[-m16s_list|m] <16S sample_list>
     -[-wgs_list|g] <WGS sample list>
-    [-[-help|h]]
+    -[-help|h]
 
 ```
 The following command will extract matched samples for 25 randomly selected subjects from the Stool samples. The output is written to the specified files.
@@ -136,7 +136,7 @@ extract_qiime_subset.R
     -[-qiime|q] <Qiime OTU table>
     -[-samples|s] <Samples file from previous step>
     -[-outfile|o] <Output file>
-    [-[-help|h]]
+    -[-help|h]
 ```
 
 The following command will generate the abundance matrices for the specified subset of samples. It should take just over a minute to run:
@@ -152,7 +152,7 @@ extract_metaphlan_subset.R
     -[-metaphlan|m] <MetaPhlAn2 Abundance Table>
     -[-samples|s] <Samples file from previous step>
     -[-outfile|o] <Output file>
-    [-[-help|h]]
+    -[-help|h]
 ```
 
 The following command will generate the abundance matrices for the specified subset of samples.
@@ -200,15 +200,15 @@ Use the script <em>generate_matched_two_site_samples.R</em> to create a list of 
 
 ```
 Usage:
-generate_matched_visit_samples.R
+generate_matched_two_site_samples.R 
+    -[-m16s|s] <character> 
     -[-outfile|o] <character>
     -[-bodysite1|a] <character>
-    -[-bodysite2|b] <character>
-    -[-region|r] <character>
-    -[-visit|v] <visit number>
-    -[-count|c] <rand subject count>
-    [-[-help|h]]
-
+    -[-bodysite2|b] <character> 
+    -[-region|r] <character> 
+    -[-visit|v] <integer> 
+    -[-count|c] <integer> 
+    -[-help|h]
 ```
 The following command will extract matched samples for 25 randomly selected subjects from the Stool samples. The output is written to the file bodysite_rand_samples.txt
 
@@ -228,7 +228,7 @@ extract_qiime_subset.R
     -[-qiime|q] <Qiime OTU table>
     -[-samples|s] <Samples file from previous step>
     -[-outfile|o] <character>    
-    [-[help|h]]
+    -[help|h]
 ```
 
 The following command will generate the abundance matrices for the specified subset of samples.
