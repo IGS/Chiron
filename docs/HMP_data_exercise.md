@@ -172,7 +172,8 @@ exit
 
 Please follow the instructions for using Metaviz to compare these generated files using the link below:  
 [Compare 16S and WGS using Metaviz](https://github.com/IGS/Chiron/blob/master/docs/step-by-step-metavizr.Rmd)
-[Top](#top)
+
+[top](#top)
 
 ## <a name="compare_16s_across_sites"></a>2. Compare the 16S community profiles for two different body sites
 
