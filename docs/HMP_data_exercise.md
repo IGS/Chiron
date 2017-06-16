@@ -257,13 +257,13 @@ In this part of the exercise you will first analyze the WGS data using MetaPhlAn
 ```
 
 ###  <a name="download_two_site_wgs_data"></a>3.1. Download the WGS data from HMP Cloud Archive
-In the /tutorials/hmp_client directory you will find the files that have the metadata associated with WGSS samples. For this exercise we will use samples from the first visit for the following two body sites: "Anterior_nares" and "Stool". Copy the manifest files <em>stool_nares_rand_wgs_5_manifest.tsv</em> in the /tutorials/hmp_client directory to the local directory and use the script <em>hmp_client</em> to download the data files specified in the manifest file.
+In the /tutorials/hmp_client directory you will find the files that have the metadata associated with WGSS samples. For this exercise we will use samples from the first visit for the following two body sites: "Anterior_nares" and "Stool". Copy the manifest file <em>stool_nares_wgs_rand_manifest.tsv</em> and the metadata file <em>stool_nares_wgs_rand_metadata.tsv</em> in the /tutorials/hmp_client directory to the local directory and use the script <em>hmp_client</em> to download the data files specified in the manifest file.
 
 ```
 mkdir /output/ex3
 cd /output/ex3
 cp /tutorials/hmp_client/stool_nares_wgs_rand_manifest.tsv \
-/tutorials/hmp_client/stool_nares_wgs_rand_manifest.tsv .
+/tutorials/hmp_client/stool_nares_wgs_rand_metadata.tsv .
 ```
 
 The following commands will download WGS sequence data for randomly selected subject visits to the directory specified by the <em>destination</em> parameter. Once the data has been downloaded exit the current Docker image.
