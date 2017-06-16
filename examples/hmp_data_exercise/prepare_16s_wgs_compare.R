@@ -83,7 +83,7 @@ mr_genus_mph <- newMRexperiment(counts_mph_mat,
                                 AnnotatedDataFrame(fdata_mph))
 
 
-otu.ids <- dat_16s %>% magrittr::extract2("OTU.ID")
+otu.ids <- dat_16s %>% magrittr::extract2("X.OTU.ID")
 count_16s <- dat_16s %>% select(-1,-Consensus.Lineage) %>% mutate_all(as.numeric) %>% as.matrix()
 rownames(count_16s) <- otu.ids
 
@@ -94,15 +94,15 @@ annotate_absent <- function(x, otu.ids, code) {
 }
 
 fdata_16s <- dat_16s %>% 
-  select(lineage=Consensus.Lineage, OTU.ID) %>% 
+  select(lineage=Consensus.Lineage, X.OTU.ID) %>% 
   separate(lineage, c("kingdom", "phylum", "class", "order", "family", "genus"),
            ";", fill="right", extra="warn") %>%
   mutate(kingdom="k__Bacteria") %>%
-  mutate(phylum = annotate_absent(phylum, OTU.ID, "p"),
-         class = annotate_absent(class, OTU.ID, "c"),
-         order = annotate_absent(order, OTU.ID, "o"),
-         family = annotate_absent(family, OTU.ID, "f"),
-         genus = annotate_absent(genus, OTU.ID, "g")) %>%
+  mutate(phylum = annotate_absent(phylum, X.OTU.ID, "p"),
+         class = annotate_absent(class, X.OTU.ID, "c"),
+         order = annotate_absent(order, X.OTU.ID, "o"),
+         family = annotate_absent(family, X.OTU.ID, "f"),
+         genus = annotate_absent(genus, X.OTU.ID, "g")) %>%
   as.data.frame()
 
 rownames(fdata_16s) <- otu.ids
@@ -186,10 +186,11 @@ mr_have_both <- scaled_mr_genus_merged[which(!is.na(fData(scaled_mr_genus_merged
 mobj <- metavizr:::EpivizMetagenomicsData$new(mr_have_both, feature_order=colnames(fData(mr_have_both))[1:6])
 mobj$toNEO4JDbHTTP(batch_url = "http://localhost:7474/db/data/batch", neo4juser = "neo4j", neo4jpass = "osdf1", datasource = datasource_name)
 
-graph = startGraph("http://localhost:7474/db/data/", username="neo4j", password="osdf1")
-query = "MATCH (ds:Datasource) return ds.label as label"
-dsFromGraph <- cypher(graph, query)
-datasources = dsFromGraph$label
+#graph = startGraph("http://localhost:7474/db/data/", username="neo4j", password="osdf1")
+#query = "MATCH (ds:Datasource) return ds.label as label"
+#dsFromGraph <- cypher(graph, query)
+#datasources = dsFromGraph$label
+datasources = c("ihmp_data", "wgs_16s_compare")
 
 file_settings <- file("/graph-ui/epiviz-metaviz-4.1/site-settings.js")
 metaviz_text = "epiviz.Config.SETTINGS.dataServerLocation = 'http://epiviz.cbcb.umd.edu/data/';epiviz.Config.SETTINGS.workspacesDataProvider = sprintf('epiviz.data.WebServerDataProvider,%s,%s','workspaces_provider','http://epiviz.cbcb.umd.edu/data/main.php');";
