@@ -1,8 +1,9 @@
-EX_SCRIPTS/# HMP Data Exercise
+# HMP Data Exercise
+
 <a name="top"></a>
 This document walks you through the steps of extracting data from the HMP Cloud Archive and completing the following analysis tasks.
 
-1. [Compare 16S and WGS community profiles for a body site](#compare_16s_wgs)
+1. [Compare 16S and WGS community profiles for a body site](#compare_16s_wgs)  
   1.1. [Download Qiime and MetaPhlAn2 community profiles](#download_profiles)  
   1.2. [Create random subset of samples for the body site](#create_random_subsamples)  
   1.3. [Extract matrices for subsamples](#extract_wgs_16s_matrices)  
@@ -11,25 +12,22 @@ This document walks you through the steps of extracting data from the HMP Cloud 
   2.1. [Create random subset of samples for two body sites](#create_random_subsamples_for_two_sites)  
   2.2. [Extract matrices for subsamples](#extract_two_site_matrices)  
   2.3. [Run Metaviz to visualize and compare the profiles](#run_metaviz_for_two_sites)  
-3. [Analyze 16S and WGS community profiles for a body site](#analyze_16s_wgs)  
-  3.1. [Download the 16S trimmed sequence and WGS data from Cloud repository](#download_16s_wgs_data)  
-  3.2. [Launch workflows to analyze downloaded data](#launch_16s_wgs_analysis)
-4. [Analyze the 16S community profiles for two different body sites](#analyze_16s_across_sites)  
-  4.1. [Download the 16S trimmed sequence from Cloud repository](#download_16s_data)  
-  4.2. [Launch workflows to analyze downloaded data](#launch_16s_analysis)
+3. [Analyze WGS community profiles between two body sites](#analyze_two_site_wgs)  
+  3.1. [Download the WGS data from HMP Cloud Archive](#download_two_site_wgs_data)  
+  3.2. [Launch workflows to analyze downloaded data](#launch_two_site_wgs_analysis)  
+  3.3. [Run Metaviz to visualize and compare the MetaPhlAn2 profiles for two sites](#run_metaviz_for_two_wgs_sites)
 
-Before you can start any of these exercises please launch the Docker image for the hmp_client using the following command and set the environment variable EX_SCRIPTS where some of the scripts exist:
+Before you can start any of these exercises please launch the Docker image for the hmp_client using the following command:
 
 ### <a name="run_hmp_client_interactive"></a>Run HMP Interactive Docker Image
 ```
-bin/hmp_client_interactive
-export EX_SCRIPTS=/tutorials/hmp_client/
+~/Chiron/bin/hmp_client_interactive
 ```
 
 This will launch the Docker image with the tools necessary for the exercises.
 
 ### <a name="hmp_client"></a>HMP Client
-For the exercises you will be using  data that is stored on the cloud. To make the data downloads easy we have written a tool, the [HMP data transfer tool](https://github.com/IGS/hmp_client), which has already been installed on your machine, to download files from Amazon Cloud to your machine. The data transfer tool works on a manifest file that you can generate (for this exercise we have pre generated the manifest files) using the [HMP Query interface](http://portal.ihmpdcc.org).
+For the exercises you will be using  data that is stored on the cloud. To make the data downloads easy we have written a tool, the [HMP client](https://github.com/IGS/hmp_client), which has already been installed on your machine, to download files from Amazon S3 to your machine. The data transfer tool works on a manifest file that you can generate (for this exercise we have pregenerated the manifest files) using the [HMP Portal](http://portal.ihmpdcc.org) query interface.
 
 The usage of the <em>hmp_client</em> tool is described below:
 
@@ -50,21 +48,25 @@ The comparison of the 16S and corresponding WGS data is completed using the comm
 
 
 ### <a name="download_profiles"></a>1.1. Download Qiime and MetaPhlAn community profiles
-In the data_exercise directory you will find a manifest file which has the information that the GDC Client needs to download the precomputed community profiles. Copy the manifest file to the local working directory and run the following command to download the profiles:
+In the tutorials directory you will find a manifest file which has the information that the <em>hmp_client</em> needs to download the precomputed community profiles. Copy the manifest file to the local working directory and run the following command to download the profiles:
 
 ```
 mkdir /output/ex1
 cd /output/ex1
-cp /tutorials/hmp_client/hmp_client  -endpoint_priority S3,HTTP community_profiles_manifest.tsv .
-hmp_client -endpoint_priority S3,HTTP -manifest community_profiles.tsv -destination /output/ex1
+cp /tutorials/hmp_client/community_profiles_manifest.tsv .
+hmp_client -endpoint_priority S3,HTTP -manifest community_profiles_manifest.tsv -destination /output/ex1
+gunzip ./otu_table_psn_v35.txt.gz
+bunzip2 hmp1-II_metaphlan2-mtd-qcd.pcl.bz2
 ```
 
-This should download the following files:
-    hmp1-II_metaphlan2-mtd-qcd.pcl.txt
-    v35_psn_otu.genus.fixed.txt
+This should download the following files:  
+```
+    hmp1-II_metaphlan2-mtd-qcd.pcl  
+    otu_table_psn_v35.txt  
+```
 
 ### <a name="create_random_subsamples"></a>1.2. Create random subset of samples for the body site
-In the data exercise directory you will find the files that have the metadata associated with 16S and WGS data. Copy the two files (16s_metadata.tsv, wgs_metadata.tsv) to the local working directory.
+In the tutorials directory you will find the files that have the metadata associated with 16S and WGS data. Copy the two files (16s_metadata.tsv, wgs_metadata.tsv) to the local working directory.
 
 ```
 cp /tutorials/hmp_client/16s_metadata.tsv .
@@ -83,7 +85,6 @@ Palatine_Tonsils
 Posterior_fornix
 R_Antecubital_fossa
 R_Retroauricular_crease
-STSite
 Saliva
 Stool
 Subgingival_plaque
@@ -108,15 +109,20 @@ generate_matched_visit_samples.R
     -[-count|c] <rand subject count>
     -[-m16s_list|m] <16S sample_list>
     -[-wgs_list|g] <WGS sample list>
-    [-[-help|h]]
+    -[-help|h]
 
 ```
 The following command will extract matched samples for 25 randomly selected subjects from the Stool samples. The output is written to the specified files.
 
 ```
-RScript $EX_SCRIPTS/generate_matched_visit_samples.R --wgs wgs_metadata.tsv \
+Rscript $EX_SCRIPTS/generate_matched_visit_samples.R --wgs wgs_metadata.tsv \
   --m16s 16s_metadata.tsv --count 25 --visit 1 --bodysite Stool \
   --16s_list stool_16s_rand_samples.tsv --wgs_list stool_wgs_rand_samples.tsv
+```
+
+The command may generate the following warning, which can be ignored:
+```
+Using SN as value column: use value.var to override.
 ```
 
 #### <a name="extract_wgs_16s_matrices"></a>1.3. Extract matrices for subsamples
@@ -130,12 +136,12 @@ extract_qiime_subset.R
     -[-qiime|q] <Qiime OTU table>
     -[-samples|s] <Samples file from previous step>
     -[-outfile|o] <Output file>
-    [-[-help|h]]
+    -[-help|h]
 ```
 
-The following command will generate the abundance matrices for the specified subset of samples.
+The following command will generate the abundance matrices for the specified subset of samples. It should take just over a minute to run:
 ```
-RScript $RScript $EX_SCRIPTS/extract_qiime_subset.R --qiime v35_psn_otu.genus.fixed.txt \
+Rscript $EX_SCRIPTS/extract_qiime_subset.R --qiime otu_table_psn_v35.txt \
   --samples stool_16s_rand_samples.tsv --outfile stool_16s_qiime.csv
 ```
 
@@ -146,97 +152,23 @@ extract_metaphlan_subset.R
     -[-metaphlan|m] <MetaPhlAn2 Abundance Table>
     -[-samples|s] <Samples file from previous step>
     -[-outfile|o] <Output file>
-    [-[-help|h]]
+    -[-help|h]
 ```
 
 The following command will generate the abundance matrices for the specified subset of samples.
 ```
-RScript $EX_SCRIPTS/extract_subset.R --metaphlan hmp1-II_metaphlan2-mtd-qcd.pcl.txt \
+Rscript $EX_SCRIPTS/extract_metaphlan_subset.R --metaphlan hmp1-II_metaphlan2-mtd-qcd.pcl \
   --samples stool_wgs_rand_samples.tsv --outfile stool_wgs_metaphlan.csv
 ```
 
 #### <a name="run_metaviz_for_wgs_16s"></a>1.4. Run Metaviz to visualize and compare the profiles
-Now that you have generated the abundance matrices for the subset of samples generated by Qiime and MetaPhlAn2 you can use Metaviz to visualize and compare these two matrices.
-
-Before you can proceed to the visualization you will need to exit from the hmp_client_interactive Docker image and run the Metaviz Docker image by using the following commands.
-
-```
-exit
-bin/metaviz_interactive
-```
-
-[Top](#top)
-
-## <a name="compare_16s_across_sites"></a>2. Compare the 16S community profiles for two different body sites
-
-The comparison of the 16S data across two body sites is completed using the community profiles generated by Qiime. In this exercise you will download the precomputed community profiles, generate a list of a subset of samples for the two body sites and a particular visit, and then extract the community profiles for this subset of samples. Once you have these subset profiles you will import them into Metaviz to compare the profiles graphically.
-
-#### Run the HMP Interactive Client Docker Image
-```
-bin/hmp_client_interactive
-```
-
-#### Download Qiime Community Profiles
-You should already have the community profiles downloaded from the previous exercise, if not see the section [Download Qiime and MetaPhlAn Community Profiles](#download_profiles) to download the files.
-
-### <a name="create_random_subsamples_for_two_sites"></a>2.1. Create random subset of samples for two body sites
-In the data_exercise directory you will find the files that have the metadata associated with 16S samples. Copy the file (16s_metadata.tsv) to the local working directory. For this exercise we will use samples from the first visit for the following two body sites: "Anterior_nares" and "Stool".
-
-```
-mkdir /output/ex2
-cd /output/ex2
-cp /tutorials/hmp_client/16s_metadata.tsv .
-```
-
-Use the script <em>generate_matched_two_site_samples.R</em> to create a list of randomized samples from two body sites and a particular visit. The usage of the script is described below.
-
-```
-Usage:
-generate_matched_visit_samples.R
-    -[-outfile|o] <character>
-    -[-bodysite1|a] <character>
-    -[-bodysite2|b] <character>
-    -[-region|r] <character>
-    -[-visit|v] <visit number>
-    -[-count|c] <rand subject count>
-    [-[-help|h]]
-
-```
-The following command will extract matched samples for 25 randomly selected subjects from the Stool samples. The output is written to the file bodysite_rand_samples.txt
-
-```
-RScript $EX_SCRIPTS/generate_matched_two_site_samples.R --m16s 16s_metadata.tsv --visit 1 \
-  --count 20 --bodysite1 Stool --bodysite2 Anterior_nares \
-  --outfile  stool_nares_subsamples.csv \
-  --region V35
-```
-
-#### <a name="extract_two_site_matrices"></a>2.2. Extract matrices for subsamples
-Use the script extract_subset.R to take the list of samples identified in the previous step and the community profiles generated by Qiime and MetaPhlAn2 and extract out the profiles for these matched samples.
-
-```
-Usage:
-extract_qiime_subset.R
-    -[-qiime|q] <Qiime OTU table>
-    -[-samples|s] <Samples file from previous step>
-    -[-outfile|o] <character>    
-    [-[help|h]]
-```
-
-The following command will generate the abundance matrices for the specified subset of samples.
-```
-RScript $EX_SCRIPTS/extract_qiime_subset.R --qiime v35_psn_otu.genus.fixed.txt \
-  --samples stool_nares_subsamples.tsv --outfile stool_nares_subsamples_v35_psn_otu.genus.fixed.txt
-```
-
-#### <a name="run_metaviz_for_two_sites"></a>2.3. Run Metaviz to compare the abundance matrices for two sites
 Now that you have generated the abundance matrices for the subset of samples generated by Qiime you can use Metaviz to visualize and compare these two matrices.
 
 Before you can proceed to the visualization you will need to exit from the hmp_client_interactive Docker image and run the Metaviz Docker image by using the following commands.
 
 ```
 exit
-bin/metaviz_interactive
+~/Chiron/bin/hmp_client_interactive
 ```
 
 Once in the Metaviz Docker you will run a script that aggregates each taxonomy of the qiime output and metaphlan output to the genus level. The script then imports the merged data table into the Metaviz database.
@@ -245,7 +177,8 @@ Once in the Metaviz Docker you will run a script that aggregates each taxonomy o
 cd /
 ./graph-db/neo4j-community-3.2.0/bin/neo4j restart
 cd /output/hmp_client/ex1/
-RScript $RScript $EX_SCRIPTS/prepare_16s_wgs_compare.R --qiime stool_16s_qiime.csv \
+wget https://raw.githubusercontent.com/IGS/Chiron/master/examples/hmp_data_exercise/prepare_16s_wgs_compare.R
+Rscript prepare_16s_wgs_compare.R --qiime stool_16s_qiime.csv \
   --metaphlan stool_wgs_metaphlan.csv --outfile compare_output.txt --datasource wgs_16s_compare
 cd /
 ./bin/metaviz_start.sh
@@ -257,122 +190,169 @@ Metaviz will now include a datasource named "wgs_16s_compare". Chose this dataso
 
 
 [top](#top)
-## <a name="analyze_16s_wgs"></a>3. Analyze 16S and WGS community profiles for a body site
 
-In this part of the exercise you will first analyze the 16S and WGS data using Qiime and MetaPhlAn2 tools. You will then take the results from this analysis and compare them at the genus level using Metaviz like the way you did in the previous exercise.
+## <a name="compare_16s_across_sites"></a>2. Compare the 16S community profiles for two different body sites
+
+The comparison of the 16S data across two body sites is completed using the community profiles generated by Qiime. In this exercise you will download the precomputed community profiles, generate a list of a subset of samples for the two body sites and a particular visit, and then extract the community profiles for this subset of samples. Once you have these subset profiles you will import them into Metaviz to compare the profiles graphically.
+
+#### Run the HMP Interactive Client Docker Image
+```
+~/Chiron/bin/hmp_client_interactive
+```
+
+#### Download Qiime Community Profiles
+You should already have the community profiles downloaded from the previous exercise, if not see the section [Download Qiime and MetaPhlAn Community Profiles](#download_profiles) to download the files.
+
+### <a name="create_random_subsamples_for_two_sites"></a>2.1. Create random subset of samples for two body sites
+In the tutorials directory you will find the files that have the metadata associated with 16S samples. Copy the file (16s_metadata.tsv) to the local working directory. For this exercise we will use samples from the first visit for the following two body sites: "Anterior_nares" and "Stool".
+
+```
+mkdir /output/ex2
+cd /output/ex2
+cp /tutorials/hmp_client/16s_metadata.tsv .
+```
+
+Use the script <em>generate_matched_two_site_samples.R</em> to create a list of randomized samples from two body sites and a particular visit. The usage of the script is described below.
+
+```
+Usage:
+generate_matched_two_site_samples.R 
+    -[-m16s|s] <character> 
+    -[-outfile|o] <character>
+    -[-bodysite1|a] <character>
+    -[-bodysite2|b] <character> 
+    -[-region|r] <character> 
+    -[-visit|v] <integer> 
+    -[-count|c] <integer> 
+    -[-help|h]
+```
+The following command will extract matched samples for 25 randomly selected subjects from the Stool samples. The output is written to the file bodysite_rand_samples.txt
+
+```
+Rscript $EX_SCRIPTS/generate_matched_two_site_samples.R --m16s 16s_metadata.tsv --visit 1 \
+  --count 20 --bodysite1 Stool --bodysite2 Anterior_nares \
+  --outfile  stool_nares_subsamples.tsv \
+  --region V35
+```
+
+The command may generate the following warning, which can be ignored:
+```
+Using Region as value column: use value.var to override.
+```
+
+#### <a name="extract_two_site_matrices"></a>2.2. Extract matrices for subsamples
+Use the script <em>extract_qiime_subset.R</em> to take the list of samples identified in the previous step and the community profiles generated by Qiime and MetaPhlAn2 and extract out the profiles for these matched samples.
+
+```
+Usage:
+extract_qiime_subset.R
+    -[-qiime|q] <Qiime OTU table>
+    -[-samples|s] <Samples file from previous step>
+    -[-outfile|o] <character>    
+    -[help|h]
+```
+
+The following command will generate the abundance matrices for the specified subset of samples. It should take just over a minute to run:
+```
+Rscript $EX_SCRIPTS/extract_qiime_subset.R --qiime ../ex1/otu_table_psn_v35.txt \
+  --samples stool_nares_subsamples.tsv --outfile stool_nares_subsamples_otu_table_psn_v35.txt
+```
+
+#### <a name="run_metaviz_for_two_sites"></a>2.3. Run Metaviz to compare the abundance matrices for two sites
+Now that you have generated the abundance matrices for the subset of samples generated by Qiime you can use Metaviz to visualize and compare these two matrices.
+
+Before you can proceed to the visualization you will need to exit from the hmp_client_interactive Docker image:
+
+```
+exit
+```
+
+Please follow the instructions for using Metaviz to compare these generated files using the link below:  
+[Compare two sites using Metaviz](https://github.com/IGS/Chiron/blob/master/docs/step-by-step-metavizr.Rmd)
+
+[top](#top)
+## <a name="analyze_two_site_wgs"></a>3. Analyze WGS community profiles between two body sites
+
+In this part of the exercise you will first analyze the WGS data using MetaPhlAn2 to generate the community profile. You will then take the results from this analysis and compare them at the genus level using Metaviz.
 
 
 ### Run the HMP Interactive Client Docker Image
 ```
-bin/hmp_client_interactive
+~/Chiron/bin/hmp_client_interactive
 ```
 
-###  <a name="download_16s_wgs_data"></a>3.1. Download the 16S trimmed sequence and WGS data from Cloud repository
-In the data_exercise directory you will find the files that have the metadata associated with 16S samples. For this exercise we will use samples from the first visit for the following two body sites: "Anterior_nares" and "Stool". Copy the manifest files <em>stool_rand_wgs_manifest.tsv</em> and <em>stool_rand_16s_manifest.tsv</em> in the examples directory to the local directory and use the script <em>hmp_client</em> to download the data files specified in the manifest file.
+###  <a name="download_two_site_wgs_data"></a>3.1. Download the WGS data from HMP Cloud Archive
+In the /tutorials/hmp_client directory you will find the files that have the metadata associated with WGSS samples. For this exercise we will use samples from the first visit for the following two body sites: "Anterior_nares" and "Stool". Copy the manifest file <em>stool_nares_wgs_rand_manifest.tsv</em> and the metadata file <em>stool_nares_wgs_rand_metadata.tsv</em> in the /tutorials/hmp_client directory to the local directory and use the script <em>hmp_client</em> to download the data files specified in the manifest file.
 
 ```
 mkdir /output/ex3
 cd /output/ex3
-cp /tutorials/hmp_client/stool_wgs_rand_5_samples_manifest.tsv .
-cp /tutorials/hmp_client/stool_16s_rand_5_samples_manifest.tsv .
+cp /tutorials/hmp_client/stool_nares_wgs_rand_manifest.tsv \
+/tutorials/hmp_client/stool_nares_wgs_rand_metadata.tsv .
 ```
 
-The following commands will download trimmed 16S sequences and the corresponding WGS samples for the 25 randomly selected subject visits to the directory specified by the <em>destination</em> parameter. Once the data has been downloaded exit the current Docker image.
+The following commands will download WGS sequence data for randomly selected subject visits to the directory specified by the <em>destination</em> parameter. Once the data has been downloaded exit the current Docker image.
 
 ```
-cp examples/hmp_data_exercise/stool_rand_16s_manifest.tsv examples//hmp_data_exercise/stool_rand_wgs_manifest.tsv .
-EX_SCRIPTS/-manifest stool_rand_wgs_manifest.tsv -destination stool_wgs
-hmp_client  -endpoint_priority S3,HTTP -manifest stool_16s_rand_5_samples_manifest.tsv -destination stool_16s
-hmp_client  -endpoint_priority S3,HTTP -manifest stool_wgs_rand_5_samples_manifest.tsv -destination stool_wgs
+hmp_client  -endpoint_priority S3,HTTP -manifest stool_nares_wgs_rand_manifest.tsv \
+-destination wgs
 exit
 ```
 
-
-###  <a name="launch_16s_wgs_analysis"></a>3.2. Launch workflows to analyze downloaded data
-To make the usage of the Docker images and for the ease of the exercises, we have built simple scripts that can create workflows defined in the Common Workflow Language (CWL). These workflows can be executed using the <em>cwl-runner</em>, a command-line tool to execute the workflows. The workflow runner uses the predefined Docker containers in batch modes to complete the analysis tasks. You can find workflows for all the tools used in this workshop including Qiime, HUMAnN2, MetaCompass, and StrainPhlAn.
-
-[top](#top)
-
-#### Launch workflow to analyze the 16S data using Qiime
-```
-Usage:
-usage: create_qiime_workflow
-    [-h]
-    -data_dir <character> (location of the files to process)
-    -out_dir <character> (location of analysis results)
+Because the Docker container is executed as root we need to change the permission of files to the ubuntu user. To accomplish this, run the following commands:
 
 ```
-The following command will run the Qiime process on all the files in the specified data directory.
-
-```
-create_qiime_workflow -data_dir stool_16s -out_dir stool_16s_results
-```
-
-This workflow will process the individual files in the specified data directory and write the individual OTU tables. It will then create a combined OTU table for all the samples.
-
-[top](#top)
-#### Launch the workflows to analyze the WGS data using HUMAnN2
-```
-Usage:
-usage: create_humann2_workflow
-    [-h]
-    -data_dir <character> (location of the files to process)
-    -out_dir <character> (location of analysis results)
-
-```
-The following command will run the HUMAnN2 process on all the files in the specified data directory.
-
-```
-create_humann2_workflow -data_dir stool_wgs -out_dir stool_wgs_results
-```
-
-This workflow will process the individual files in the specified data directory and write the individual MetaPhlAn2 and HUMAnN2 tables. It will then create a combined relative abundance table for all the samples based on MetaPhlAn2 results.
-
-[top](#top)
-## <a name="analyze_16s_wgs"></a>4. Analyze the 16S community profiles for two different body sites
-
-In this part of the exercise you will first analyze the 16S data for the two body sites using Qiime. You will take the results from this analysis and then visualize and compare the data generated for the two body sites using Metaviz.
-
-###   <a name="download_16s_data"></a>4.1. Download the 16S trimmed sequence from Cloud repository
-In the data_exercise directory you will find the files that have the metadata associated with 16S samples. For this exercise we will use samples from the first visit for the following two body sites: "Anterior_nares" and "Stool". Copy the manifest files <em>stool_nares_rand_16s_manifest.tsv</em> in the examples directory to the local directory and use the script <em>hmp_client</em> to download the data files specified in the manifest file.
-
-```
-mkdir /output/ex4
-cd /output/ex4
-cp /tutorials/hmp_client/stool_nares_16s_rand_5_samples_manifest.tsv .
-```
-
-The following commands will download trimmed 16S sequences for the 25 randomly selected subject visits to the directory specified by the <em>destination</em> parameter. Once the data has been downloaded exit the current Docker image.
-
-```
-cp examples/hmp_data_exercise/stool_rand_16s_manifest.tsv examples//hmp_data_exercise/stool_rand_wgs_manifest.tsv .
-hmp_client  -endpoint_priority S3,HTTP -manifest stool_nares_16s_rand_5_samples_manifest.tsv -destination stool_nares_16s
+sudo su -
+chown -R ubuntu.ubuntu /opt/chiron/hmp_client/
 exit
+cd /opt/chiron/hmp_client/ex3/wgs
 ```
 
-###   <a name="launch_16s_analysis"></a>4.2.  Launch workflows to analyze downloaded data
-To make the usage of the Docker images and for the ease of the exercises, we have built simple scripts that can create workflows defined in the Common Workflow Language (CWL). These workflows can be executed using the <em>cwl-runner</em>, a command-line tool to execute the workflows. The workflow runner uses the predefined Docker containers in batch modes to complete the analysis tasks. You can find workflows for all the tools used in this workshop including Qiime, HUMAnN2, MetaCompass, and StrainPhlAn.
+###  <a name="launch_two_site_wgs_analysis"></a>3.2. Launch workflows to analyze downloaded data
+To make usage of the Docker images and for the ease of the exercises, we have built simple scripts that can create workflows defined in the Common Workflow Language (CWL). These workflows can be executed using the <em>cwl-runner</em>, a command-line tool to execute the workflows. The workflow runner uses the predefined Docker containers in batch modes to complete the analysis tasks. You can find workflows for all the tools used in this workshop including Qiime, HUMAnN2, MetaPhlAn2, MetaCompass, and StrainPhlAn.
 
 [top](#top)
-
-#### Launch workflow to analyze the 16S data using Qiime
+#### Launch the workflows to analyze the WGS data using MetaPhlAn2
 ```
 Usage:
-usage: create_qiime_workflow
+metaphlan2_pipeline
     [-h]
-    -data_dir <character> (location of the files to process)
-    -out_dir <character> (location of analysis results)
-
-```
-The following command will run the Qiime process on all the files in the specified data directory.
-
-```
-create_qiime_workflow -data_dir stool_16s -out_dir stool_16s_results
+    --input_file_list /path/to/input.list
+    --config_file /path/to/metaphlan2_config.yml
+    [--out_dir /path/to/outdir]
 ```
 
-This workflow will process the individual files in the specified data directory and write the individual OTU tables. It will then create a combined OTU table for all the samples.
-This workflow will process the individual files in the specified data directory and write the individual OTU tables. It will then create a combined OTU table for all the samples.
+Before running this command, the .tar.bz2 files in the "wgs" directory need to be unarchived.  This process can take about 1.5 hours to complete.  Unarchiving should result in FASTQ files in each newly present sample directory
+```
+for i in `ls -1 /opt/chiron/hmp_client/ex3/wgs`; do tar -xvjf /opt/chiron/hmp_client/ex3/wgs/${i}; done
+```
 
+The pipeline creation script takes a list file to create a workflow to iterate over a set of input files. The following command can be used to create this list file:
+
+```
+readlink -f /opt/chiron/hmp_client/ex3/*/*.fastq > wgs.list
+```
+
+The following command will run the MetaPhlAn2 process on all the files in the specified input file list, one file per line.  The "metaphlan2_config_template.yml" file contains the necessary parameters to run the pipeline. Before you can run the pipeline please make sure that you have completed the instructions to [Install Dependencies](https://github.com/IGS/Chiron#install-dependencies)
+
+```
+~/Chiron/bin/metaphlan2_pipeline --input_file_list wgs.list --config_file ~/Chiron/bin/metaphlan2_config_template.yml --out_dir wgs_results
+```
+
+This workflow will process the individual files in the specified input file list and write the individual MetaPhlAn2 tables. It will then create a combined relative abundance table for all the samples based on MetaPhlAn2 results.  This will be located in "wgs_results" and named "merged_abundance_table.txt"
+
+#### <a name="run_metaviz_for_two_wgs_sites"></a>3.3. Run Metaviz to visualize and compare the MetaPhlAn2 profiles for two sites
+Now that you have generated the abundance matrices for the subset of samples with MetaPhlAn2 you can use Metaviz to visualize and compare these two matrices.
+
+Before you can proceed to the visualization you will need to exit from the hmp_client_interactive Docker image and run the Metaviz Docker image by using the following commands.
+
+```
+exit
+~/Chiron/bin/metaviz_interactive
+```
+
+Please follow the instructions for using Metaviz to compare these generated files using the link below:  
+[Compare two sites using Metaviz](https://github.com/IGS/Chiron/blob/master/docs/step-by-step-metavizr.Rmd)
 [top](#top)
 # Related Links:
 
