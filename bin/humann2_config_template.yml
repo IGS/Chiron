@@ -1,0 +1,20 @@
+# Output Directory for Humann2 output.  Not necessary to change
+humann2_output_dir: '.'
+# Humann2 gap-filling option.
+gap_fill: "on"
+# Runs all of the alignment steps except the translated search
+bypass_translated_search: true
+# Bypasses all of the alignment steps before the translated search
+bypass_nucleotide_search: false
+# Feature database type for humann2_rename_table.  Default is "uniref90"
+feat_db: 'uniref90'
+# Units to normalize on for humann2_renorm_table. Default is 'cpm'
+normalize_units: 'cpm'
+# Update sample names in humann2_renorm_table.  Default is true
+update_snames: true
+# Category to regroup on for humann2_regroup_table.
+regrouping_category: 'uniref90_level4ec'
+# String pattern to merge humann2 output on
+file_name: 'genefamilies'
+# Number of cores to use in certain processes: Default 4
+num_cores: 4

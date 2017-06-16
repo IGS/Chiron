@@ -78,9 +78,9 @@ steps:
       input_file: input_file
       seq_prefix: seq_prefix
       input_type: input_type
-      index_dir: bowtie2_index_dir
-      base_str: bowtie2_base_str
-      mpa_pkl: mpa_pkl_filename
+#      index_dir: bowtie2_index_dir
+#      base_str: bowtie2_base_str
+#      mpa_pkl: mpa_pkl_filename
       num_cores: num_cores
     out: [out_bowtie2, out_sam, out_profile, out_prefix]
     scatter: [input_file, seq_prefix]

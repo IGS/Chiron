@@ -1,0 +1,6 @@
+# Maximum read length. Default is 100
+max_read_length: 100
+# Number of parallel threads to use: Default is 1
+num_threads: 4
+# Output directory path.
+output_directory: './metacompass_output'

@@ -11,11 +11,7 @@ inputs:
   staging_dir:
     label: Directory the barcode and sequence files are located in
     type: Directory
-  barcode_file:
-    type: File
   metadata_file:
-    type: File
-  sequence_file:
     type: File
 
 outputs:

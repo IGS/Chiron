@@ -9,7 +9,7 @@ use Cwd 'abs_path';
 
 my ($scriptname, $scriptdir) = fileparse($0);
 my $reapr_dir = abs_path(File::Spec->catfile($scriptdir, File::Spec->updir()));
-my $reapr = File::Spec->catfile($reapr_dir, 'reapr');
+my $reapr = File::Spec->catfile($reapr_dir, 'reapr/reapr');
 
 my %options = (fcdcut => 0);
 

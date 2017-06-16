@@ -17,7 +17,7 @@ import subprocess
 import shlex
 import re
 
-CWL_WORKFLOW = os.path.dirname(__file__) + "../pipelines/strainphlan/strainphlan_complete.cwl"
+CWL_WORKFLOW = os.path.dirname(os.path.realpath(sys.path[0])) + "/pipelines/strainphlan/strainphlan_complete.cwl"
 
 ########
 # Main #
@@ -29,7 +29,7 @@ def main():
     parser = ArgumentParser(description=description)
     parser.add_argument("--input_file_list", "-i", help="List file containing paths to samples", metavar="/path/to/input.list", required=True)
     parser.add_argument("--config_file", "-c", help="YAML-based config file of parameters to add", metavar="/path/to/config.yml", required=True)
-    parser.add_argument("--outdir", "-o", help="Optional. Directory to stage output files.  Default is ./cwl_output", metavar="/path/to/outdir", default="./cwl_output")
+    parser.add_argument("--out_dir", "-o", help="Optional. Directory to stage output files.  Default is ./cwl_output", metavar="/path/to/outdir", default="./cwl_output")
 
     parser.add_argument("--debug", "-d", help="Set the debug level", default="ERROR", metavar="DEBUG/INFO/WARNING/ERROR/CRITICAL")
     args = parser.parse_args()
@@ -45,12 +45,8 @@ def main():
     write_final_yaml(yaml_dict, final_yaml)
 
     # Invoke CWL with new YAML job input
-    run_cwl_command(args.outdir, final_yaml)
+    run_cwl_command(args.out_dir, final_yaml)
 
-    # Lots of output dirs were created that weren't removed.  Remove them
-    rm_out_cmd = "rm -rf tmp_out*"
-    args = shlex.split(rm_out_cmd) # Split cmd using shell-like syntax
-    subprocess.call(args)
 
 def check_args(args, parser):
     """ Validate the passed arguments """
@@ -76,12 +72,12 @@ def read_in_list(list_in):
 
 def add_input_files_to_yaml(yaml_dict, inputs):
     """ Join the list of input files into the existing YAML dictionary """
-    yaml_dict['input_files'] = list()
+    yaml_dict['input_file'] = list()
     yaml_dict['seq_prefix'] = list()
     for i in inputs:
         # Add the sequence to the YAML dict
         input_dict = {'class': 'File', 'path': i}
-        yaml_dict['input_files'].append(input_dict)
+        yaml_dict['input_file'].append(input_dict)
         # Add name_root of input file as the seq_prefix
         i_base = os.path.basename(i)
         i_base = re.sub(r'\.gz|\.gzip', '', i_base)
@@ -102,15 +98,24 @@ def write_final_yaml(yaml_dict, out_yaml):
 
 def run_cwl_command(outdir, job_input):
     """ Create and run the CWL-runner job """
-    cwl_cmd = "cwl-runner --tmp-outdir-prefix=tmp_out --tmpdir-prefix=./tmp --outdir={0} {1} {2}".format(outdir, CWL_WORKFLOW, job_input)
+    tmp_dir = get_tmpdir()
+    cwl_cmd = "cwl-runner --tmp-outdir-prefix=tmp_out --tmpdir-prefix={3} --outdir={0} {1} {2}".format(outdir, CWL_WORKFLOW, job_input, tmp_dir)
     args = shlex.split(cwl_cmd) # Split cmd using shell-like syntax
     # https://stackoverflow.com/questions/4417546/constantly-print-subprocess-output-while-process-is-running
     with subprocess.Popen(cwl_cmd, stdout = subprocess.PIPE,
         stderr = subprocess.STDOUT, shell = True) as p:
         for line in p.stdout:
-            print(line.decode('ascii'))
+            print(line.decode(), end='')
     if p.returncode != 0:
         raise subprocess.CalledProcessError(p.returncode, p.args)
+
+def get_tmpdir():
+    """ Determine where to write tmp files"""
+    base_dir = "/opt"
+    if not os.path.exists("/opt") or not os.access('/opt', os.W_OK):
+        base_dir = "."
+    tmp_dir = base_dir + "/tmp"
+    return tmp_dir
 
 if __name__ == '__main__':
     main()

@@ -2,7 +2,7 @@
 
 # Set defaults
 LOCAL_BASE=''
-IMAGE_VERSION='1.1.0'
+IMAGE_VERSION='1.1.5'
 
 while getopts :l:c: opt; do
   case $opt in

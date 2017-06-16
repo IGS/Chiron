@@ -23,6 +23,11 @@ inputs:
     type: string
     default: "off"
   bypass_translated_search:
+    label: Runs all of the alignment steps except the translated search
+    type: boolean
+    default: false
+  bypass_nucleotide_search:
+    label: Bypasses all of the alignment steps before the translated search
     type: boolean
     default: false
   num_cores:
@@ -48,15 +53,18 @@ inputs:
     default: 'uniref90_level4ec'
 
 outputs:
-  feature_tsv:
+  genefamilies_tsv:
     type: File[]
-    outputSource: rename_table/out_tsv
-  normalize_tsv:
-    type: File[]
-    outputSource: renorm_table/out_tsv
-  regrouped_tsv:
-    type: File[]
-    outputSource: regroup_table/out_tsv
+    outputSource: humann2/out_gene_families
+#  feature_tsv:
+#    type: File[]
+#    outputSource: rename_table/out_tsv
+#  normalize_tsv:
+#    type: File[]
+#    outputSource: renorm_table/out_tsv
+#  regrouped_tsv:
+#    type: File[]
+#    outputSource: regroup_table/out_tsv
 
 steps:
 
@@ -71,33 +79,36 @@ steps:
     out: [out_dir, out_gene_families]
     scatter: [input_file]
 
-  rename_table:
-    run: humann2_rename_table.cwl
-    in:
-      input_tsv: humann2/out_gene_families
-      output_tsv:
-        valueFrom: $(inputs.input_tsv.nameroot + '-names.tsv')
-      names: feat_db
-    out: [out_tsv]
-    scatter: [input_tsv]
+#  rename_table:
+#    run: humann2_rename_table.cwl
+#    in:
+#      input_tsv: humann2/out_gene_families
+#      output_tsv:
+#        source: humann2/out_gene_families
+#        valueFrom: $(self.nameroot + '-names.tsv')
+#      names: feat_db
+#    out: [out_tsv]
+#    scatter: [input_tsv]
 
-  renorm_table:
-    run: humann2_renorm_table.cwl
-    in:
-      input_tsv: humann2/out_gene_families
-      output_tsv:
-        valueFrom: $(inputs.input_tsv.nameroot + '-' + inputs.units + '.tsv')
-      units: normalize_units
-      update_snames: update_snames
-    out: [out_tsv]
-    scatter: [input_tsv]
+#  renorm_table:
+#    run: humann2_renorm_table.cwl
+#    in:
+#      input_tsv: humann2/out_gene_families
+#      output_tsv:
+#        source: humann2/out_gene_families
+#        valueFrom: $(self.nameroot + '-' + inputs.units + '.tsv')
+#      units: normalize_units
+#      update_snames: update_snames
+#    out: [out_tsv]
+#    scatter: [input_tsv]
 
-  regroup_table:
-    run: humann2_regroup_table.cwl
-    in:
-      input_tsv: renorm_table/out_tsv
-      output_tsv:
-        valueFrom: $(inputs.input_tsv.nameroot + '-' + inputs.groups +'.tsv')
-      groups: regrouping_category
-    out: [out_tsv]
-    scatter: [input_tsv]
+#  regroup_table:
+#    run: humann2_regroup_table.cwl
+#    in:
+#      input_tsv: renorm_table/out_tsv
+#      output_tsv:
+#        source: renorm_table/out_tsv
+#        valueFrom: $(self.nameroot + '-' + inputs.groups +'.tsv')
+#      groups: regrouping_category
+#    out: [out_tsv]
+#    scatter: [input_tsv]

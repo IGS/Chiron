@@ -39,7 +39,7 @@ samples_file = opt$samples
 outfile = opt$outfile
 
 # setwd("/Users/amahurkar/Documents/Projects/DACC/CloudPilot")
-# qiime_file = "v35_psn_otu.genus.fixed.txt"
+# qiime_file = "otu_table_psn_v35.txt"
 # samples_file = "stool_nares_subsamples.tsv"
 # outfile = paste("stool_nares_subsamples_", qiime_file, sep = "")
 
@@ -49,7 +49,7 @@ samples = read.csv(samples_file, sep = "\t", header = TRUE,
 
 # Read Qiime table
 qiime = read.csv(qiime_file, sep = "\t", header = TRUE, comment.char = "",
-                 stringsAsFactors = FALSE)
+                 stringsAsFactors = FALSE, skip = 1)
 
 # Filter the Qiime table for the samples in the list
 subsample_list = samples[which(samples$Type == "16S"), ]

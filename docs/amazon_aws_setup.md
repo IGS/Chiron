@@ -311,9 +311,11 @@ Instance types describe the features of the virtual machine that will be instant
 
 ## <a name="using_ssh"> Using SSH instead of Secure Shell (non-Windows users)
 
-For Linux and Mac OSX users that would like to use SSH to login, simply open a terminal and issue the following command:
+For Linux and Mac OSX users that would like to use SSH to login, simply open a terminal and issue the following commands:
 
 ```
+$ chmod 400 /path/to/cloud_workshop.pem
+
 $ ssh –i /path/to/cloud_workshop.pem ubuntu@XXX.XXX.XXX.XXX
 ```
 

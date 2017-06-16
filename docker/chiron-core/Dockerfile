@@ -41,6 +41,8 @@ RUN unzip -d /opt/hmp_client /opt/hmp_client.zip
 RUN ln -s /opt/hmp_client/hmp_client-1.2/bin/client.py /usr/local/bin/hmp_client
 RUN ln -s /opt/hmp_client/hmp_client-1.2/test /opt/hmp_client/test
 
+ENV EX_SCRIPTS /tutorials/hmp_client
+
 # Place the examples
 RUN mkdir /tutorials/hmp_client
 ADD https://github.com/IGS/Chiron/raw/master/examples/hmp_data_exercise/16s_metadata.tsv /tutorials/hmp_client/
@@ -62,5 +64,7 @@ ADD https://github.com/IGS/Chiron/raw/master/examples/hmp_data_exercise/stool_wg
 ADD https://github.com/IGS/Chiron/raw/master/examples/hmp_data_exercise/stool_wgs_rand_manifest.tsv /tutorials/hmp_client/
 ADD https://github.com/IGS/Chiron/raw/master/examples/hmp_data_exercise/stool_wgs_rand_samples.tsv /tutorials/hmp_client/
 ADD https://github.com/IGS/Chiron/raw/master/examples/hmp_data_exercise/wgs_metadata.tsv /tutorials/hmp_client/
+ADD https://github.com/IGS/Chiron/raw/master/examples/hmp_data_exercise/stool_nares_wgs_rand_metadata.tsv /tutorials/hmp_client/
+ADD https://github.com/IGS/Chiron/raw/master/examples/hmp_data_exercise/stool_nares_wgs_rand_manifest.tsv /tutorials/hmp_client/
 
 

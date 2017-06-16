@@ -23,8 +23,14 @@ inputs:
       prefix: --gap-fill
     type: string?
   bypass_translated_search:
+    label: Runs all of the alignment steps except the translated search
     inputBinding:
       prefix: --bypass-translated-search
+    type: boolean?
+  bypass_nucleotide_search:
+    label: Bypasses all of the alignment steps before the translated search
+    inputBinding:
+      prefix: --bypass-nucleotide-search
     type: boolean?
   num_threads:
     inputBinding:
@@ -39,15 +45,15 @@ outputs:
   out_gene_families:
     type: File
     outputBinding:
-      glob: $(inputs.output_dir + '/' + inputs.input_file.nameroot + '_genefamilies.tsv')
+      glob: $(inputs.output_dir + '/' + inputs.input_file.nameroot + '_genefamilies*')
   out_path_abundance:
     type: File
     outputBinding:
-      glob: $(inputs.output_dir + '/' + inputs.input_file.nameroot + '_pathabundance.tsv')
+      glob: $(inputs.output_dir + '/' + inputs.input_file.nameroot + '_pathabundance*')
   out_path_coverage:
     type: File
     outputBinding:
-      glob: $(inputs.output_dir + '/' + inputs.input_file.nameroot + '_pathcoverage.tsv')
+      glob: $(inputs.output_dir + '/' + inputs.input_file.nameroot + '_pathcoverage*')
   out_prefix:
     type: string
     outputBinding:

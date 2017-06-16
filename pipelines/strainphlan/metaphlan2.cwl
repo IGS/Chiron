@@ -18,13 +18,13 @@ inputs:
   seq_prefix:
     label: Prefix to give to output files
     type: string
-  index_dir:
-    type: Directory
-  base_str:
-    type: string
-  mpa_pkl:
-    label: The metadata pickled MetaPhlAn filename
-    type: string
+#  index_dir:
+#    type: Directory?
+#  base_str:
+#    type: string?
+#  mpa_pkl:
+#    label: The metadata pickled MetaPhlAn filename
+#    type: string?
   bowtie2_out:
     inputBinding:
       prefix: --bowtie2out
@@ -71,10 +71,10 @@ outputs:
     outputBinding:
       outputEval: $(inputs.seq_prefix)
 
-arguments:
-  - valueFrom: $(inputs.index_dir.path + '/' + inputs.base_str)
-    prefix: --bowtie2db
-  - valueFrom: $(inputs.index_dir.path + '/' + inputs.mpa_pkl)
-    prefix: --mpa_pkl
+#arguments:
+#  - valueFrom: $(inputs.index_dir.path + '/' + inputs.base_str)
+#    prefix: --bowtie2db
+#  - valueFrom: $(inputs.index_dir.path + '/' + inputs.mpa_pkl)
+#    prefix: --mpa_pkl
 
 baseCommand: ["metaphlan2.py"]

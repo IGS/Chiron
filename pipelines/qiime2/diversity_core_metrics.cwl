@@ -19,8 +19,6 @@ inputs:
     inputBinding:
       prefix: --i-table
     type: File
-  in_prefix:
-    type: string?
   sampling_depth:
     inputBinding:
       prefix: --p-sampling-depth
@@ -29,12 +27,11 @@ inputs:
   output_dir:
     inputBinding:
       prefix: --output-dir
-      valueFrom: $(inputs.in_prefix + 'core-metrics-results')
     type: string
     default: 'core-metrics-results'
 outputs:
   out_dir:
     type: Directory
     outputBinding:
-      glob: $('*' + inputs.output_dir)
+      glob: $(inputs.output_dir)
 baseCommand: ["qiime", "diversity", "core-metrics"]

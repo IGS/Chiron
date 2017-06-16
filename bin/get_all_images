@@ -1,15 +1,15 @@
 #!/bin/bash
 
-docker pull umigs/chiron-core
+docker pull umigs/chiron-core:1.1.5
 
-docker pull umigs/chiron-humann2
+docker pull umigs/chiron-humann2:1.0.0
 
-docker pull umigs/chiron-metacompass
+docker pull umigs/chiron-metacompass:1.0.0
 
-docker pull umigs/chiron-metaviz
+docker pull umigs/chiron-metaviz:1.1.0
 
-docker pull umigs/chiron-phlan
+docker pull umigs/chiron-phlan:1.0.0
 
-docker pull umigs/chiron-qiime2
+docker pull umigs/chiron-qiime2:1.0.0
 
-docker pull umigs/chiron-valet
+docker pull umigs/chiron-valet:1.1.1

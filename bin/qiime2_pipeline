@@ -15,8 +15,13 @@ import yaml
 import os
 import subprocess
 import shlex
+import requests
 
-CWL_WORKFLOW = os.path.dirname(__file__) + "../pipelines/qiime2/qiime2_complete.cwl"
+
+CWL_WORKFLOW = os.path.dirname(os.path.realpath(sys.path[0])) + "/pipelines/qiime2/qiime2_complete.cwl"
+
+CLASSIFIER_URL = 'https://data.qiime2.org/2017.5/common/gg-13-8-99-515-806-nb-classifier.qza'
+CLASSIFIER_PATH = os.path.dirname(os.path.realpath(sys.argv[0])) + "/examples/hmp_data_exercise/gg-13-8-99-515-806-nb-classifier.qza"
 
 ########
 # Main #
@@ -26,17 +31,25 @@ def main():
     # Set up options parser and help statement
     description = "Invoke a QIIME2 pipeline using the Common Workflow Language"
     parser = ArgumentParser(description=description)
-    parser.add_argument("--input_file_list", "-i", help="List file containing demultiplexed sequences", metavar="/path/to/input.list", required=True)
+    parser.add_argument("--input_dir", "-i", help="Directory containing the fastq sequences", metavar="/path/to/input/dir", required=True)
+    parser.add_argument("--metadata_file", "-m", help="Path to the metadata file to use", metavar="/path/to/metadata.tsv", required=True)
     parser.add_argument("--config_file", "-c", help="YAML-based config file of parameters to add", metavar="/path/to/config.yml", required=True)
-    parser.add_argument("--outdir", "-o", help="Optional. Directory to stage output files.  Default is ./cwl_output", metavar="/path/to/outdir", default="./cwl_output")
+    parser.add_argument("--out_dir", "-o", help="Optional. Directory to stage output files.  Default is ./cwl_output", metavar="/path/to/outdir", default="./cwl_output")
 
     parser.add_argument("--debug", "-d", help="Set the debug level", default="ERROR", metavar="DEBUG/INFO/WARNING/ERROR/CRITICAL")
     args = parser.parse_args()
     check_args(args, parser)
 
+    # Download training classifier if it does not exist
+    if not os.path.exists(CLASSIFIER_PATH):
+        logging.debug("Downloading Greengenes classifier")
+        r = requests.get(CLASSIFIER_URL)
+        with open(CLASSIFIER_PATH, 'wb') as outfile:
+            outfile.write(r.content)
+
     yaml_dict = read_config(args.config_file)
-    seq_inputs = read_in_list(args.input_file_list)
-    add_seq_inputs_to_yaml(yaml_dict, seq_inputs)
+    yaml_dict['metadata_file'] = {'class': 'File', 'path': args.metadata_file}
+    add_input_dir_to_yaml(yaml_dict, args.input_dir)
     #print(yaml.dump(yaml_dict))
 
     # Write out YAML
@@ -44,12 +57,8 @@ def main():
     write_final_yaml(yaml_dict, final_yaml)
 
     # Invoke CWL with new YAML job input
-    run_cwl_command(args.outdir, final_yaml)
+    run_cwl_command(args.out_dir, final_yaml)
 
-    # Lots of output dirs were created that weren't removed.  Remove them
-    rm_out_cmd = "rm -rf tmp_out*"
-    args = shlex.split(rm_out_cmd) # Split cmd using shell-like syntax
-    subprocess.call(args)
 
 def check_args(args, parser):
     """ Validate the passed arguments """
@@ -73,12 +82,9 @@ def read_in_list(list_in):
     file_list = [line.rstrip('\n') for line in open(list_in)]
     return file_list
 
-def add_seq_inputs_to_yaml(yaml_dict, seq_inputs):
+def add_input_dir_to_yaml(yaml_dict, input_dir):
     """ Join the list of seq input files into the existing YAML dictionary """
-    yaml_dict['input_seqs'] = list()
-    for seq_i in seq_inputs:
-        seq_dict = {'class': 'File', 'path': seq_i}
-        yaml_dict['input_seqs'].append(seq_dict)
+    yaml_dict['staging_dir'] = {'class': 'Directory', 'path': input_dir}
 
 def create_final_yaml_name(orig_yaml_name):
     """ Use YAML template to create final file name """
@@ -94,15 +100,24 @@ def write_final_yaml(yaml_dict, out_yaml):
 
 def run_cwl_command(outdir, job_input):
     """ Create and run the CWL-runner job """
-    cwl_cmd = "cwl-runner --tmp-outdir-prefix=tmp_out --tmpdir-prefix=./tmp --outdir={0} {1} {2}".format(outdir, CWL_WORKFLOW, job_input)
+    tmp_dir = get_tmpdir()
+    cwl_cmd = "cwl-runner --tmp-outdir-prefix=tmp_out --tmpdir-prefix={3} --outdir={0} {1} {2}".format(outdir, CWL_WORKFLOW, job_input, tmp_dir)
     args = shlex.split(cwl_cmd) # Split cmd using shell-like syntax
     # https://stackoverflow.com/questions/4417546/constantly-print-subprocess-output-while-process-is-running
     with subprocess.Popen(cwl_cmd, stdout = subprocess.PIPE,
         stderr = subprocess.STDOUT, shell = True) as p:
         for line in p.stdout:
-            print(line.decode('ascii'))
+            print(line.decode(), end='')
     if p.returncode != 0:
         raise subprocess.CalledProcessError(p.returncode, p.args)
+
+def get_tmpdir():
+    """ Determine where to write tmp files"""
+    base_dir = "/opt"
+    if not os.path.exists("/opt") or not os.access('/opt', os.W_OK):
+        base_dir = "."
+    tmp_dir = base_dir + "/tmp"
+    return tmp_dir
 
 if __name__ == '__main__':
     main()
