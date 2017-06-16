@@ -5,7 +5,7 @@ date: "June 12, 2017"
 output: html_document
 ---
 
-Today we will discuss using the metavizr Bioconductor package to compare 16s to WGS data for the same samples.
+Today we will discuss using the metavizr Bioconductor package to compare 16S to WGS data for the same samples.
 
 ## Docker instructions
 
@@ -59,7 +59,7 @@ An Rstudio session will now appear in the window. Rstudio is a program that runs
 
 &nbsp;
 
-  9) Highlight line 9, then click run. This will download a data file containing WGS and 16s data for the same samples.  The file will now be visible in the lower right hand window.
+  9) Highlight line 9, then click run. This will download a data file containing WGS and 16S data for the same samples.  The file will now be visible in the lower right hand window.
 
 ![](images/metavizr_highlight_and_run_2_result.png)
 
@@ -151,7 +151,7 @@ Now in the Metaviz tab, a FacetZoom is loaded.
 
 &nbsp;
 
-  22) Click on the Metaviz tab. Now the scatter plot will be loaded. This is a comparison at the "Order" level of the taxonomy with all taxa for one sample, data for 16s on the X axis and data for wgs on the Y axis.
+  22) Click on the Metaviz tab. Now the scatter plot will be loaded. This is a comparison at the "Order" level of the taxonomy with all taxa for one sample, data for 16S on the X axis and data for wgs on the Y axis.
   
 ![](images/metavizr_scatter_plot_loaded.png)
   
