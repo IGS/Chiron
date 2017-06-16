@@ -2,6 +2,7 @@ library(tidyverse)
 library(metagenomeSeq)
 library(stringr)
 library(getopt)
+library(metavizr)
 
 # Get the options specified on the command line
 spec = matrix(c('metaphlan', 'm', 1, "character",
@@ -33,9 +34,6 @@ if ( is.null(opt$metaphlan) ) {
 filename_16s = opt$qiime
 filename_metaphlan = opt$metaphlan
 outfile = opt$outfile
-
-filename_16s <- "subset_of_v35_psn_otu.genus.fixed.txt"
-filename_metaphlan <- "subset_of_hmp1-II_metaphlan2-mtd-qcd.pcl.txt"
 
 dat_16s <- read_csv(filename_16s)
 dat_mph <- read_csv(filename_metaphlan)
@@ -159,21 +157,23 @@ rownames(missing_counts_16s) <- fdata_merged$genus[fdata_merged$source == "wgs"]
 counts_16s <- rbind(counts_16s, missing_counts_16s)
 counts_16s <- counts_16s[fdata_merged$genus, rownames(pdata_merged)[pdata_merged$source == "16s"]]
 
-new_counts_16s <- counts_16s
+scaled_counts_16s <- counts_16s
 colsums_16s <- colSums(counts_16s)
 for (i in seq(1,length(colsums_16s))){
-  new_counts_16s[,i] <- counts_16s[,i]/colsums_16s[i]
+  scaled_counts_16s[,i] <- counts_16s[,i]/colsums_16s[i]
 }
 
-new_counts_16s <- new_counts_16s * 1000
+scaled_counts_16s <- scaled_counts_16s * 1000
 
 counts_merged <- cbind(counts_mph, counts_16s)
-new_counts_merged <- cbind(counts_mph, new_counts_16s)
+scaled_counts_merged <- cbind(counts_mph, scaled_counts_16s)
 
-mr_genus_merged <- newMRexperiment(counts_merged,
+scaled_mr_genus_merged <- newMRexperiment(scaled_counts_merged,
                                    AnnotatedDataFrame(pdata_merged),
                                    AnnotatedDataFrame(fdata_merged))
 
-new_mr_genus_merged <- newMRexperiment(new_counts_merged,
-                                   AnnotatedDataFrame(pdata_merged),
-                                   AnnotatedDataFrame(fdata_merged))
+mr_have_both <- scaled_mr_genus_merged[which(!is.na(fData(scaled_mr_genus_merged)[,"genus_16s"])),]
+
+mobj <- metavizr:::EpivizMetagenomicsData$new(mr_have_both, feature_order=colnames(fData(mr_have_both))[1:6])
+mobj$toNEO4JDbHTTP(batch_url = "http://localhost:7474/db/data/batch", neo4juser = "neo4j", neo4jpass = "osdf1", datasource = "wgs_16s_compare")
+
