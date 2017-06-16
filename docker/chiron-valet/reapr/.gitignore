@@ -1,16 +1,1 @@
 *.o
-bam2fcdEstimate
-bam2fragCov
-bam2insert
-bam2perfect
-fa2gaps
-fa2gc
-make_plots
-n50
-scaff2contig
-scaff2contig.cpp
-task_break
-task_fcdrate
-task_gapresize
-task_score
-task_stats
