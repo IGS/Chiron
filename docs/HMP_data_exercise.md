@@ -120,7 +120,7 @@ Rscript $EX_SCRIPTS/generate_matched_visit_samples.R --wgs wgs_metadata.tsv \
   --16s_list stool_16s_rand_samples.tsv --wgs_list stool_wgs_rand_samples.tsv
 ```
 
-The command may generate the following warning, which may be safely ignored:
+The command may generate the following warning, which can be ignored:
 ```
 Using SN as value column: use value.var to override.
 ```
@@ -219,7 +219,7 @@ Rscript $EX_SCRIPTS/generate_matched_two_site_samples.R --m16s 16s_metadata.tsv 
   --region V35
 ```
 
-The command may generate the following warning, which may be safely ignored:
+The command may generate the following warning, which can be ignored:
 ```
 Using Region as value column: use value.var to override.
 ```
