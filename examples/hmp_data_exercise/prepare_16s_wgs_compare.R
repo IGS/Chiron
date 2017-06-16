@@ -183,7 +183,7 @@ mobj$toNEO4JDbHTTP(batch_url = "http://localhost:7474/db/data/batch", neo4juser 
 graph = startGraph("http://localhost:7474/db/data/", username="neo4j", password="osdf1")
 query = "MATCH (ds:Datasource) return ds.label as label"
 dsFromGraph <- cypher(graph, query)
-datasources = c(dsFromGraph$label, datasource_name)
+datasources = dsFromGraph$label
 
 file_settings <- file("/graph-ui/epiviz-metaviz-4.1/site-settings.js")
 metaviz_text = "epiviz.Config.SETTINGS.dataServerLocation = 'http://epiviz.cbcb.umd.edu/data/';epiviz.Config.SETTINGS.workspacesDataProvider = sprintf('epiviz.data.WebServerDataProvider,%s,%s','workspaces_provider','http://epiviz.cbcb.umd.edu/data/main.php');";
