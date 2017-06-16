@@ -13,7 +13,8 @@ This document walks you through the steps of extracting data from the HMP Cloud 
   2.3. [Run Metaviz to visualize and compare the profiles](#run_metaviz_for_two_sites)  
 3. [Analyze WGS community profiles between two body site](#analyze_two_site_wgs)  
   3.1. [Download the WGS data from Cloud repository](#download_two_site_wgs_data)  
-  3.2. [Launch workflows to analyze downloaded data](#launch_two_site_wgs_analysis)
+  3.2. [Launch workflows to analyze downloaded data](#launch_two_site_wgs_analysis)  
+  3.3. [Run Metaviz to visualize and compare the MetaPhlAn2 profiles for two sites](#run_metaviz_for_two_wgs_sites)
 
 Before you can start any of these exercises please launch the Docker image for the hmp_client using the following command and set the environment variable EX_SCRIPTS where some of the scripts exist:
 
@@ -241,6 +242,9 @@ exit
 bin/metaviz_interactive
 ```
 
+Please follow the instructions for using Metaviz to compare these generated files using the link below:  
+[Compare two sites using Metaviz](https://github.com/IGS/Chiron/blob/master/docs/step-by-step-metavizr.Rmd)
+
 [top](#top)
 ## <a name="analyze_two_site_wgs"></a>3. Analyze WGS community profiles between two body sites
 
@@ -312,7 +316,18 @@ The following command will run the HUMAnN2 process on all the files in the speci
 
 This workflow will process the individual files in the specified input file list and write the individual MetaPhlAn2 and HUMAnN2 tables. It will then create a combined relative abundance table for all the samples based on MetaPhlAn2 results.
 
+#### <a name="run_metaviz_for_two_wgs_sites"></a>3.3. Run Metaviz to visualize and compare the MetaPhlAn2 profiles for two sites
+Now that you have generated the abundance matrices for the subset of samples with MetaPhlAn2 you can use Metaviz to visualize and compare these two matrices.
 
+Before you can proceed to the visualization you will need to exit from the hmp_client_interactive Docker image and run the Metaviz Docker image by using the following commands.
+
+```
+exit
+bin/metaviz_interactive
+```
+
+Please follow the instructions for using Metaviz to compare these generated files using the link below:  
+[Compare two sites using Metaviz](https://github.com/IGS/Chiron/blob/master/docs/step-by-step-metavizr.Rmd)
 [top](#top)
 # Related Links:
 
