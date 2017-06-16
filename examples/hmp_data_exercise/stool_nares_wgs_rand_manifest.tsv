@@ -1,0 +1,7 @@
+file_id	md5	size	urls
+5a950f27980b5d93e4c16da1240068fc	be206b81370ebeb88d90369dba344154	5414215806	http://downloads.hmpdacc.org/data2/hhs/genome/microbiome/wgs/analysis/hmwgsqc/v2/SRS014459.tar.bz2,s3://nih-hmp-hhs/hmwgsqc2/SRS014459.tar.bz2
+5a950f27980b5d93e4c16da124009c6c	e84aab4c2e80dccd0d50d0aa3dda17d3	164504217	http://downloads.hmpdacc.org/data2/hhs/genome/microbiome/wgs/analysis/hmwgsqc/v2/SRS011397.tar.bz2,s3://nih-hmp-hhs/hmwgsqc2/SRS011397.tar.bz2
+5a950f27980b5d93e4c16da1240246d7	f49def5dfd931b69e6f161c23943bc56	12613374675	http://downloads.hmpdacc.org/data2/hhs/genome/microbiome/wgs/analysis/hmwgsqc/v2/SRS013098.tar.bz2,s3://nih-hmp-hhs/hmwgsqc2/SRS013098.tar.bz2
+5a950f27980b5d93e4c16da12407fb21	abbafcb579f489cfa4d7d81cd91191e4	45166211	http://downloads.hmpdacc.org/data2/hhs/genome/microbiome/wgs/analysis/hmwgsqc/v2/SRS014464.tar.bz2,s3://nih-hmp-hhs/hmwgsqc2/SRS014464.tar.bz2
+6d91411d5ede0689305232cc77e33dd3	5b90ef4854758ed5bec43952ce4ea6e4	5994012527	http://downloads.hmpdacc.org/data2/hhs/genome/microbiome/wgs/analysis/hmwgsqc/v2/SRS043451.tar.bz2,s3://nih-hmp-hhs/hmwgsqc2/SRS043451.tar.bz2
+6d91411d5ede0689305232cc77fe57c3	656a1140024ae0ee956d17e5cf758034	8620371571	http://downloads.hmpdacc.org/data2/hhs/genome/microbiome/wgs/analysis/hmwgsqc/v2/SRS045004.tar.bz2,s3://nih-hmp-hhs/hmwgsqc2/SRS045004.tar.bz2

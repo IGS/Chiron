@@ -11,12 +11,9 @@ This document walks you through the steps of extracting data from the HMP Cloud 
   2.1. [Create random subset of samples for two body sites](#create_random_subsamples_for_two_sites)  
   2.2. [Extract matrices for subsamples](#extract_two_site_matrices)  
   2.3. [Run Metaviz to visualize and compare the profiles](#run_metaviz_for_two_sites)  
-3. [Analyze 16S and WGS community profiles for a body site](#analyze_16s_wgs)  
-  3.1. [Download the 16S trimmed sequence and WGS data from Cloud repository](#download_16s_wgs_data)  
-  3.2. [Launch workflows to analyze downloaded data](#launch_16s_wgs_analysis)
-4. [Analyze the 16S community profiles for two different body sites](#analyze_16s_across_sites)  
-  4.1. [Download the 16S trimmed sequence from Cloud repository](#download_16s_data)  
-  4.2. [Launch workflows to analyze downloaded data](#launch_16s_analysis)
+3. [Analyze WGS community profiles between two body site](#analyze_two_site_wgs)  
+  3.1. [Download the WGS data from Cloud repository](#download_two_site_wgs_data)  
+  3.2. [Launch workflows to analyze downloaded data](#launch_two_site_wgs_analysis)
 
 Before you can start any of these exercises please launch the Docker image for the hmp_client using the following command and set the environment variable EX_SCRIPTS where some of the scripts exist:
 
@@ -245,9 +242,9 @@ bin/metaviz_interactive
 ```
 
 [top](#top)
-## <a name="analyze_16s_wgs"></a>3. Analyze 16S and WGS community profiles for a body site
+## <a name="analyze_two_site_wgs"></a>3. Analyze WGS community profiles between two body sites
 
-In this part of the exercise you will first analyze the 16S and WGS data using Qiime and MetaPhlAn2 tools. You will then take the results from this analysis and compare them at the genus level using Metaviz like the way you did in the previous exercise.
+In this part of the exercise you will first analyze the WGS data using MetaPhlAn2 to generate the community profile. You will then take the results from this analysis and compare them at the genus level using Metaviz.
 
 
 ### Run the HMP Interactive Client Docker Image
@@ -255,21 +252,21 @@ In this part of the exercise you will first analyze the 16S and WGS data using Q
 bin/hmp_client_interactive
 ```
 
-###  <a name="download_16s_wgs_data"></a>3.1. Download the 16S trimmed sequence and WGS data from Cloud repository
-In the data_exercise directory you will find the files that have the metadata associated with 16S samples. For this exercise we will use samples from the first visit for the following two body sites: "Anterior_nares" and "Stool". Copy the manifest files <em>stool_rand_wgs_manifest.tsv</em> and <em>stool_rand_16s_manifest.tsv</em> in the examples directory to the local directory and use the script <em>hmp_client</em> to download the data files specified in the manifest file.
+###  <a name="download_two_site_wgs_data"></a>3.1. Download the WGS data from Cloud repository
+In the /tutorials/hmp_client directory you will find the files that have the metadata associated with WGSS samples. For this exercise we will use samples from the first visit for the following two body sites: "Anterior_nares" and "Stool". Copy the manifest files <em>stool_nares_rand_wgs_5_manifest.tsv</em> in the /tutorials/hmp_client directory to the local directory and use the script <em>hmp_client</em> to download the data files specified in the manifest file.
 
 ```
 mkdir /output/ex3
 cd /output/ex3
-cp /tutorials/hmp_client/stool_wgs_rand_5_samples_manifest.tsv .
-cp /tutorials/hmp_client/stool_16s_rand_5_samples_manifest.tsv .
+cp /tutorials/hmp_client/stool_nares_wgs_rand_manifest.tsv \
+/tutorials/hmp_client/stool_nares_wgs_rand_manifest.tsv .
 ```
 
-The following commands will download trimmed 16S sequences and the corresponding WGS samples for the 5 randomly selected subject visits to the directory specified by the <em>destination</em> parameter. Once the data has been downloaded exit the current Docker image.
+The following commands will download WGS sequence data for randomly selected subject visits to the directory specified by the <em>destination</em> parameter. Once the data has been downloaded exit the current Docker image.
 
 ```
-hmp_client  -endpoint_priority S3,HTTP -manifest stool_16s_rand_5_samples_manifest.tsv -destination stool_16s
-hmp_client  -endpoint_priority S3,HTTP -manifest stool_wgs_rand_5_samples_manifest.tsv -destination stool_wgs
+hmp_client  -endpoint_priority S3,HTTP -manifest stool_nares_wgs_rand_manifest.tsv \
+-destination wgs
 exit
 ```
 
@@ -281,32 +278,12 @@ chown -R ubuntu.ubuntu /opt/chiron/hmp_client/
 exit
 cd /opt/chiron/hmp_client/ex3
 ```
-###  <a name="launch_16s_wgs_analysis"></a>3.2. Launch workflows to analyze downloaded data
-To make the usage of the Docker images and for the ease of the exercises, we have built simple scripts that can create workflows defined in the Common Workflow Language (CWL). These workflows can be executed using the <em>cwl-runner</em>, a command-line tool to execute the workflows. The workflow runner uses the predefined Docker containers in batch modes to complete the analysis tasks. You can find workflows for all the tools used in this workshop including Qiime, HUMAnN2, MetaCompass, and StrainPhlAn.
+
+###  <a name="launch_wgs_analysis"></a>3.2. Launch workflows to analyze downloaded data
+To make usage of the Docker images and for the ease of the exercises, we have built simple scripts that can create workflows defined in the Common Workflow Language (CWL). These workflows can be executed using the <em>cwl-runner</em>, a command-line tool to execute the workflows. The workflow runner uses the predefined Docker containers in batch modes to complete the analysis tasks. You can find workflows for all the tools used in this workshop including Qiime, HUMAnN2, MetaCompass, and StrainPhlAn.
 
 [top](#top)
 
-#### Launch workflow to analyze the 16S data using Qiime
-```
-Usage:
-usage: qiime2_pipeline
-    [-h]
-    --input_dir /path/to/input/dir
-    --metadata_file /path/to/metadata.tsv
-    --config_file /path/to/qiime2_config.yml
-    [--out_dir /path/to/outdir]
-```
-
-The following command will run the QIIME2 process on all the files in the specified data directory.  The "qiime2_config_template.yml" file contains the necessary parameters to run the pipeline
-
-```
-~/Chiron/bin/qiime2_pipeline --input_dir /opt/chiron/hmp_client/ex3/stool_16s --metadata_file stool_16s_rand_5_samples.tsv --config_file ~/Chiron/bin/qiime2_config_template.yml --out_dir stool_16s_results
-```
-
-This workflow will process the individual files in the specified data directory and write the individual OTU tables. It will then create a combined OTU table for all the samples.
-
-
-[top](#top)
 #### Launch the workflows to analyze the WGS data using HUMAnN2
 ```
 Usage:
@@ -317,14 +294,14 @@ usage: humann2_pipeline
     [--out_dir /path/to/outdir]
 ```
 
-Before running this command, the files in the "stool_wgs" directory need to be unarchived.
+Before running this command, the .tar.bz2 files in the "wgs" directory need to be unarchived.  This process can take about 1 hour to complete.  Unarchiving should result in FASTQ files in each newly present sample directory
 ```
-tar -xvjf /opt/chiron/hmp_client/ex3/stool_wgs/*
+for i in `ls -1 /opt/chiron/hmp_client/ex3/wgs`; do tar -xvjf /opt/chiron/hmp_client/ex3/wgs/${i}; done
 ```
 
-This command takes in a list of input file paths instead of the input directory that the "qiime2_pipeline" script took.  To quickly create this list file, run the following command:
+The pipeline creation script takes a list file to create a workflow to iterate over a set of input files. The following command can be used to create this list file:
 ```
-readlink -f /opt/chiron/hmp_client/ex3/stool_wgs/* > ~/stool_wgs.list
+readlink -f /opt/chiron/hmp_client/ex3/wgs/*/*.fastq > ~/wgs.list
 ```
 
 The following command will run the HUMAnN2 process on all the files in the specified input file list, one file per line.  The "humann2_config_template" file contains the necessary parameters to run the pipeline
@@ -335,60 +312,6 @@ The following command will run the HUMAnN2 process on all the files in the speci
 
 This workflow will process the individual files in the specified input file list and write the individual MetaPhlAn2 and HUMAnN2 tables. It will then create a combined relative abundance table for all the samples based on MetaPhlAn2 results.
 
-[top](#top)
-## <a name="analyze_16s_wgs"></a>4. Analyze the 16S community profiles for two different body sites
-
-In this part of the exercise you will first analyze the 16S data for the two body sites using Qiime. You will take the results from this analysis and then visualize and compare the data generated for the two body sites using Metaviz.
-
-###   <a name="download_16s_data"></a>4.1. Download the 16S trimmed sequence from Cloud repository
-In the data_exercise directory you will find the files that have the metadata associated with 16S samples. For this exercise we will use samples from the first visit for the following two body sites: "Anterior_nares" and "Stool". Copy the manifest files <em>stool_nares_rand_16s_manifest.tsv</em> in the examples directory to the local directory and use the script <em>hmp_client</em> to download the data files specified in the manifest file.
-
-```
-mkdir /output/ex4
-cd /output/ex4
-cp /tutorials/hmp_client/stool_nares_16s_rand_5_samples_manifest.tsv .
-cp /tutorials/hmp_client/stool_nares_16s_rand_5_samples.tsv .
-```
-
-The following commands will download trimmed 16S sequences for the 5 randomly selected subject visits to the directory specified by the <em>destination</em> parameter. Once the data has been downloaded exit the current Docker image.
-
-```
-hmp_client  -endpoint_priority S3,HTTP -manifest stool_nares_16s_rand_5_samples_manifest.tsv \
-  -destination stool_nares_16s
-exit
-```
-
-Because the Docker container is executed as root we need to change the permission of files to the ubuntu user. To accomplish this, run the following commands:
-
-```
-sudo su -
-chown -R ubuntu.ubuntu /opt/chiron/hmp_client/
-exit
-cd /opt/chiron/hmp_client/ex4
-```
-###   <a name="launch_16s_analysis"></a>4.2.  Launch workflows to analyze downloaded data
-To make the usage of the Docker images and for the ease of the exercises, we have built simple scripts that can create workflows defined in the Common Workflow Language (CWL). These workflows can be executed using the <em>cwl-runner</em>, a command-line tool to execute the workflows. The workflow runner uses the predefined Docker containers in batch modes to complete the analysis tasks. You can find workflows for all the tools used in this workshop including Qiime, HUMAnN2, MetaCompass, and StrainPhlAn.
-
-[top](#top)
-
-#### Launch workflow to analyze the 16S data using Qiime
-```
-Usage:
-usage: qiime2_pipeline
-    [-h]
-    --input_dir /path/to/input/dir
-    --metadata_file /path/to/metadata_file
-    --config_file /path/to/qiime2_config.yml
-    [--out_dir /path/to/outdir]
-```
-
-The following command will run the QIIME2 process on all the files in the specified input directory.  The "qiime2_config_template.yml" file contains the necessary parameters to run the pipeline.
-
-```
-~/Chiron/bin/qiime2_pipeline --input_dir /opt/chiron/hmp_client/ex4/stool_nares_16s --metadata_file stool_nares_16s_rand_5_samples.tsv --config_file ~/Chiron/bin/qiime2_config_template.yml --out_dir stool_nares_16s_results
-```
-
-This workflow will process the individual files in the specified data directory and write the individual OTU tables. It will then create a combined OTU table for all the samples.
 
 [top](#top)
 # Related Links:
