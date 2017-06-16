@@ -66,7 +66,7 @@ This should download the following files:
 ```
 
 ### <a name="create_random_subsamples"></a>1.2. Create random subset of samples for the body site
-In the data exercise directory you will find the files that have the metadata associated with 16S and WGS data. Copy the two files (16s_metadata.tsv, wgs_metadata.tsv) to the local working directory.
+In the tutorials directory you will find the files that have the metadata associated with 16S and WGS data. Copy the two files (16s_metadata.tsv, wgs_metadata.tsv) to the local working directory.
 
 ```
 cp /tutorials/hmp_client/16s_metadata.tsv .
@@ -183,7 +183,7 @@ The comparison of the 16S data across two body sites is completed using the comm
 You should already have the community profiles downloaded from the previous exercise, if not see the section [Download Qiime and MetaPhlAn Community Profiles](#download_profiles) to download the files.
 
 ### <a name="create_random_subsamples_for_two_sites"></a>2.1. Create random subset of samples for two body sites
-In the data_exercise directory you will find the files that have the metadata associated with 16S samples. Copy the file (16s_metadata.tsv) to the local working directory. For this exercise we will use samples from the first visit for the following two body sites: "Anterior_nares" and "Stool".
+In the tutorials directory you will find the files that have the metadata associated with 16S samples. Copy the file (16s_metadata.tsv) to the local working directory. For this exercise we will use samples from the first visit for the following two body sites: "Anterior_nares" and "Stool".
 
 ```
 mkdir /output/ex2
