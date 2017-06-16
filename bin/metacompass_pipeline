@@ -112,7 +112,7 @@ def run_cwl_command(outdir, job_input):
     with subprocess.Popen(cwl_cmd, stdout = subprocess.PIPE,
         stderr = subprocess.STDOUT, shell = True) as p:
         for line in p.stdout:
-            print(line)
+            print(line.decode(), end='')
     if p.returncode != 0:
         raise subprocess.CalledProcessError(p.returncode, p.args)
 

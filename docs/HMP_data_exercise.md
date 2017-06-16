@@ -289,7 +289,7 @@ Because the Docker container is executed as root we need to change the permissio
 sudo su -
 chown -R ubuntu.ubuntu /opt/chiron/hmp_client/
 exit
-cd /opt/chiron/hmp_client/ex3
+cd /opt/chiron/hmp_client/ex3/wgs
 ```
 
 ###  <a name="launch_two_site_wgs_analysis"></a>3.2. Launch workflows to analyze downloaded data
@@ -306,7 +306,7 @@ metaphlan2_pipeline
     [--out_dir /path/to/outdir]
 ```
 
-Before running this command, the .tar.bz2 files in the "wgs" directory need to be unarchived.  This process can take about 1 hour to complete.  Unarchiving should result in FASTQ files in each newly present sample directory
+Before running this command, the .tar.bz2 files in the "wgs" directory need to be unarchived.  This process can take about 1.5 hours to complete.  Unarchiving should result in FASTQ files in each newly present sample directory
 ```
 for i in `ls -1 /opt/chiron/hmp_client/ex3/wgs`; do tar -xvjf /opt/chiron/hmp_client/ex3/wgs/${i}; done
 ```
