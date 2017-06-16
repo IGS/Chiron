@@ -32,12 +32,6 @@ inputs:
     inputBinding:
       prefix: --bypass-nucleotide-search
     type: boolean?
-  output_format:
-    label: Format of output. Choose between "tsv" and "biom"
-    inputBinding:
-      prefix: --output-format
-    type: string
-    default: "tsv"
   num_threads:
     inputBinding:
       prefix: --threads
