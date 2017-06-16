@@ -239,6 +239,23 @@ exit
 bin/metaviz_interactive
 ```
 
+Once in the Metaviz Docker you will run a script that aggregates each taxonomy of the qiime output and metaphlan output to the genus level. The script then imports the merged data table into the Metaviz database.
+
+```
+cd /
+./graph-db/neo4j-community-3.2.0/bin/neo4j restart
+cd /output/hmp_client/ex1/
+RScript $RScript $EX_SCRIPTS/prepare_16s_wgs_compare.R --qiime stool_16s_qiime.csv \
+  --metaphlan stool_wgs_metaphlan.csv --outfile compare_output.txt --datasource wgs_16s_compare
+cd /
+./bin/metaviz_start.sh
+```
+
+Now open Chrome on a local laptop and enter [IPv4 Public IP]:8888 in the navigation bar.
+
+Metaviz will now include a datasource named "wgs_16s_compare". Chose this datasource. Add a Stacked Plot for samples with metadata field 'source' as '16s'. Then add another Stacked Plot for samples with metadata field 'source' as 'wgs'. The columns in each plot show the relative abundance of each feature at the selected taxonomic aggregation level.
+
+
 [top](#top)
 ## <a name="analyze_16s_wgs"></a>3. Analyze 16S and WGS community profiles for a body site
 
