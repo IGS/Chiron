@@ -75,6 +75,8 @@ steps:
       output_dir: humann2_output_dir
       gap_fill: gap_fill
       bypass_translated_search: bypass_translated_search
+      output_format:
+        default: "tsv"
       num_threads: num_cores
     out: [out_dir, out_gene_families]
     scatter: [input_file]

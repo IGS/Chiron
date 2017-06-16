@@ -23,4 +23,4 @@ metadata_file:
 # Metadata category to create a dendrogram tree
 metadata_category: 'subjectID'
 # Number of cores to utilize when running programs.  Default is 2
-num_cores: 2
+num_cores: 4

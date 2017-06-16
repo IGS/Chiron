@@ -17,7 +17,7 @@ import subprocess
 import shlex
 import re
 
-CWL_WORKFLOW = os.path.dirname(__file__) + "../pipelines/strainphlan/strainphlan_complete.cwl"
+CWL_WORKFLOW = os.path.dirname(os.path.realpath(sys.path[0])) + "/pipelines/strainphlan/strainphlan_complete.cwl"
 
 ########
 # Main #
@@ -47,10 +47,6 @@ def main():
     # Invoke CWL with new YAML job input
     run_cwl_command(args.out_dir, final_yaml)
 
-    # Lots of output dirs were created that weren't removed.  Remove them
-    logging.debug("Removing temporary directories")
-    for f in glob.glob("tmp*"):
-        os.remove(f)
 
 def check_args(args, parser):
     """ Validate the passed arguments """

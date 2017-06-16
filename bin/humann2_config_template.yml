@@ -16,5 +16,5 @@ update_snames: true
 regrouping_category: 'uniref90_level4ec'
 # String pattern to merge humann2 output on
 file_name: 'genefamilies'
-# Number of cores to use in certain processes: Default 2
-num_cores: 2
+# Number of cores to use in certain processes: Default 4
+num_cores: 4

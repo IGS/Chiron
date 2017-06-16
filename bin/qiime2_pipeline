@@ -18,10 +18,10 @@ import shlex
 import requests
 
 
-CWL_WORKFLOW = os.path.dirname(__file__) + "../pipelines/qiime2/qiime2_complete.cwl"
+CWL_WORKFLOW = os.path.dirname(os.path.realpath(sys.path[0])) + "/pipelines/qiime2/qiime2_complete.cwl"
 
 CLASSIFIER_URL = 'https://data.qiime2.org/2017.5/common/gg-13-8-99-515-806-nb-classifier.qza'
-CLASSIFIER_PATH = os.path.dirname(__file__) + "../examples/hmp_data_exercise/gg-13-8-99-515-806-nb-classifier.qza"
+CLASSIFIER_PATH = os.path.dirname(os.path.realpath(sys.argv[0])) + "/examples/hmp_data_exercise/gg-13-8-99-515-806-nb-classifier.qza"
 
 ########
 # Main #
@@ -59,10 +59,6 @@ def main():
     # Invoke CWL with new YAML job input
     run_cwl_command(args.out_dir, final_yaml)
 
-    # Lots of output dirs were created that weren't removed.  Remove them
-    logging.debug("Removing temporary directories")
-    for f in glob.glob("tmp*"):
-        os.remove(f)
 
 def check_args(args, parser):
     """ Validate the passed arguments """

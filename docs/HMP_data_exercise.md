@@ -291,34 +291,49 @@ cd /opt/chiron/hmp_client/ex3
 To make usage of the Docker images and for the ease of the exercises, we have built simple scripts that can create workflows defined in the Common Workflow Language (CWL). These workflows can be executed using the <em>cwl-runner</em>, a command-line tool to execute the workflows. The workflow runner uses the predefined Docker containers in batch modes to complete the analysis tasks. You can find workflows for all the tools used in this workshop including Qiime, HUMAnN2, MetaCompass, and StrainPhlAn.
 
 [top](#top)
+<<<<<<< Updated upstream
 
 #### Launch the workflows to analyze the WGS data using HUMAnN2
 ```
 Usage:
 humann2_pipeline
+=======
+#### Launch the workflows to analyze the WGS data using MetaPhlAn2
+```
+Usage:
+usage: metaphlan2_pipeline
+>>>>>>> Stashed changes
     [-h]
     --input_file_list /path/to/input.list
-    --config_file /path/to/humann2_config.yml
+    --config_file /path/to/metaphlan2_config.yml
     [--out_dir /path/to/outdir]
 ```
 
+<<<<<<< Updated upstream
 Before running this command, the .tar.bz2 files in the "wgs" directory need to be unarchived.  This process can take about 1 hour to complete.  Unarchiving should result in FASTQ files in each newly present sample directory
+=======
+Before running this command, the .tar.bz2 files in the "stool_wgs" directory need to be unarchived.  Due to the size of the dataset, this process can take about 1.5 hours to complete.  Unarchiving should result in FASTQ files in each newly present sample directory
+>>>>>>> Stashed changes
 ```
 for i in `ls -1 /opt/chiron/hmp_client/ex3/wgs`; do tar -xvjf /opt/chiron/hmp_client/ex3/wgs/${i}; done
 ```
 
+<<<<<<< Updated upstream
 The pipeline creation script takes a list file to create a workflow to iterate over a set of input files. The following command can be used to create this list file:
+=======
+This command takes in a list of input file paths instead of the input directory that the "metaphlan2_pipeline" script took.  To quickly create this list file, run the following command:
+>>>>>>> Stashed changes
 ```
 readlink -f /opt/chiron/hmp_client/ex3/wgs/*/*.fastq > ~/wgs.list
 ```
 
-The following command will run the HUMAnN2 process on all the files in the specified input file list, one file per line.  The "humann2_config_template" file contains the necessary parameters to run the pipeline
+The following command will run the HUMAnN2 process on all the files in the specified input file list, one file per line.  The "metaphlan2_config_template" file contains the necessary parameters to run the pipeline
 
 ```
-~/Chiron/bin/humann2_pipeline --input_file_list ~/stool_wgs.list --config_file ~/Chiron/bin/humann2_config_template.yml --out_dir stool_wgs_results
+~/Chiron/bin/metaphlan2_pipeline --input_file_list ~/stool_wgs.list --config_file ~/Chiron/bin/metaphlan2_config_template.yml --out_dir stool_wgs_results
 ```
 
-This workflow will process the individual files in the specified input file list and write the individual MetaPhlAn2 and HUMAnN2 tables. It will then create a combined relative abundance table for all the samples based on MetaPhlAn2 results.
+This workflow will process the individual files in the specified input file list and write the individual MetaPhlAn2 tables. It will then create a combined relative abundance table for all the samples based on MetaPhlAn2 results.
 
 #### <a name="run_metaviz_for_two_wgs_sites"></a>3.3. Run Metaviz to visualize and compare the MetaPhlAn2 profiles for two sites
 Now that you have generated the abundance matrices for the subset of samples with MetaPhlAn2 you can use Metaviz to visualize and compare these two matrices.

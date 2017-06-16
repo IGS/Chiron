@@ -1,0 +1,4 @@
+# Input type of sample - choose between "multifasta" or "multifastq"
+input_type: 'multifastq'
+# Number of cores to utilize when running programs.  Default is 2
+num_cores: 4

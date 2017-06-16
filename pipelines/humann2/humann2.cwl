@@ -32,6 +32,12 @@ inputs:
     inputBinding:
       prefix: --bypass-nucleotide-search
     type: boolean?
+  output_format:
+    label: Format of output. Choose between "tsv" and "biom"
+    inputBinding:
+      prefix: --output-format
+    type: string
+    default: "tsv"
   num_threads:
     inputBinding:
       prefix: --threads
@@ -45,15 +51,15 @@ outputs:
   out_gene_families:
     type: File
     outputBinding:
-      glob: $(inputs.output_dir + '/' + inputs.input_file.nameroot + '_genefamilies.tsv')
+      glob: $(inputs.output_dir + '/' + inputs.input_file.nameroot + '_genefamilies*')
   out_path_abundance:
     type: File
     outputBinding:
-      glob: $(inputs.output_dir + '/' + inputs.input_file.nameroot + '_pathabundance.tsv')
+      glob: $(inputs.output_dir + '/' + inputs.input_file.nameroot + '_pathabundance*')
   out_path_coverage:
     type: File
     outputBinding:
-      glob: $(inputs.output_dir + '/' + inputs.input_file.nameroot + '_pathcoverage.tsv')
+      glob: $(inputs.output_dir + '/' + inputs.input_file.nameroot + '_pathcoverage*')
   out_prefix:
     type: string
     outputBinding:
