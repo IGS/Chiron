@@ -59,13 +59,13 @@ An Rstudio session will now appear in the window. Rstudio is a program that runs
 
 &nbsp;
 
-  9) Highlight line 9, then click run. This is how we will run a line. This will download a data file containing WGS and 16s data for the same samples.  The file will now be visible in the lower right hand window.
+  9) Highlight line 9, then click run. This will download a data file containing WGS and 16s data for the same samples.  The file will now be visible in the lower right hand window.
 
 ![](images/metavizr_highlight_and_run_2_result.png)
 
 &nbsp;
 
-  10) Highlight line 11, then click run. This will load the downloaded data into an R object named 'wgs_16s_compare_obj'
+  10) Highlight line 11, then click run. This will load the downloaded data into an R object named 'wgs_16s_compare_obj'.
 
 ![](images/metavizr_highlight_and_run_3.png)
 
@@ -129,7 +129,7 @@ Now in the Metaviz tab, a FacetZoom is loaded.
 
   18) Click on the Rstudio tab, highlight line 21, then click run.
   
-![](images/metavizr_run_httpuv.png)
+![](images/metavizr_scatter_plot_run_appservice.png)
 
 &nbsp;
 
@@ -139,7 +139,7 @@ Now in the Metaviz tab, a FacetZoom is loaded.
 
 &nbsp;
 
-  20) Now click 'Add Visualization', select 'Scatter Plot', scroll on the left column until 'sample' is available. Click on 'sample', click on the third sample, check the box next to 'wgs_16s_compare_1', and click 'Ok'. Again, a spinning wheel will appear - this is expected behavior at the time. Go onto the next step.
+  20) Now click 'Add Visualization', select 'Scatter Plot', scroll on the left column until 'sample' is available. Click on 'sample', click on the third sample 'X700024086', check the box next to 'wgs_16s_compare_1', and click 'Ok'. Again, a spinning wheel will appear - this is expected behavior at the time. Go onto the next step.
   
 ![](images/metavizr_scatter_plot.png)
 
@@ -147,7 +147,7 @@ Now in the Metaviz tab, a FacetZoom is loaded.
 
   21) Click on the Rstudio tab, highlight line 21, then click run.
   
-![](images/metavizr_scatter_plot_run_httpuv.png)
+![](images/metavizr_scatter_plot_run_appservice_2.png)
 
 &nbsp;
 

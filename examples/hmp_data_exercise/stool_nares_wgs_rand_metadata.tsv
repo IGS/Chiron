@@ -1,0 +1,7 @@
+file_id	subject_id	body_site	visit	urls
+5a950f27980b5d93e4c16da1240068fc	763577454	feces	1	http://downloads.hmpdacc.org/data2/hhs/genome/microbiome/wgs/analysis/hmwgsqc/v2/SRS014459.tar.bz2,s3://nih-hmp-hhs/hmwgsqc2/SRS014459.tar.bz2
+5a950f27980b5d93e4c16da124009c6c	158984779	external naris	1	http://downloads.hmpdacc.org/data2/hhs/genome/microbiome/wgs/analysis/hmwgsqc/v2/SRS011397.tar.bz2,s3://nih-hmp-hhs/hmwgsqc2/SRS011397.tar.bz2
+5a950f27980b5d93e4c16da1240246d7	158984779	feces	1	http://downloads.hmpdacc.org/data2/hhs/genome/microbiome/wgs/analysis/hmwgsqc/v2/SRS013098.tar.bz2,s3://nih-hmp-hhs/hmwgsqc2/SRS013098.tar.bz2
+5a950f27980b5d93e4c16da12407fb21	763577454	external naris	1	http://downloads.hmpdacc.org/data2/hhs/genome/microbiome/wgs/analysis/hmwgsqc/v2/SRS014464.tar.bz2,s3://nih-hmp-hhs/hmwgsqc2/SRS014464.tar.bz2
+6d91411d5ede0689305232cc77e33dd3	604812005	external naris	1	http://downloads.hmpdacc.org/data2/hhs/genome/microbiome/wgs/analysis/hmwgsqc/v2/SRS043451.tar.bz2,s3://nih-hmp-hhs/hmwgsqc2/SRS043451.tar.bz2
+6d91411d5ede0689305232cc77fe57c3	604812005	feces	1	http://downloads.hmpdacc.org/data2/hhs/genome/microbiome/wgs/analysis/hmwgsqc/v2/SRS045004.tar.bz2,s3://nih-hmp-hhs/hmwgsqc2/SRS045004.tar.bz2

@@ -13,7 +13,7 @@ requirements:
 inputs:
   input_dir:
     label: Directory with some Humann2 output
-    type: Directory[]
+    type: Directory
   file_name:
     label: File type to merge (i.e. 'genefamilies')
     type: string
@@ -37,14 +37,17 @@ inputs:
     default: 'uniref90_level4ec'
 
 outputs:
+  merged_tsv:
+    type: File
+    outputSource: humann2_join_tables/out_tsv
   feature_tsv:
-    type: File[]
+    type: File
     outputSource: rename_table/out_tsv
   normalize_tsv:
-    type: File[]
+    type: File
     outputSource: renorm_table/out_tsv
   regrouped_tsv:
-    type: File[]
+    type: File
     outputSource: regroup_table/out_tsv
 
 steps:
@@ -55,37 +58,33 @@ steps:
       input_dir: input_dir
       file_name: file_name
       output_tsv:
-        valueFrom: $(inputs.input_dir.basename + '_' + inputs.file_name + '.tsv')
+        valueFrom: $('merged_' + inputs.file_name + '.tsv')
     out: [out_tsv]
-    scatter: [input_dir]
 
   rename_table:
     run: humann2_rename_table.cwl
     in:
       input_tsv: humann2_join_tables/out_tsv
       output_tsv:
-        valueFrom: $(inputs.input_tsv.nameroot + '-names.tsv')
+        default: 'merged_genefamilies-names.tsv'
       names: feat_db
     out: [out_tsv]
-    scatter: [input_tsv]
 
   renorm_table:
     run: humann2_renorm_table.cwl
     in:
       input_tsv: humann2_join_tables/out_tsv
       output_tsv:
-        valueFrom: $(inputs.input_tsv.nameroot + '-' + inputs.units + '.tsv')
+        valueFrom: $('merged_genefamilies-' + inputs.units + '.tsv')
       units: normalize_units
       update_snames: update_snames
     out: [out_tsv]
-    scatter: [input_tsv]
 
   regroup_table:
     run: humann2_regroup_table.cwl
     in:
       input_tsv: renorm_table/out_tsv
       output_tsv:
-        valueFrom: $(inputs.input_tsv.nameroot + '-' + inputs.groups +'.tsv')
+        valueFrom: $('merged_genefamilies-' + inputs.groups +'.tsv')
       groups: regrouping_category
     out: [out_tsv]
-    scatter: [input_tsv]

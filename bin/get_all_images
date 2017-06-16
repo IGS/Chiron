@@ -12,4 +12,4 @@ docker pull umigs/chiron-phlan:1.0.0
 
 docker pull umigs/chiron-qiime2:1.0.0
 
-docker pull umigs/chiron-valet
+docker pull umigs/chiron-valet:1.0.5

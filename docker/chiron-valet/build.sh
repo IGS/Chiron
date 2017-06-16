@@ -1,6 +1,6 @@
 #!/bin/bash
 
-IMAGE_VERSION='1.0.0'
+IMAGE_VERSION='1.0.5'
 
 docker rmi -f umigs/chiron-valet
 docker build --no-cache -t umigs/chiron-valet:latest -t umigs/chiron-valet:${IMAGE_VERSION} .

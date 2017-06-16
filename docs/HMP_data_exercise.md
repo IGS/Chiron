@@ -61,7 +61,7 @@ bunzip2 hmp1-II_metaphlan2-mtd-qcd.pcl.bz2
 ```
 
 This should download the following files:  
-    hmp1-II_metaphlan2-mtd-qcd.pcl.txt  
+    hmp1-II_metaphlan2-mtd-qcd.pcl  
     otu_table_psn_v35.txt  
 
 ### <a name="create_random_subsamples"></a>1.2. Create random subset of samples for the body site
@@ -270,26 +270,44 @@ hmp_client  -endpoint_priority S3,HTTP -manifest stool_nares_wgs_rand_manifest.t
 exit
 ```
 
+Because the Docker container is executed as root we need to change the permission of files to the ubuntu user. To accomplish this, run the following commands:
+
+```
+sudo su -
+chown -R ubuntu.ubuntu /opt/chiron/hmp_client/
+exit
+cd /opt/chiron/hmp_client/ex3
+```
 
 ###  <a name="launch_wgs_analysis"></a>3.2. Launch workflows to analyze downloaded data
-To make the usage of the Docker images and for the ease of the exercises, we have built simple scripts that can create workflows defined in the Common Workflow Language (CWL). These workflows can be executed using the <em>cwl-runner</em>, a command-line tool to execute the workflows. The workflow runner uses the predefined Docker containers in batch modes to complete the analysis tasks. You can find workflows for all the tools used in this workshop including Qiime, HUMAnN2, MetaCompass, and StrainPhlAn.
+To make usage of the Docker images and for the ease of the exercises, we have built simple scripts that can create workflows defined in the Common Workflow Language (CWL). These workflows can be executed using the <em>cwl-runner</em>, a command-line tool to execute the workflows. The workflow runner uses the predefined Docker containers in batch modes to complete the analysis tasks. You can find workflows for all the tools used in this workshop including Qiime, HUMAnN2, MetaCompass, and StrainPhlAn.
 
 [top](#top)
+
 #### Launch the workflows to analyze the WGS data using HUMAnN2
 ```
 Usage:
 usage: humann2_pipeline
     [-h]
     --input_file_list /path/to/input.list
-    --config_file /path/to/qiime2_config.yml
+    --config_file /path/to/humann2_config.yml
     [--out_dir /path/to/outdir]
 ```
-Before running the command, the 'humann2_config_template' file needs to be copied and any necessary parameters, such as various file paths or category names need to be filled in.  Some parameters are left filled in as default settings.  This complete copy (let's call it stool_16s_config.yml for this example) will be used to specify parameters for the pipeline.
 
-The following command will run the HUMAnN2 process on all the files in the specified input file list, one file per line.
+Before running this command, the .tar.bz2 files in the "wgs" directory need to be unarchived.  This process can take about 1 hour to complete.  Unarchiving should result in FASTQ files in each newly present sample directory
+```
+for i in `ls -1 /opt/chiron/hmp_client/ex3/wgs`; do tar -xvjf /opt/chiron/hmp_client/ex3/wgs/${i}; done
+```
+
+The pipeline creation script takes a list file to create a workflow to iterate over a set of input files. The following command can be used to create this list file:
+```
+readlink -f /opt/chiron/hmp_client/ex3/wgs/*/*.fastq > ~/wgs.list
+```
+
+The following command will run the HUMAnN2 process on all the files in the specified input file list, one file per line.  The "humann2_config_template" file contains the necessary parameters to run the pipeline
 
 ```
-humann2_pipeline --input_file_list stool_wgs.list --config_file stool_16s_config.yml -out_dir stool_wgs_results
+~/Chiron/bin/humann2_pipeline --input_file_list ~/stool_wgs.list --config_file ~/Chiron/bin/humann2_config_template.yml --out_dir stool_wgs_results
 ```
 
 This workflow will process the individual files in the specified input file list and write the individual MetaPhlAn2 and HUMAnN2 tables. It will then create a combined relative abundance table for all the samples based on MetaPhlAn2 results.

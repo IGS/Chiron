@@ -1,5 +1,5 @@
 # Chiron*
-Centralized access to Dockerized tools and pipelines for metagenomics developed by the Human Microbiome Project members.  Initially developed for the HMP Cloud Workshop.
+Centralized access to Dockerized tools and pipelines for metagenomics developed by the Human Microbiome Project members.  Initially developed for the HMP Cloud Workshop, you can run common metagenomics tools on the command line interactively within Docker or run entire pipelines at once.
 
 \* Pronounced KY-rən
 
@@ -7,11 +7,45 @@ Centralized access to Dockerized tools and pipelines for metagenomics developed 
 
 This was initially organized for a training workshop held by the [Human Microbiome Project](http://hmpdacc.org/).  We want this organization of utilities to be useful for others, so an independent project was created.  The name 'Chiron' was used to reflect its initial use in training.  In Greek mythology [Chiron](https://en.wikipedia.org/wiki/Chiron) was the centaur who trained greats such as Aeneas, Heracles, Jason and Achilles.
 
+# Installation
+
+### Install [Docker](https://docs.docker.com/engine/installation/)
+
+The Docker site has detailed [instructions](https://docs.docker.com/engine/installation/) for many architectures, but for some this may be as simple as:
+
+```
+$ sudo apt-get install docker.io
+[restart]
+```
+
+If this is the first time you've installed Docker Engine, reboot your machine (even if the docs leave this step out.)
+
+### Install dependencies
+
+After Docker installation, the only other dependences are python things.  They can all be installed like this on Ubuntu machines.  Make any changes necessary for your platform.
+
+```
+    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 40976EAF437D05B5
+    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F76221572C52609D
+    sudo apt-get update
+    sudo apt install -y python3 python3-pip python-pip
+    sudo pip3 install pyyaml requests
+    sudo pip install pyyaml cwlref-runner
+```
+
+### Get Chiron
+
+This command will create a Chiron directory:
+
+```
+$ git clone https://github.com/IGS/Chiron.git
+```
+
 # How to run 
 
-There are two primary ways we intend for this to be run.  First, we will supply [CWL pipelines](http://www.commonwl.org/) for many tools which will allow you to run entire analysis paths at once in both a local and distributed manner.  This is under development, and not yet available.
+There are two primary ways we intend for this to be run.  
 
-Second, you can launch an interactive session for any of the tools within a Docker image.
+First, you can launch an interactive session for any of the tools within a Docker image.  Second, we supply [CWL pipelines](http://www.commonwl.org/) for many tools which will allow you to run entire analysis paths at once in both a local and distributed manner.  Both are described below.
 
 # Get on a cloud machine (optional)
 
@@ -19,14 +53,7 @@ If you want to run things on a cloud machine, you can [launch an Amazon Virtual 
 
 # Try an interactive session
 
-If you want to use a specific tool's docker image, you'll need to first make sure you have
-Docker [installed](https://docs.docker.com/engine/installation/), reboot, then [download](https://github.com/IGS/Chiron/archive/master.zip) or clone Chiron like this:
-
-```
-$ git clone https://github.com/IGS/Chiron.git
-```
-
-Under the Chiron/bin/ directory this creates, you'll find scripts to run each tool such as:
+If you want to use a specific tool's docker image, you'll find scripts to run each tool such as:
 
 ```
 $ ./Chiron/bin/humann2_interactive
@@ -36,7 +63,11 @@ This will download the Docker image if you don't already have it, then drop you 
 
 # Run a pre-built analysis pipeline
 
-Docker-enabled pipelines have been written for several analysis tools using [Common Workflow Language](https://github.com/common-workflow-language/common-workflow-language) (CWL).  These are available for viewing [here](https://github.com/IGS/Chiron/tree/master/pipelines), but work is underway to create user-friendly launchers for them.  These should be available by June 15.
+Docker-enabled pipelines have been written for several analysis tools using [Common Workflow Language](https://github.com/common-workflow-language/common-workflow-language) (CWL).  These are available for viewing [here](https://github.com/IGS/Chiron/tree/master/pipelines), and you can view help for any of the pipeline launchers named like this:
+
+```
+# ./Chiron/bin/strainphlan_pipeline -h
+```
 
 # Existing tools/Docker images:
 

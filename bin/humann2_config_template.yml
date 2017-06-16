@@ -2,8 +2,10 @@
 humann2_output_dir: '.'
 # Humann2 gap-filling option.
 gap_fill: "on"
-# Bypass translated searches in Humann2
-bypass_translated_search: false
+# Runs all of the alignment steps except the translated search
+bypass_translated_search: true
+# Bypasses all of the alignment steps before the translated search
+bypass_nucleotide_search: false
 # Feature database type for humann2_rename_table.  Default is "uniref90"
 feat_db: 'uniref90'
 # Units to normalize on for humann2_renorm_table. Default is 'cpm'
