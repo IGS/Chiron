@@ -1,6 +1,6 @@
 #!/bin/bash
 
-IMAGE_VERSION='1.1.4'
+IMAGE_VERSION='1.1.5'
 
 docker rmi -f umigs/chiron-core
 docker build --no-cache -t umigs/chiron-core:latest -t umigs/chiron-core:${IMAGE_VERSION} .
