@@ -33,6 +33,12 @@ if ( is.null(opt$metaphlan) ) {
   q(status=1);
 }
 
+if ( is.null(opt$datasource) ) {
+  cat("Datasource name for Metaviz missing.\n")
+  cat(getopt(spec, usage=TRUE));
+  q(status=1);
+}
+
 filename_16s = opt$qiime
 filename_metaphlan = opt$metaphlan
 outfile = opt$outfile
