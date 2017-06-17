@@ -169,13 +169,16 @@ Before you can proceed to the visualization you will need to exit from the hmp_c
 
 ```
 exit
-~/Chiron/bin/hmp_client_interactive
+~/Chiron/bin/metaviz_interactive
 ```
 
 Once in the Metaviz Docker you will run a script that aggregates each taxonomy of the qiime output and metaphlan output to the genus level. The script then imports the merged data table into the Metaviz database.
 
 ```
 cd /
+wget https://raw.githubusercontent.com/IGS/Chiron/master/docker/chiron-metaviz/neo4j.conf
+./graph-db/neo4j-community-3.2.0/bin/neo4j stop
+cp neo4j.conf /graph-db/neo4j-community-3.2.0/conf/neo4j.conf
 ./graph-db/neo4j-community-3.2.0/bin/neo4j restart
 cd /output/hmp_client/ex1/
 wget https://raw.githubusercontent.com/IGS/Chiron/master/examples/hmp_data_exercise/prepare_16s_wgs_compare.R

@@ -183,20 +183,24 @@ scaled_mr_genus_merged <- newMRexperiment(scaled_counts_merged,
 
 mr_have_both <- scaled_mr_genus_merged[which(!is.na(fData(scaled_mr_genus_merged)[,"genus_16s"])),]
 
+graph = startGraph("http://localhost:7474/db/data/", username="neo4j", password="osdf1")
+query = "MATCH (ds:Datasource) return ds.label as label"
+dsFromGraph <- cypher(graph, query)
+datasources = dsFromGraph$label
+if(datasource_name %in% datasources){
+  cat("Datasource name must not already be in database\n")
+  q(status=1);
+}
+
 mobj <- metavizr:::EpivizMetagenomicsData$new(mr_have_both, feature_order=colnames(fData(mr_have_both))[1:6])
 mobj$toNEO4JDbHTTP(batch_url = "http://localhost:7474/db/data/batch", neo4juser = "neo4j", neo4jpass = "osdf1", datasource = datasource_name)
-
-#graph = startGraph("http://localhost:7474/db/data/", username="neo4j", password="osdf1")
-#query = "MATCH (ds:Datasource) return ds.label as label"
-#dsFromGraph <- cypher(graph, query)
-#datasources = dsFromGraph$label
-datasources = c("ihmp_data", "wgs_16s_compare")
 
 file_settings <- file("/graph-ui/epiviz-metaviz-4.1/site-settings.js")
 metaviz_text = "epiviz.Config.SETTINGS.dataServerLocation = 'http://epiviz.cbcb.umd.edu/data/';epiviz.Config.SETTINGS.workspacesDataProvider = sprintf('epiviz.data.WebServerDataProvider,%s,%s','workspaces_provider','http://epiviz.cbcb.umd.edu/data/main.php');";
 datasource_text = NULL
 docker_ip = Sys.getenv("HOST_IP")
 docker_ip = paste0(docker_ip, ":5000")
+datasources = c(datasources, datasource_name)
 
 for (ds in datasources) {
   if(length(datasource_text) == 0) {
