@@ -345,6 +345,13 @@ The following command will run the MetaPhlAn2 process on all the files in the sp
 
 This workflow will process the individual files in the specified input file list and write the individual MetaPhlAn2 tables. It will then create a combined relative abundance table for all the samples based on MetaPhlAn2 results.  This will be located in "wgs_results" and named "merged_abundance_table.txt"
 
+If the Amazon EC2 instance that is being SSH'ed into keeps disconnecting before the "metaphlan2_pipeline" command has completed, it may be necessary to run the command with the "nohup" utility.  This utility allows the user to run a command in the background even if the terminal or shell dies.  To invoke this command using "nohup", run the following command within the EC2 instance:
+```
+nohup ~/Chiron/bin/metaphlan2_pipeline --input_file_list wgs.list --config_file ~/Chiron/bin/metaphlan2_config_template.yml --out_dir wgs_results >metaphlan_pipeline.log 2>&1 &
+```
+This will run the command in the background, writing the terminal output to a file caled "metaphlan_pipeline.log".  The program has finished when the "wgs_results" directory has been created.
+
+[top](#top)
 #### <a name="run_metaviz_for_two_wgs_sites"></a>3.3. Run Metaviz to visualize and compare the MetaPhlAn2 profiles for two sites
 Now that you have generated the abundance matrices for the subset of samples with MetaPhlAn2 you can use Metaviz to visualize and compare these two matrices.
 
