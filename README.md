@@ -92,8 +92,11 @@ For general instructions about launching virtual machines on AWS, Amazon has pro
 
 [Launch a VM on Amazon AWS](https://aws.amazon.com/getting-started/tutorials/launch-a-virtual-machine/)
 
+# Getting help
+
+If you run into issues using Chiron or just need help, please either [file an issue](https://github.com/IGS/Chiron/issues) here on GitHub or use the [mailing list](https://groups.google.com/forum/#!forum/igs-chiron).
+
 # Related Links:
 
-- [Discussion group site](https://groups.google.com/forum/#!forum/hmp-cloud-pilot) (Google groups, for collaborators)
 - [HMP data portal](http://portal.ihmpdcc.org) - click 'Data' to get to facet search
 - [HMP client](https://github.com/IGS/hmp_client) - client for downloading HMP data via manifest files generated at the HMP data portal
