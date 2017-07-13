@@ -1,4 +1,4 @@
-FROM umigs/chiron-core:1.0.0
+FROM umigs/chiron-core:1.2.0
 
 ###########
 ## Qiime ##
