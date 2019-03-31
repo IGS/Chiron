@@ -37,6 +37,6 @@ if [ ! -d ${LOCAL_BASE} ]; then
     mkdir -p ${LOCAL_BASE}
 fi
 
-ipaddr=$(curl http://169.254.169.254/latest/meta-data/public-ipv4)
+ipaddr=$(curl ifconfig.me)
 
 docker run -v ${LOCAL_BASE}:/output -i -t -p 8888:8888 -p 5000:5000 -e HOST_IP=$ipaddr umigs/chiron-metaviz:${IMAGE_VERSION} bash
