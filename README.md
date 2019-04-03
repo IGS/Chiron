@@ -99,4 +99,4 @@ If you run into issues using Chiron or just need help, please either [file an is
 # Related Links:
 
 - [HMP data portal](http://portal.ihmpdcc.org) - click 'Data' to get to facet search
-- [HMP client](https://github.com/IGS/hmp_client) - client for downloading HMP data via manifest files generated at the HMP data portal
+- [portal_client](https://github.com/IGS/portal_client) - Tool for downloading data via manifest files generated at the HMP data portal
