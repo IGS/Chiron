@@ -1,5 +1,21 @@
 #!/bin/bash
 
+LOCAL_BASE='/opt/chiron'
+
+CURRENT_USER="${USER}"
+
+if [ "$USER" == "root" ]; then
+    CURRENT_USER="${SUDO_USER}"
+else
+    echo "Not resetting user because it was:${USER}"
+fi
+
+if [ ! -d ${LOCAL_BASE} ]; then
+    echo "Creating local output directory: ${LOCAL_BASE} owned by ${CURRENT_USER}"
+    mkdir -p ${LOCAL_BASE}
+    chown "${CURRENT_USER}:${CURRENT_USER}" ${LOCAL_BASE}
+fi
+
 if hash apt 2> /dev/null; then
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 40976EAF437D05B5
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F76221572C52609D
