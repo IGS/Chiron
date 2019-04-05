@@ -4,6 +4,8 @@ docker pull umigs/chiron-core:1.1.5
 
 docker pull umigs/chiron-humann2:1.0.0
 
+docker pull umigs/chiron-megahit:1.0.0
+
 docker pull umigs/chiron-metacompass:1.0.0
 
 docker pull umigs/chiron-metaviz:1.1.0
