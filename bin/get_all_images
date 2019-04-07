@@ -8,6 +8,8 @@ docker pull umigs/chiron-megahit:1.0.0
 
 docker pull umigs/chiron-metacompass:1.0.0
 
+docker pull umigs/chiron-metagenemark:1.0.0
+
 docker pull umigs/chiron-metaviz:1.1.0
 
 docker pull umigs/chiron-phlan:1.0.0
