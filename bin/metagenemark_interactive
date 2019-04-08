@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# Set defaults
+LOCAL_BASE=''
+IMAGE_VERSION='1.0.0'
+
+while getopts :l:c: opt; do
+  case $opt in
+    l)
+      LOCAL_BASE=$OPTARG
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      exit 1
+      ;;
+    :)
+      echo "Option -$OPTARG requires an argument." >&2
+      exit 1
+      ;;
+  esac
+done
+
+if [[ "$(docker images -q umigs/chiron-metagenemark:${IMAGE_VERSION} 2> /dev/null)" == "" ]]; then
+  echo "Docker image v${IMAGE_VERSION} for MetaGeneMark not found.  Downloading first ..."
+fi
+
+if [ -z $LOCAL_BASE ]; then
+    if [ -w "/opt/chiron" ]; then
+        LOCAL_BASE="/opt/chiron/metagenemark"
+    else
+        LOCAL_BASE="${HOME}/chiron/metagenemark"
+    fi
+fi
+
+if [ ! -d ${LOCAL_BASE} ]; then
+    echo "Creating local output directory: ${LOCAL_BASE}"
+    mkdir -p ${LOCAL_BASE}
+fi
+
+echo "Saving files to /output in this Docker image will make them available in ${LOCAL_BASE} outside of it."
+docker run --rm -v ${LOCAL_BASE}:/output -i -t umigs/chiron-metagenemark:${IMAGE_VERSION} /bin/bash
